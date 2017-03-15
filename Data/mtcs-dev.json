@@ -1,0 +1,22 @@
+{
+  "mtcs": [
+    {
+      "name": "DEV ENV",
+      "customer": {
+        "firstName": "Tyler",
+        "lastName": "Demo",
+        "email": "tyler.demo@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Alisa",
+        "lastName": "Lawyer",
+        "email": "alisal@cand3.onmicrosoft.com"
+      },
+      "manager": {
+        "firstName": "Chris",
+        "lastName": "Gray",
+        "email": "chrisg@cand3.onmicrosoft.com"
+      }
+    }
+  ]
+}

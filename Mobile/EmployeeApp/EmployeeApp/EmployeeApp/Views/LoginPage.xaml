@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EmployeeApp.LoginPage">
+    <ContentPage.Content >
+        <AbsoluteLayout>
+            <Image Aspect="AspectFill" Source="loginbackground.png" AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                  AbsoluteLayout.LayoutFlags="All">
+            </Image>
+
+            <Grid x:Name="mainPageGrid" AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                  AbsoluteLayout.LayoutFlags="All" RowSpacing="0" ColumnSpacing="0">
+                <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="83"/>
+                    <RowDefinition Height="164"/>
+                    <RowDefinition Height="335"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>-->
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="19*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="loginIconTitle.png" Grid.Row="1"  Grid.Column="1" Aspect="AspectFit" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand" />
+                <Button x:Name="loginButton" Grid.Row="3" Grid.Column="1" Text="Sign in" Style="{DynamicResource LoginButtonStyle}" Clicked="loginButton_Clicked" />
+            </Grid>
+
+            <StackLayout x:Name="activityIndicatorPanel" IsVisible="False" AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All">
+                <ActivityIndicator x:Name="activityIndicator"
+                                   IsVisible="False"
+                                   IsRunning="True" Color="White"
+                                   AbsoluteLayout.LayoutBounds=".5,.5,50,50"
+                                   HeightRequest="50"
+                                   WidthRequest="50"
+                                   BackgroundColor="Transparent"
+                                   HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+
+        </AbsoluteLayout>
+    </ContentPage.Content >
+</ContentPage>

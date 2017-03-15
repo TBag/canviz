@@ -1,0 +1,44 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "actions": {
+    "PushNotification": {
+      "inputs": {
+        "body": {
+          "CorrelationId": "",
+          "Properties": {
+            "Message": "@{triggerBody()?['message']}"
+          },
+          "TagExpression": "@{triggerBody()?['tag']}"
+        },
+        "function": {
+          "id": "/subscriptions/ba4b754a-7463-466a-bd84-9d07c7ac9c9e/resourceGroups/ContosoInsurance-Phase3/providers/Microsoft.Web/sites/PropertyInsuranceFunction/functions/PushNotification"
+        }
+      },
+      "runAfter": {},
+      "type": "Function"
+    }
+  },
+  "contentVersion": "1.0.0.0",
+  "outputs": {},
+  "parameters": {},
+  "triggers": {
+    "manual": {
+      "inputs": {
+        "method": "POST",
+        "schema": {
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "kind": "Http",
+      "type": "Request"
+    }
+  }
+}

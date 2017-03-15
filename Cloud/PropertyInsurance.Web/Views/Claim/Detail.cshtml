@@ -1,0 +1,163 @@
+﻿@{
+    ViewBag.Title = "Claim Detail";
+    var claim = ViewBag.Claim;
+    var claimHistoryList = ViewBag.ClaimHistoryList;
+}
+<div class="leftMenu">
+    <ul>
+        <li><img class="menu-icon" src="~/Content/images/menu-button-of-three-lines.svg" /></li>
+    </ul>
+    <ul class="menu-nav">
+        <li class="menu-title">Menu</li>
+        <li>My dashboard</li>
+        <li class="builders">Builders</li>
+        <li class="menu-selected claims">Claims<img class="claim-icon" src="~/Content/images/claim-icon.svg" /></li>
+    </ul>
+
+    <ul>
+        <li class="menu-title">Settings</li>
+        <li>My account</li>
+        <li>Apps</li>
+        <li>Help</li>
+    </ul>
+</div>
+<div class="content-main">
+    <div class="content-breadcrumb padding-left">
+        <label>Claims \ Claim #@claim.Id</label>
+        <div class="btns">
+            <a class="text-blue" href="#">+ Add a tile</a>
+            <a class="text-blue" href="#">Customize</a>
+        </div>
+    </div>
+    <div class="content-claimId padding-left">
+        <span>Claim #@claim.Id</span>
+    </div>
+    <div class="content-operation-area padding-left max-width">
+        <div class="operation-container">
+            <div class="operate-button text-blue approve">Approve</div>
+            <div class="operate-button text-blue decline">Decline</div>
+            <div class="operate-button text-blue">Contact Agent</div>
+            <div class="operate-button text-blue">More</div>
+        </div>
+    </div>
+    <div class="content-claim-status padding-left">
+        <ol class="progtrckr" data-progtrckr-steps="5">
+            <li class="progtrckr-done"><span>Submitted</span></li>
+            <li class="progtrckr-done"><span class="center">Initial Validation</span></li>
+            <li class="progtrckr-done"><span class="center">Adjuster Desk</span></li>
+            <li class="progtrckr-doing"><span class="center">Final Approval</span></li>
+            <li class="progtrckr-todo"><span>Finished</span></li>
+        </ol>
+    </div>
+    <div class="content-core padding-left">
+        <div class="content-core-left">
+            <div class="submit-result hide">
+            </div>
+            <div class="content-claim">
+                <div class="title">
+                    Claim @claim.Id detail
+                </div>
+                <div class="bottom">
+                    <div class="claim-info">
+                        <div class="claim-rating">
+                            <span>Confidence Rating</span>
+                            <span>This claim has a @claim.RatePercent% confidence rating.</span>
+                        </div>
+                        <ul>
+                            <li>Based on <span class="text-blue">5 previous claims</span>, payout will increase by $2567 if delayed beyond 24 hours.</li>
+                            <li>
+                                <div class="property-name  text-blue">Status</div>
+                                <div class="property-value status">@claim.Status</div>
+                            </li>
+                            <li>
+                                <div class="property-name  text-blue">Date of claim</div>
+                                <div class="property-value">@claim.Date</div>
+                            </li>
+                            <li>
+                                <div class="property-name  text-blue">Description</div>
+                                <div class="property-value">@claim.Description</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="claim-img">
+                        @*<img src="@ViewBag.ClaimImage" />*@
+                        <img src="~/Content/images/Contoso-Insurance-Kitchen-Flooding-Image.jpg" />
+                    </div>
+                </div>
+            </div>
+            <div class="content-claim-history">
+                <span>Claims History</span>
+                <div class="history-grid">
+                    <table cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Date Submitted</th>
+                                <th>Confidence</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in claimHistoryList)
+                            {
+                                <tr class="history-tr">
+                                    <td>@item.Id</td>
+                                    <td>@item.Date</td>
+                                    <td>@item.RatePercent%</td>
+                                    <td>@item.Status</td>
+                                    <td class="text-blue"><img src="~/Content/images/Contoso-Insurance-Misc-Icons-ELLIPSIS.svg" /></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="content-core-right">
+            <div class="other-content">
+                <div class="content-policy-holder">
+                    <span>Policy holder</span>
+                    <div class="property-name text-blue">Policy holder ID</div>
+                    <div class="property-value">@claim.PolicyHolder.Id</div>
+                </div>
+                <div class="content-map">
+                    <img src="~/Content/images/Contoso-Insurance-Map-Image_DETAIL-VIEW-2.png" />
+                </div>
+                <div class="content-address">
+                    <div class="property-name text-blue">Address</div>
+                    <div class="property-value">@claim.PolicyHolder.Address</div>
+                </div>
+                <div class="content-date-from">
+                    <div class="property-name text-blue">Member since</div>
+                    <div class="property-value">@claim.PolicyHolder.RegisterDate</div>
+                </div>
+                <div class="content-images-history">
+                    <div class="property-name text-blue">Image Inventory</div>
+                    <div class="property-value">
+                        @*<img src="@ViewBag.ClaimImage" />*@
+                        <img src="~/Content/images/Contoso-Insurance-Kitchen-Flooding-Image.jpg" />
+                        <img src="~/Content/images/image-history-02.png" />
+                        <img src="~/Content/images/image-history-03.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="content-agent">
+                <span>Local agent</span>
+                <div class="agent-info">
+                    <div class="agent-thumb">
+                        <img src="~/Content/images/agent.png" />
+                    </div>
+                    <div class="agent-detail">
+                        <span>Ken Thomas</span>
+                        <span class="text-blue">ken@contosoinsurance.com</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/claim")
+}

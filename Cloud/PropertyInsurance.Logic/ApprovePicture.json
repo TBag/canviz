@@ -1,0 +1,142 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "actions": {
+    "AnalysisPicture": {
+      "inputs": {
+        "body": "@body('ComputerVision')",
+        "function": {
+          "id": "/subscriptions/ba4b754a-7463-466a-bd84-9d07c7ac9c9e/resourceGroups/ContosoInsurance-Phase3/providers/Microsoft.Web/sites/PropertyInsuranceFunction/functions/AnalysisPicture"
+        }
+      },
+      "runAfter": {
+        "ComputerVision": [
+          "Succeeded"
+        ]
+      },
+      "type": "Function"
+    },
+    "ComputerVision": {
+      "inputs": {
+        "body": {
+          "url": "@{triggerBody()?['ImageUrl']}"
+        },
+        "headers": {
+          "Ocp-Apim-Subscription-Key": "6c286940ff93471f9c59f0fde381946b"
+        },
+        "method": "POST",
+        "uri": "https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Tags&language=en"
+      },
+      "runAfter": {},
+      "type": "Http"
+    },
+    "Condition": {
+      "actions": {
+        "ApprovalResponse": {
+          "inputs": {
+            "body": {
+              "result": true
+            },
+            "headers": {
+              "content-type": "application/json"
+            },
+            "statusCode": 200
+          },
+          "runAfter": {
+            "SendApprovalMailNotification": [
+              "Succeeded"
+            ]
+          },
+          "type": "Response"
+        },
+        "SendApprovalMailNotification": {
+          "inputs": {
+            "body": {
+              "AttachmentFilePath": "@{triggerBody()?['BlobFilePath']}",
+              "AttachmentName": "photo.jpg",
+              "body": "<p>The claim picture was accepted, however the claim was not auto approved. Please review the claim and approve or reject it.</p>\n<p><a href='@{triggerBody()?['claimDetailsPageUrl']}'>@{triggerBody()?['claimDetailsPageUrl']}<a></p>",
+              "cc": "@{triggerBody()?['CustomerEmail']}",
+              "subject": "Claim Pending Review",
+              "to": "@{triggerBody()?['claimsAdjusterEmail']}"
+            },
+            "method": "POST",
+            "uri": "https://prod-28.westus.logic.azure.com:443/workflows/9d1ae8220fb440f3b15fe2575cecc4af/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=UcpIBuk3Dzxo10TQG7eKejZn6beDm_Kx8VPZdILsG5A"
+          },
+          "runAfter": {},
+          "type": "Http"
+        }
+      },
+      "else": {
+        "actions": {
+          "RejectionResponse": {
+            "inputs": {
+              "body": {
+                "result": false
+              },
+              "headers": {
+                "content-type": "application/json"
+              },
+              "statusCode": 200
+            },
+            "runAfter": {},
+            "type": "Response"
+          }
+        }
+      },
+      "expression": "@equals(outputs('AnalysisPicture')['statusCode'], 200)",
+      "runAfter": {
+        "AnalysisPicture": [
+          "Succeeded"
+        ]
+      },
+      "type": "If"
+    }
+  },
+  "contentVersion": "1.0.0.0",
+  "outputs": {},
+  "parameters": {},
+  "triggers": {
+    "manual": {
+      "inputs": {
+        "schema": {
+          "properties": {
+            "BlobFilePath": {
+              "type": "string"
+            },
+            "CorrelationId": {
+              "type": "string"
+            },
+            "CustomerEmail": {
+              "type": "string"
+            },
+            "ImageUrl": {
+              "type": "string"
+            },
+            "Properties": {
+              "properties": {
+                "ClaimDateTime": {
+                  "type": "string"
+                },
+                "ClaimDescription": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "TagExpression": {
+              "type": "string"
+            },
+            "claimDetailsPageUrl": {
+              "type": "string"
+            },
+            "claimsAdjusterEmail": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "kind": "Http",
+      "type": "Request"
+    }
+  }
+}

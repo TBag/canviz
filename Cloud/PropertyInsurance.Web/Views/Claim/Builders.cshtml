@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "Builders";
+    var builderList = ViewBag.BuilderList;
+}
+<div class="leftMenu">
+    <ul>
+        <li><img class="menu-icon" src="~/Content/images/menu-button-of-three-lines.svg" /></li>
+    </ul>
+    <ul class="menu-nav">
+        <li class="menu-title">Menu</li>
+        <li>My dashboard</li>
+        <li class="menu-selected builders">Builders</li>
+        <li class="claims">Claims<img class="claim-icon" src="~/Content/images/claim-icon.svg" /></li>
+    </ul>
+
+    <ul>
+        <li class="menu-title">Settings</li>
+        <li>My account</li>
+        <li>Apps</li>
+        <li>Help</li>
+    </ul>
+</div>
+<div class="content-main claim-list builder-list">
+    <div class="content-breadcrumb padding-left">
+        <label>Builders </label>
+        <div class="btns">
+            <a class="text-blue" href="#">+ Add a tile</a>
+            <a class="text-blue" href="#">Customize</a>
+        </div>
+    </div>
+    <div class="content-claimId padding-left">
+        <span>Builders </span>
+    </div>
+    <div class="content-operation-area padding-left max-width">
+        <div class="operation-container">
+            <input type="text" value="Search..." />
+            <div class="operate-button text-blue filter"><img src="~/Content/images/filter-icon.svg" />Filter</div>
+            <div class="operate-button text-blue create">+ New list item</div>
+            <div class="operate-button text-blue">More</div>
+        </div>
+    </div>
+    <div class="content-core padding-left">
+        <div class="content-core-left">
+            <div class="content-claim-history">
+                <div class="history-grid">
+                    <table cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Total No.Properties</th>
+                                <th>% Properties</th>
+                                <th>Risk</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in builderList)
+                            {
+                                <tr class="history-tr">
+                                    <td>@item.Name</td>
+                                    <td>@item.TotalNoProperties</td>
+                                    <td>@item.TotalNoProperties%</td>
+                                    <td>@item.Risk.ToString()</td>
+                                    <td class="text-blue"><span class="context-menu-fire builder"><img src="~/Content/images/Contoso-Insurance-Misc-Icons-ELLIPSIS.svg" /></span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/claim")
+}

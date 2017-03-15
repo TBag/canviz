@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CustomerApp.ClaimDetailPage"
+             Title="Claim Detail Page">
+
+    <ScrollView>
+        <AbsoluteLayout>
+            <Grid  x:Name="detailPageGrid"  BackgroundColor="White" AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                  AbsoluteLayout.LayoutFlags="All"
+                  RowSpacing="0" ColumnSpacing="0">
+
+                <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="23"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="88"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="18"/>
+                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="80*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label Grid.Row="0" Grid.Column="1" Style="{DynamicResource ClaimPageLabelTitleStyle}"  Text="Status"/>
+                <Label Grid.Row="1" Grid.Column="1" Style="{DynamicResource ClaimPageLabelStyle}"  Text="{Binding Status}" />
+                <Label Grid.Row="3" Grid.Column="1" Style="{DynamicResource ClaimPageLabelTitleStyle}"  Text="Claim Photos"/>
+                <Image Source="{Binding ImageUrl}" Grid.Row="4" Grid.Column="1" Aspect="AspectFit" VerticalOptions="FillAndExpand" HorizontalOptions="Start"/>
+                <Label Grid.Row="6" Grid.Column="1" Style="{DynamicResource ClaimPageLabelTitleStyle}"  Text="Date"/>
+                <Label Grid.Row="7" Grid.Column="1" Style="{DynamicResource ClaimPageLabelStyle}"  Text="{Binding ClaimDateTime, StringFormat='{0:MMMM dd, yyyy}'}}" />
+                <Label Grid.Row="9" Grid.Column="1" Style="{DynamicResource ClaimPageLabelTitleStyle}"  Text="Description"/>
+                <Label x:Name="claimDescription" Grid.Row="10" Grid.Column="1" Style="{DynamicResource ClaimPageDescripStyle}"  Text="{Binding ClaimDescription}" />
+            </Grid>
+        </AbsoluteLayout>
+    </ScrollView>
+    
+    <!--<StackLayout Padding="{DynamicResource ClaimDetaiPagePadding}" Spacing="0" BackgroundColor="White">
+        <Grid RowSpacing="0" ColumnSpacing="0" VerticalOptions="FillAndExpand" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="23"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="88"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="18"/>
+                <RowDefinition Height="22"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+        </Grid>
+    </StackLayout>-->
+</ContentPage>

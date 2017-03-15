@@ -1,0 +1,98 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "actions": {
+    "Get_blob_content_using_path": {
+      "inputs": {
+        "host": {
+          "api": {
+            "runtimeUrl": "https://logic-apis-westus.azure-apim.net/apim/azureblob"
+          },
+          "connection": {
+            "name": "@parameters('$connections')['azureblob']['connectionId']"
+          }
+        },
+        "method": "get",
+        "path": "/datasets/default/GetFileContentByPath",
+        "queries": {
+          "path": "@{triggerBody()?['AttachmentFilePath']}"
+        }
+      },
+      "runAfter": {},
+      "type": "ApiConnection"
+    },
+    "Send_an_email": {
+      "inputs": {
+        "body": {
+          "Attachments": [
+            {
+              "ContentBytes": "@{base64(body('Get_blob_content_using_path'))}",
+              "Name": "@{triggerBody()?['AttachmentName']}"
+            }
+          ],
+          "Body": "@{triggerBody()?['body']}",
+          "Cc": "@{triggerBody()?['cc']}",
+          "Importance": "Normal",
+          "IsHtml": true,
+          "Subject": "@{triggerBody()?['subject']}",
+          "To": "@{triggerBody()?['to']}"
+        },
+        "host": {
+          "api": {
+            "runtimeUrl": "https://logic-apis-westus.azure-apim.net/apim/office365"
+          },
+          "connection": {
+            "name": "@parameters('$connections')['office365']['connectionId']"
+          }
+        },
+        "method": "post",
+        "path": "/Mail"
+      },
+      "runAfter": {
+        "Get_blob_content_using_path": [
+          "Succeeded"
+        ]
+      },
+      "type": "ApiConnection"
+    }
+  },
+  "contentVersion": "1.0.0.0",
+  "outputs": {},
+  "parameters": {
+    "$connections": {
+      "defaultValue": {},
+      "type": "Object"
+    }
+  },
+  "triggers": {
+    "manual": {
+      "inputs": {
+        "method": "POST",
+        "schema": {
+          "properties": {
+            "AttachmentFilePath": {
+              "type": "string"
+            },
+            "AttachmentName": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "cc": {
+              "type": "string"
+            },
+            "subject": {
+              "type": "string"
+            },
+            "to": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "kind": "Http",
+      "type": "Request"
+    }
+  }
+}

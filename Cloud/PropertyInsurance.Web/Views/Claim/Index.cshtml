@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Claim List";
+    var claimHistoryList = ViewBag.ClaimHistoryList;
+}
+<div class="leftMenu">
+    <ul>
+        <li><img class="menu-icon" src="~/Content/images/menu-button-of-three-lines.svg" /></li>
+    </ul>
+    <ul class="menu-nav">
+        <li class="menu-title">Menu</li>
+        <li>My dashboard</li>
+        <li class="builders">Builders</li>
+        <li class="menu-selected claims">Claims<img class="claim-icon" src="~/Content/images/claim-icon.svg"/></li>
+    </ul>
+
+    <ul>
+        <li class="menu-title">Settings</li>
+        <li>My account</li>
+        <li>Apps</li>
+        <li>Help</li>
+    </ul>
+</div>
+<div class="content-main claim-list">
+    <div class="content-breadcrumb padding-left">
+        <label>Claims </label>
+        <div class="btns">
+            <a class="text-blue" href="#">+ Add a tile</a>
+            <a class="text-blue" href="#">Customize</a>
+        </div>
+    </div>
+    <div class="content-claimId padding-left">
+        <span>Claims </span>
+    </div>
+    <div class="content-operation-area padding-left max-width">
+        <div class="operation-container">
+            <input type="text" value="Search..." />
+            <div class="operate-button text-blue filter"><img src="~/Content/images/filter-icon.svg" />Filter</div>
+            <div class="operate-button text-blue create">+ New claim</div>
+        </div>
+    </div>
+    <div class="content-core padding-left">
+        <div class="content-core-left">
+            <div class="content-claim-history" style="padding-top: 0px;">
+                <span></span>
+                <div class="history-grid">
+                    <table cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Date Submitted</th>
+                                <th>Confidence</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in claimHistoryList)
+                            {
+                                <tr class="history-tr claim">
+                                    <td>@item.Id</td>
+                                    <td>@item.Date</td>
+                                    <td>@item.RatePercent</td>
+                                    <td>@item.Status</td>
+                                    <td class="text-blue"><span class="context-menu-fire claim"><img src="~/Content/images/Contoso-Insurance-Misc-Icons-ELLIPSIS.svg" /></span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="content-core-right" style="margin-left:30px;">
+            <div class="other-content" style="height:330px;margin-left:0px;">
+                <div class="content-policy-holder" style="margin-left:0px;">
+                    <span style="margin-left:0px;">Coverage Area</span>
+                    <div class="content-map" style="margin-left:0px;">
+                        <img style="margin-left:0px;" src="/Content/images/Contoso-Insurance-Map-Image_REGIONAL-VIEW.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/claim")
+}

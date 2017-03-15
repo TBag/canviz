@@ -1,0 +1,10 @@
+﻿@{ 
+    var signedOut = ViewBag.SignedOut;
+}
+@if(signedOut==null || signedOut != true)
+{
+    <div class="nav-logout navbar-height">
+        <div class="sign-out">Sign out</div>
+        <div class="profile"><img src='@ViewBag.Thumbnail' /></div>
+    </div>
+}

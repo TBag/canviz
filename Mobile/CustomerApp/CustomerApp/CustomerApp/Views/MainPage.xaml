@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CustomerApp"
+             x:Class="CustomerApp.MainPage">
+    <ScrollView>
+        <AbsoluteLayout>
+            <Grid  x:Name="mainPageGrid"  BackgroundColor="#2b3151" AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                  AbsoluteLayout.LayoutFlags="All"
+                  RowSpacing="0" ColumnSpacing="0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="42*"/>
+                    <ColumnDefinition Width="916*"/>
+                    <ColumnDefinition Width="42*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label Text="Contoso Insurance" Grid.Row="1" Grid.Column="1" Style="{DynamicResource PageTitleStyle}" >
+                </Label>
+
+                <Label x:Name="userNameLabel" Text="Hello" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MainPageUserNameStyle}">
+                </Label>
+                
+                <Button x:Name="newCliamButton" Grid.Row="3" Grid.Column="1" Text="+  New Claim"  Style="{DynamicResource MainPageNewClaimButtonStyle}" Clicked="OnNewClaimButtonClicked"/>
+
+                <Frame Grid.Row="5" Grid.Column="1" Style="{DynamicResource MainPageTabStyle}" Padding="{DynamicResource ZeroPadding}">
+                    <Grid x:Name="tab1" Style="{DynamicResource MainPageTabContentGridStyle}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="72*"/>
+                            <ColumnDefinition Width="885*"/>
+                            <ColumnDefinition Width="43*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="1" Grid.Column="1" Text="  My Claims" Style="{DynamicResource MainPageAccountTabTitleStyle}"/>
+                        <ListView x:Name="listView" Grid.Row="2" Grid.Column="1"/>
+                    </Grid>
+                </Frame>
+                <Frame Grid.Row="7" Grid.Column="1" Style="{DynamicResource MainPageTabStyle}" Padding="{DynamicResource ZeroPadding}">
+                    <Grid x:Name="tab2" Style="{DynamicResource MainPageTabContentGridStyle}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="67*"/>
+                            <ColumnDefinition Width="406*"/>
+                            <ColumnDefinition Width="54*"/>
+                            <ColumnDefinition Width="406*"/>
+                            <ColumnDefinition Width="67*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="1" Grid.Column="1" Text="  My Account" Style="{DynamicResource MainPageAccountTabTitleStyle}"/>
+                        <Button x:Name="myProfile" Grid.Row="2" Grid.Column="1" Text="Profile"  Style="{DynamicResource MainPageAccountTabButtonStyle}}" />
+                        <Button x:Name="mySettings" Grid.Row="2" Grid.Column="3" Text="Settings"  Style="{DynamicResource MainPageAccountTabButtonStyle}}" />
+                        <Button x:Name="myContact" Grid.Row="4" Grid.Column="1" Text="Contact"  Style="{DynamicResource MainPageAccountTabButtonStyle}}" />
+                        <Button x:Name="myLogout" Grid.Row="4" Grid.Column="3" Text="Logout"  Style="{DynamicResource MainPageAccountTabButtonStyle}}" Clicked="OnLogoutButtonClicked"/>
+                    </Grid>
+                </Frame>
+            </Grid>
+            
+            <StackLayout x:Name="activityIndicatorPanel" IsVisible="False" AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All">
+                <ActivityIndicator x:Name="activityIndicator"
+                                   IsVisible="False"
+                                   IsRunning="True" Color="White"
+                                   AbsoluteLayout.LayoutBounds=".5,.5,50,50"
+                                   HeightRequest="50"
+                                   WidthRequest="50"
+                                   BackgroundColor="Transparent"
+                                   HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ScrollView>
+</ContentPage>

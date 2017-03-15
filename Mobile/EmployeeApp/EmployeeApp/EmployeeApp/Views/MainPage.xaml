@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EmployeeApp.MainPage">
+    <ScrollView>
+        <AbsoluteLayout>
+            <Grid x:Name="mainPageGrid"  BackgroundColor="#46c3d6" AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                  AbsoluteLayout.LayoutFlags="All"
+                  RowSpacing="0" ColumnSpacing="0">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45*"/>
+                    <ColumnDefinition Width="914*"/>
+                    <ColumnDefinition Width="45*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Contoso Agent" Grid.Row="1" Grid.Column="1" Style="{DynamicResource PageTitleStyle}">
+                </Label>
+
+                <Frame Grid.Row="2" Grid.Column="1" Style="{DynamicResource MainPageTabStyle}">
+                    <Grid x:Name="claimListGrid" Style="{DynamicResource MainPageTab1Style}">
+                        <Label Grid.Row="0" Text="Claims" Style="{DynamicResource MainPageTabTitleStyle}" />
+                        <ListView x:Name="listView" Grid.Row="1"/>
+                    </Grid>
+                </Frame>
+                <Frame Grid.Row="4"  Grid.Column="1" Style="{DynamicResource MainPageTabStyle}">
+                    <Grid Style="{DynamicResource MainPageTab2Style}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="15"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource MainPageTabTitleStyle}"  Text="My Account"/>
+                        <Label Grid.Row="0" Grid.Column="1" Style="{DynamicResource MainPageTabTitleStyle}"  Text=">" />
+                    </Grid>
+
+                </Frame>
+                <Frame Grid.Row="6"  Grid.Column="1" Style="{DynamicResource MainPageTabStyle}">
+                    <Grid Style="{DynamicResource MainPageTab2Style}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="15"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource MainPageTabTitleStyle}"  Text="Logout"/>
+                        <Label Grid.Row="0" Grid.Column="1" Style="{DynamicResource MainPageTabTitleStyle}"  Text=">" />
+                    </Grid>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="LogoutBtn_Tapped" />
+                    </Grid.GestureRecognizers>
+                </Frame>
+            </Grid>
+            <StackLayout x:Name="activityIndicatorPanel" IsVisible="False" AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All">
+                <ActivityIndicator x:Name="activityIndicator"
+                                   IsVisible="False"
+                                   IsRunning="True" Color="White"
+                                   AbsoluteLayout.LayoutBounds=".5,.5,50,50"
+                                   HeightRequest="50"
+                                   WidthRequest="50"
+                                   BackgroundColor="Transparent"
+                                   HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ScrollView>
+</ContentPage>
