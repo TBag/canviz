@@ -60,8 +60,13 @@
                 <div class="bottom">
                     <div class="claim-info">
                         <div class="claim-rating">
-                            <span>Confidence Rating</span>
-                            <span>This claim has a @claim.RatePercent% confidence rating.</span>
+                            <div class="title">
+                                <span>Insights</span>
+                            </div>
+                            <ul>
+                                <li>This claim has a @claim.RatePercent% confidence rating.</li>
+                                <li>Based on <span class="text-blue">5 previous claims</span>, payout will increase by $2567 if delayed beyond 24 hours.</li>
+                            </ul>
                         </div>
                         <ul>
                             <li>Based on <span class="text-blue">5 previous claims</span>, payout will increase by $2567 if delayed beyond 24 hours.</li>
@@ -93,7 +98,7 @@
                             <tr>
                                 <th>Number</th>
                                 <th>Date Submitted</th>
-                                <th>Confidence</th>
+                                <th>Payout</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -104,7 +109,7 @@
                                 <tr class="history-tr">
                                     <td>@item.Id</td>
                                     <td>@item.Date</td>
-                                    <td>@item.RatePercent%</td>
+                                    <td>$@item.Payout</td>
                                     <td>@item.Status</td>
                                     <td class="text-blue"><img src="~/Content/images/Contoso-Insurance-Misc-Icons-ELLIPSIS.svg" /></td>
                                 </tr>

@@ -62,13 +62,12 @@ namespace EmployeeApp
             {
                 claimDetailStackLayout.Padding = new Thickness(0, Display.Convert(40));
                 claimHintStackLayout.HeightRequest = Display.Convert(110);
-                Display.SetGridRowsHeight(claimHintGrid, new int[] { 32, 36 });
+                Display.SetGridRowsHeight(claimHintGrid, new string[] { "32", "36" });
 
                 claimHintIcon.WidthRequest = Display.Convert(32);
                 claimHintIcon.HeightRequest = Display.Convert(32);
 
-                Display.SetGridRowsHeight(mainPageGrid, new int[] { 50, 46, 20,  54, 176, 30, 40, 54, 36, 44, 440});
-                Display.SetGridRowsStarHeight(mainPageGrid, new int[] { 1 });
+                Display.SetGridRowsHeight(mainPageGrid, new string[] { "50", "46", "20",  "54", "176", "30", "40", "54", "36", "44", "440", "1*"});
                 claimDescription.Margin = new Thickness(0, Display.Convert(14));
             }
 

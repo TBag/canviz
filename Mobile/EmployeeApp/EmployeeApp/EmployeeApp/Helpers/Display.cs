@@ -14,33 +14,33 @@ namespace EmployeeApp
             }
             else
             {
-                //convert px to dp android
-                //return (int)((px / App.DisplayMetricsDensity) + 0.5);
-                int v = (int)((px * App.screenWidth / 750) );
+                int v = (int)((px * App.screenWidth / 750));
                 return v;
             }
         }
 
-        //mainPageGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(2, GridUnitType.Star) });
-        //mainPageGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-        //mainPageGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(200) });
-        //mainPageGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
-
-        public static void SetGridRowsHeight(Grid grid, Array rows) {
-            foreach (int rowheight in rows) {
-                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(Display.Convert(rowheight)) });
-            }
-        }
-        public static void SetGridRowsStarHeight(Grid grid, Array starrows)
+        public static void SetGridRowsHeight(Grid grid, Array rows)
         {
-            foreach (int star in starrows)
+            foreach (string rowheight in rows)
             {
-                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(star, GridUnitType.Star) });
+                if (rowheight.EndsWith("*"))
+                {
+                    int starH = 0;
+                    int.TryParse(rowheight.TrimEnd('*'), out starH);
+                    grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(starH, GridUnitType.Star) });
+                }
+                else
+                {
+                    int normalH = 0;
+                    int.TryParse(rowheight, out normalH);
+                    grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(Display.Convert(normalH)) });
+                }
             }
         }
-        public static void SetGridRowHeight(Grid grid, double iosHeight, double androidHeight)
+
+        public static void SetGridRowHeightByDevice(Grid grid, double iosHeight, double androidHeight)
         {
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(Device.OS == TargetPlatform.iOS ? iosHeight/2: androidHeight) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(Device.OS == TargetPlatform.iOS ? iosHeight / 2 : androidHeight) });
         }
     }
 }

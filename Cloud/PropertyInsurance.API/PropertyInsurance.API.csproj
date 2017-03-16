@@ -243,6 +243,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="deploy.cmd" />
     <None Include="Properties\PublishProfiles\PropertyInsuranceAPI.pubxml" />
   </ItemGroup>
   <PropertyGroup>

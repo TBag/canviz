@@ -33,32 +33,31 @@ namespace EmployeeApp
         {
             if (mainPageGrid.RowDefinitions.Count == 0)
             {
-                Display.SetGridRowsStarHeight(mainPageGrid, new int[] { 18 });
-                Display.SetGridRowsHeight(mainPageGrid, new int[] { 326 });
-                Display.SetGridRowsStarHeight(mainPageGrid, new int[] { 72 });
-                Display.SetGridRowsHeight(mainPageGrid, new int[] { 90 });
-                Display.SetGridRowsStarHeight(mainPageGrid, new int[] { 8 });
+                Display.SetGridRowsHeight(mainPageGrid, new string[] { "18*", "326", "72*", "90", "40", "90", "8*" });
             }
 
         }
         private async void loginButton_Clicked(object sender, EventArgs e)
         {
+            if (!Settings.CheckAllConfigure())
+            {
+                await DisplayAlert("Configuration", "Please go to settings page and configure, then Sigin In again.", "OK");
+                return;
+            }
+
             try
             {
                 using (var scope = new ActivityIndicatorScope(activityIndicator, activityIndicatorPanel, true))
                 {
                    
-                    AuthenticationContext ac = new AuthenticationContext("https://login.microsoftonline.com/CANVIZPropInsB2C.onmicrosoft.com");
+                    AuthenticationContext ac = new AuthenticationContext(Settings.Authority);
 
-                    AuthenticationResult ar = await ac.AcquireTokenAsync("https://graph.windows.net",
-                                                                        "d13ff0d8-b8d7-4266-bfcc-77faa1182783",
-                                                                         new Uri("https://EmployeeMobileApp"),
+                    AuthenticationResult ar = await ac.AcquireTokenAsync(Settings.Resource,
+                                                                        Settings.ClientID,
+                                                                         new Uri(Settings.ReplyURL),
                                                                          App.PlatformParameters);
                     string token = ar.AccessToken;
                     Utils.TraceStatus("Login Success");
-
-                    //Helpers helpers = new Helpers();
-                    //string imageUrl =await helpers.GetUserClaimURL(ar.UserInfo.DisplayableId);
                    await Navigation.PushAsync(new MainPage(ar.UserInfo.DisplayableId, ac));
                 }
             }
@@ -67,6 +66,10 @@ namespace EmployeeApp
                 await DisplayAlert("An error has occurred", "Exception message: " + ex.Message, "Dismiss");
             }
 
+        }
+        private void OnSettingsButtonClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new SettingsPage(), false);
         }
     }
 }

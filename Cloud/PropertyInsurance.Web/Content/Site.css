@@ -77,19 +77,19 @@ a,a:hover {text-decoration:none;}
 .body-content .content-main{width:auto;}
 
 /*content*/
-.body-content .padding-left{padding-left:360px;}
-.body-content .max-width{max-width:1556px;}
+.body-content .padding-left{padding-left:370px;}
+.body-content .max-width{max-width:1566px;}
 .body-content .content-main{width:auto;}
-.body-content .content-breadcrumb{height:57px;padding-top:20px;font-family:Karla-Regular;color:#A8A8A8;padding-right:40px;border-bottom:1px solid #EBEBEA;}
+.body-content .content-breadcrumb{height:41px;padding-top:10px;font-family:Karla-Regular;color:#A8A8A8;padding-right:25px;border-bottom:1px solid #EBEBEA;}
 .body-content .content-breadcrumb .btns{height:57px;display:inline-block;float:right;}
 .body-content .content-breadcrumb .btns > a:first-child{margin-right:30px;}
 .body-content .content-claimId{color:#435A7C;font-family: Karla-Regular;font-size: 25px;padding-top: 17px;padding-bottom:16px;}
 .body-content .content-operation-area{height:43px;}
 .body-content .content-operation-area .operation-container{background-color:#D4EEF9;height:43px;padding-top:10px;padding-left:20px;border-radius:5px;}
 .body-content .content-operation-area .operate-button{display:inline-block;margin-right:30px;cursor:pointer;}
-.body-content .content-claim-status{padding-top: 30px;}
+.body-content .content-claim-status{padding-top: 25px;}
 .body-content .content-claim-status ol.progtrckr {margin: 0;padding: 0;list-style-type: none;font-family:Karla-Bold;text-transform:uppercase;font-size:11px;line-height:13.2px;}
-.body-content .content-claim-status ol.progtrckr li {display: inline-block;text-align: left;line-height: 4em;letter-spacing:0.05em;}
+.body-content .content-claim-status ol.progtrckr li {display: inline-block;text-align: left;line-height: 4.9em;letter-spacing:0.05em;}
 .body-content .content-claim-status ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
 .body-content .content-claim-status ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
 .body-content .content-claim-status ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
@@ -120,10 +120,13 @@ a,a:hover {text-decoration:none;}
 .body-content .content-core-left .content-claim .title{color:#374F73;font-family:Karla-Regular;font-size:18px;margin-top: 9px;margin-bottom: 9px;padding-left:10px;}
 .body-content .content-core-left .content-claim .bottom > div{display:inline-block;vertical-align:top;}
 .body-content .content-core-left .content-claim .bottom .claim-info{width:375px;padding-left:10px;padding-right:10px;}
-.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating{width:355px;height:52px;background-color:#A0CC51; border-radius:4px;font-size:11px;padding-left: 10px;padding-top: 9px;}
-.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating>span:first-child{color:#37577D;display: block;background-image:url("images/Contoso-Insurance-Info-Icon.svg");background-repeat: no-repeat;padding-left: 16px;
-    background-size: 12px 12px;background-position: 0px 1px;}
-.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating>span:last-child{color:white;}
+.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating{width:355px;background-color:rgba(40,170,225,0.2); border-radius:4px;font-size:11px;padding-bottom:10px;}
+.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating .title{color:#FFFFFF;display: block;background-image:url("images/Contoso-Insurance-Info-Icon.svg");background-repeat: no-repeat;padding-left: 27px;
+    background-size: 12px 12px;background-position: 10px 7px;background-color:#28AAE1;text-transform:uppercase;border-top-left-radius: 4px;border-top-right-radius: 4px;}
+.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating .title>span{font-size:9pt;}
+.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating ul{padding-left:12px;padding-right:15px;list-style-type: none;}
+.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating ul li{background-image:url("images/bullet.svg");color:#374f73;font-size:14px;background-repeat:no-repeat;background-size: 7px 7px;background-position: 0px 7px;
+    padding-left: 15px;}
 .body-content .content-core-left .content-claim .bottom .claim-info >ul{list-style:none;padding-left:0;}
 .body-content .content-core-left .content-claim .bottom .claim-info >ul>li:first-child{margin-top:13px;margin-bottom:18px;}
 .body-content .content-core-left .content-claim .bottom .claim-info .property-value{margin-top:-2px;margin-bottom:20px;}

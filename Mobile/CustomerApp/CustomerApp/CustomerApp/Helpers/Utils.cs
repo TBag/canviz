@@ -6,13 +6,70 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using HockeyApp;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Microsoft.Identity.Client;
+using Newtonsoft.Json;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using Plugin.Settings;
+
 
 namespace CustomerApp
 {
+    public class HttpUtil
+    {
+        public static async Task<HttpResponseMessage> PostImageAsync(MediaFile image, string url, string token)
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
+
+            request.Headers.Add("ZUMO-API-VERSION", "2.0.0");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            StreamContent content = new StreamContent(image.GetStream());
+            content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            var formData = new MultipartFormDataContent();
+            formData.Add(content, "Image", "Image.jpg");
+            request.Content = formData;
+
+            HttpResponseMessage response = await client.SendAsync(request);
+            return response;
+        }
+
+        public static async Task<HttpResponseMessage> PostJsonAsync(string json, string url, string token)
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
+            request.Headers.Add("ZUMO-API-VERSION", "2.0.0");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var Content = new StringContent(json);
+            Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            request.Content = Content;
+
+            HttpResponseMessage response = await client.SendAsync(request);
+            return response;
+
+        }
+        public static async Task<HttpResponseMessage> PostAsync(string url, string token)
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
+            request.Headers.Add("ZUMO-API-VERSION", "2.0.0");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = await client.SendAsync(request);
+            return response;
+
+        }
+    }
+
     public static class Utils
     {
-        public static string MobileHockeyAppIdiOS = "f54c9fa2db1b49ceb1d2901f60e9ea3c";
-        public static string MobileHockeyAppIdAndroid = "88db49472d2a4b24bb7528db6b1a941a";
 
         public static void TraceException(string logEvent, Exception ex)
         {
@@ -21,7 +78,6 @@ namespace CustomerApp
             Dictionary<string, string> properties = new Dictionary<string, string>()
             {
                 { "LogType", "Error Log"},
-               // { "Version", Assembly.GetCallingAssembly().Version.ToString()},
                 { "Description", logEvent + ex.Message}
             };
             /*Hockey APP*/
@@ -41,7 +97,6 @@ namespace CustomerApp
             Dictionary<string, string> properties = new Dictionary<string, string>()
             {
                 { "LogType", "Status Log"},
-               // { "Version", Assembly.GetCallingAssembly().GetName().Version.ToString()},
                 { "Description", logEvent},
                 { "Status", "Success"}
             };
@@ -57,6 +112,7 @@ namespace CustomerApp
             }
         }
     }
+
     public class ActivityIndicatorScope : IDisposable
     {
         private ActivityIndicator indicator;
@@ -72,9 +128,9 @@ namespace CustomerApp
 
         private void SetIndicatorActivity(bool isActive)
         {
-            this.indicator.IsVisible = isActive;
-            this.indicator.IsRunning = isActive;
-            this.indicatorPanel.IsVisible = isActive;
+            indicator.IsVisible = isActive;
+            indicator.IsRunning = isActive;
+            indicatorPanel.IsVisible = isActive;
         }
 
         public void Dispose()

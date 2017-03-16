@@ -27,6 +27,9 @@
 
                 <Image Source="loginIconTitle.png" Grid.Row="1"  Grid.Column="1" Aspect="AspectFit" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand" />
                 <Button x:Name="loginButton" Grid.Row="3" Grid.Column="1" Text="Sign in" Style="{DynamicResource LoginButtonStyle}" Clicked="loginButton_Clicked" />
+
+                <Button x:Name="settingsButton" Grid.Row="5" Grid.Column="1" Text="Settings" Style="{DynamicResource LoginButtonStyle}" Clicked="OnSettingsButtonClicked"/>
+
             </Grid>
 
             <StackLayout x:Name="activityIndicatorPanel" IsVisible="False" AbsoluteLayout.LayoutBounds="0,0,1,1"

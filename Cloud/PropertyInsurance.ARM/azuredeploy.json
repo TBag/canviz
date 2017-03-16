@@ -1,0 +1,765 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "siteName": {
+      "type": "string",
+      "defaultValue": "PropertyInsurance",
+      "metadata": {
+        "description": "The name of the web client app that you wish to create."
+      }
+    },
+    "hostingPlanName": {
+      "type": "string",
+      "metadata": {
+        "description": "The hosting service plan name that you wish to create."
+      },
+      "defaultValue": "propertyinsurance"
+    },
+    "sqlserverAdminLogin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sqlserverAdminLoginPassword": {
+      "type": "securestring"
+    },
+    "sourceCodeRepositoryURL": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Source code repository URL"
+      }
+    },
+    "sourceCodeBranch": {
+      "type": "string",
+      "defaultValue": "master",
+      "metadata": {
+        "description": "Sourcecode Repo branch"
+      }
+    },
+    "sourceCodeManualIntegration": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Use 'true' if you are deploying from the base repo, 'false' if you are deploying from your own fork. If you're using 'false', make sure you have admin permissions to the repo. If you get an error, you should add GitHub integration to another web app manually, so that you get a GitHub access token associated with your Azure Subscription."
+      }
+    },
+    "B2CDomainname": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The domain name of Azure Active Directory B2C that you wish to create"
+      }
+    },
+    "B2CApplicationId": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The applicaton id that you registered under Azure Active Directory B2C domain"
+      }
+    },
+    "SusiPolicyId": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The sign-up or sign-in policy id that you configured under Azure Active Directory B2C domain"
+      }
+    },
+    "AADClientId": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The application clientId id that you registered under Azure Active Directory B2C domain"
+      }
+    },
+    "AADClientSecret": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The application client secret that you registered under Azure Active Directory B2C domain"
+      }
+    },
+    "visionServiceSubscriptionKey": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "https://www.microsoft.com/cognitive-services/en-us/computer-vision-api"
+      }
+    }
+  },
+  "variables": {
+    "location": "[resourceGroup().location]",
+    "lowerSiteName": "[toLower(parameters('siteName'))]",
+    "nameSuffix": "[substring(uniqueString(resourceGroup().id), 0, 6)]",
+    "notificationHubName": "[concat(variables('lowerSiteName'), variables('nameSuffix'))]",
+    "notificationHubNamespaceName": "[concat(variables('notificationHubName'), '-ns')]",
+    "storageAccountName": "[concat(variables('lowerSiteName'), variables('nameSuffix'))]",
+    "sqlServerName": "[concat(variables('lowerSiteName'), variables('nameSuffix'), '-dbserver')]",
+    "functionAppName": "[concat(variables('lowerSiteName'), variables('nameSuffix'), '-function')]",
+    "webSiteName": "[concat(variables('lowerSiteName'), variables('nameSuffix'))]",
+    "apiSiteName": "[concat(variables('lowerSiteName'), variables('nameSuffix'), '-api')]",
+    "claimDetailsPageBaseUrl": "[concat('https://', variables('webSiteName'), '.azurewebsites.net/claim/detail')]",
+    "mtcsJsonUrl": "[concat('https://', variables('storageAccountName'), '.blob.core.windows.net/public/mtcs.json')]",
+    "sqldatabaseCollation": "SQL_Latin1_General_CP1_CI_AS",
+    "sqldatabaseEdition": "Basic",
+    "sqldatabaseRequestedServiceObjectiveName": "Basic",
+    "workflowsApprovePictureName": "[concat(parameters('siteName'), 'ApprovePicture')]",
+    "workflowsSendMailName": "[concat(parameters('siteName'), 'SendEmailNotification')]",
+    "workflowsPushNotificationName": "[concat(parameters('siteName'), 'SendPushNotification')]",
+    "ApprovePictureTriggerUrl": "https://ApprovePictureTriggerUrl",
+    "SendPushNotificationTriggerUrl": "https://SendPushNotificationTriggerUrl",
+    "office365ConnectionName": "[concat(variables('lowerSiteName'), '-office365')]",
+    "azureBlobConnectionName": "[concat(variables('lowerSiteName'), '-azureBlob')]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "location": "[variables('location')]",
+      "name": "[variables('office365ConnectionName')]",
+      "properties": {
+        "api": {
+          "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/office365')]"
+        },
+        "displayName": "[variables('office365ConnectionName')]"
+      }
+    },
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "location": "[variables('location')]",
+      "name": "[variables('azureBlobConnectionName')]",
+      "properties": {
+        "api": {
+          "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azureblob')]"
+        },
+        "displayName": "[variables('azureBlobConnectionName')]"
+      }
+    },
+    {
+      "type": "Microsoft.NotificationHubs/namespaces",
+      "sku": {
+        "name": "Free"
+      },
+      "kind": "NotificationHub",
+      "name": "[variables('notificationHubNamespaceName')]",
+      "apiVersion": "2014-09-01",
+      "location": "[resourceGroup().location]",
+      "tags": {},
+      "properties": {
+        "region": "[resourceGroup().location]",
+        "namespaceType": "NotificationHub"
+      },
+      "resources": [
+        {
+          "type": "notificationHubs",
+          "name": "[variables('notificationHubName')]",
+          "apiVersion": "2014-09-01",
+          "location": "[resourceGroup().location]",
+          "properties": {
+            "authorizationRules": []
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.NotificationHubs/namespaces', variables('notificationHubNamespaceName'))]"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "sku": {
+        "name": "Standard_RAGRS",
+        "tier": "Standard"
+      },
+      "kind": "Storage",
+      "name": "[variables('storageAccountName')]",
+      "apiVersion": "2016-01-01",
+      "location": "[resourceGroup().location]",
+      "tags": {},
+      "properties": {},
+      "dependsOn": []
+    },
+    {
+      "apiVersion": "2015-08-01",
+      "type": "Microsoft.Web/serverfarms",
+      "sku": {
+        "name": "B1",
+        "tier": "Basic",
+        "size": "B1",
+        "family": "B",
+        "capacity": 1
+      },
+      "kind": "app",
+      "name": "[parameters('hostingPlanName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "name": "[parameters('hostingPlanName')]",
+        "numberOfWorkers": 1
+      },
+      "dependsOn": []
+    },
+    {
+      "apiVersion": "2015-08-01",
+      "type": "Microsoft.Web/serverfarms",
+      "sku": {
+        "name": "B1",
+        "tier": "Basic",
+        "size": "B1",
+        "family": "B",
+        "capacity": 1
+      },
+      "kind": "functionapp",
+      "name": "[concat(parameters('hostingPlanName'), 'functionapp')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "name": "[concat(parameters('hostingPlanName'), 'functionapp')]",
+        "numberOfWorkers": 1
+      },
+      "dependsOn": []
+    },
+    {
+      "name": "[variables('sqlserverName')]",
+      "type": "Microsoft.Sql/servers",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2014-04-01-preview",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "sqlserver"
+      },
+      "properties": {
+        "administratorLogin": "[parameters('sqlserverAdminLogin')]",
+        "administratorLoginPassword": "[parameters('sqlserverAdminLoginPassword')]"
+      },
+      "resources": [
+        {
+          "name": "AllowAllWindowsAzureIps",
+          "type": "firewallrules",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"
+          ],
+          "properties": {
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "0.0.0.0"
+          }
+        },
+        {
+          "name": "PropertyInsurance",
+          "type": "databases",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"
+          ],
+          "tags": {
+            "displayName": "sqldatabase"
+          },
+          "properties": {
+            "collation": "[variables('sqldatabaseCollation')]",
+            "edition": "[variables('sqldatabaseEdition')]",
+            "maxSizeBytes": "1073741824",
+            "requestedServiceObjectiveName": "[variables('sqldatabaseRequestedServiceObjectiveName')]"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "kind": "functionapp",
+      "name": "[variables('functionAppName')]",
+      "apiVersion": "2015-08-01",
+      "location": "[variables('location')]",
+      "properties": {
+        "name": "[variables('functionAppName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', concat(parameters('hostingPlanName'), 'functionapp'))]",
+        "siteConfig": {
+          "AlwaysOn": true
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverFarms/', concat(parameters('hostingPlanName'), 'functionapp'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+        "[resourceId('Microsoft.NotificationHubs/namespaces/', variables('notificationHubNamespaceName'))]"
+      ],
+      "resources": [
+        {
+          "name": "appsettings",
+          "type": "config",
+          "apiVersion": "2015-08-01",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]",
+            "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+            "[resourceId('Microsoft.NotificationHubs/namespaces/notificationHubs/', variables('notificationHubNamespaceName'), variables('notificationHubName'))]"
+          ],
+          "properties": {
+            "AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
+            "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
+            "FUNCTIONS_EXTENSION_VERSION": "~1",
+            "WEBSITE_NODE_DEFAULT_VERSION": "6.5.0",
+            "MS_NotificationHubName": "[variables('notificationHubName')]",
+            "MS_NotificationHubConnectionString": "[listkeys(resourceId('Microsoft.NotificationHubs/namespaces/notificationHubs/authorizationRules', variables('notificationHubNamespaceName'), variables('notificationHubName'), 'DefaultFullSharedAccessSignature'), '2014-09-01').primaryConnectionString]",
+            "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
+            "WEBSITE_CONTENTSHARE": "[variables('functionAppName')]",
+            "command": "Cloud\\PropertyInsurance.Function\\deploy.cmd"
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "name": "web",
+          "type": "sourcecontrols",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites/', variables('functionAppName'))]",
+            "[resourceId('Microsoft.Web/Sites/config', variables('functionAppName'), 'appsettings')]"
+          ],
+          "properties": {
+            "RepoUrl": "[parameters('sourceCodeRepositoryURL')]",
+            "branch": "[parameters('sourceCodeBranch')]",
+            "IsManualIntegration": "parameters('sourceCodeManualIntegration')]"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "name": "[variables('apiSiteName')]",
+      "apiVersion": "2015-08-01",
+      "location": "[variables('location')]",
+      "properties": {
+        "name": "[variables('apiSiteName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]"
+      },
+      "resources": [
+        {
+          "apiVersion": "2015-08-01",
+          "type": "config",
+          "name": "appsettings",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites/', variables('apiSiteName'))]",
+            "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+            "[resourceId('Microsoft.NotificationHubs/namespaces/notificationHubs/', variables('notificationHubNamespaceName'), variables('notificationHubName'))]"
+          ],
+          "properties": {
+            "MS_AzureStorageAccountConnectionString": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
+            "MS_NotificationHubName": "[variables('notificationHubName')]",
+            "MS_NotificationHubConnectionString": "[listkeys(resourceId('Microsoft.NotificationHubs/namespaces/notificationHubs/authorizationRules', variables('notificationHubNamespaceName'), variables('notificationHubName'), 'DefaultFullSharedAccessSignature'), '2014-09-01').primaryConnectionString]",
+            "mtcsjsonUrl": "[variables('mtcsJsonUrl')]",
+            "claimDetailsPageUrl": "[variables('claimDetailsPageBaseUrl')]",
+            "ApprovePictureLogicApp": "[variables('ApprovePictureTriggerUrl')]",
+            "ida:Tenant": "[parameters('B2CDomainname')]",
+            "ida:ClientId": "[parameters('B2CApplicationId')]",
+            "ida:SusiPolicyId": "[parameters('SusiPolicyId')]",
+            "command": "Cloud\\PropertyInsurance.API\\deploy.cmd"
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "name": "web",
+          "type": "sourcecontrols",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites/', variables('apiSiteName'))]",
+            "[resourceId('Microsoft.Web/Sites/config', variables('apiSiteName'), 'appsettings')]"
+          ],
+          "properties": {
+            "RepoUrl": "[parameters('sourceCodeRepositoryURL')]",
+            "branch": "[parameters('sourceCodeBranch')]",
+            "IsManualIntegration": "parameters('sourceCodeManualIntegration')]"
+          }
+        }
+      ],
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "name": "[variables('webSiteName')]",
+      "apiVersion": "2015-08-01",
+      "location": "[variables('location')]",
+      "properties": {
+        "name": "[variables('webSiteName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]"
+      },
+      "resources": [
+        {
+          "apiVersion": "2015-08-01",
+          "type": "config",
+          "name": "appsettings",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites/', variables('webSiteName'))]",
+            "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+            "[resourceId('Microsoft.Logic/workflows/', variables('workflowsPushNotificationName'))]"
+          ],
+          "properties": {
+            "AzureStorageAccountConnectionString": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
+            "ida:ClientId": "[parameters('AADClientId')]",
+            "ida:ClientSecret": "[parameters('AADClientSecret')]",
+            "ida:Domain": "[parameters('B2CDomainname')]",
+            "ClaimApproverUrl": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', variables('workflowsPushNotificationName')), '/triggers/manual'), '2016-06-01').value]",
+            "command": "Cloud\\PropertyInsurance.Web\\deploy.cmd"
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "name": "web",
+          "type": "sourcecontrols",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites/', variables('webSiteName'))]",
+            "[resourceId('Microsoft.Web/Sites/config', variables('webSiteName'), 'appsettings')]"
+          ],
+          "properties": {
+            "RepoUrl": "[parameters('sourceCodeRepositoryURL')]",
+            "branch": "[parameters('sourceCodeBranch')]",
+            "IsManualIntegration": "parameters('sourceCodeManualIntegration')]"
+          }
+        }
+      ],
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Logic/workflows",
+      "name": "[variables('workflowsSendMailName')]",
+      "apiVersion": "2016-06-01",
+      "location": "[variables('location')]",
+      "properties": {
+        "state": "Enabled",
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {
+            "$connections": {
+              "defaultValue": {},
+              "type": "Object"
+            }
+          },
+          "triggers": {
+            "manual": {
+              "type": "Request",
+              "kind": "Http",
+              "inputs": {
+                "method": "POST",
+                "schema": {
+                  "properties": {
+                    "AttachmentFilePath": {
+                      "type": "string"
+                    },
+                    "AttachmentName": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    },
+                    "cc": {
+                      "type": "string"
+                    },
+                    "subject": {
+                      "type": "string"
+                    },
+                    "to": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "actions": {
+            "Get_blob_content_using_path": {
+              "runAfter": {},
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "api": {
+                    "runtimeUrl": "https://logic-apis-westus.azure-apim.net/apim/azureblob"
+                  },
+                  "connection": {
+                    "name": "@parameters('$connections')['azureblob']['connectionId']"
+                  }
+                },
+                "method": "get",
+                "path": "/datasets/default/GetFileContentByPath",
+                "queries": {
+                  "path": "@{triggerBody()?['AttachmentFilePath']}"
+                }
+              }
+            },
+            "Send_an_email": {
+              "runAfter": {
+                "Get_blob_content_using_path": [
+                  "Succeeded"
+                ]
+              },
+              "type": "ApiConnection",
+              "inputs": {
+                "body": {
+                  "Attachments": [
+                    {
+                      "ContentBytes": "@{base64(body('Get_blob_content_using_path'))}",
+                      "Name": "@{triggerBody()?['AttachmentName']}"
+                    }
+                  ],
+                  "Body": "@{triggerBody()?['body']}",
+                  "Cc": "@{triggerBody()?['cc']}",
+                  "Importance": "Normal",
+                  "IsHtml": true,
+                  "Subject": "@{triggerBody()?['subject']}",
+                  "To": "@{triggerBody()?['to']}"
+                },
+                "host": {
+                  "api": {
+                    "runtimeUrl": "https://logic-apis-westus.azure-apim.net/apim/office365"
+                  },
+                  "connection": {
+                    "name": "@parameters('$connections')['office365']['connectionId']"
+                  }
+                },
+                "method": "post",
+                "path": "/Mail"
+              }
+            }
+          },
+          "outputs": {}
+        },
+        "parameters": {
+          "$connections": {
+            "value": {
+              "azureblob": {
+                "connectionId": "[resourceId('Microsoft.Web/connections', variables('azureBlobConnectionName'))]",
+                "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azureblob')]"
+              },
+              "office365": {
+                "connectionId": "[resourceId('Microsoft.Web/connections', variables('office365ConnectionName'))]",
+                "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/office365')]"
+              }
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/connections', variables('office365ConnectionName'))]",
+        "[resourceId('Microsoft.Web/connections', variables('azureBlobConnectionName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Logic/workflows",
+      "name": "[variables('workflowsPushNotificationName')]",
+      "apiVersion": "2016-06-01",
+      "location": "[variables('location')]",
+      "properties": {
+        "state": "Enabled",
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {},
+          "triggers": {
+            "manual": {
+              "type": "Request",
+              "kind": "Http",
+              "inputs": {
+                "method": "POST",
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "tag": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "actions": {
+            "PushNotification": {
+              "runAfter": {},
+              "type": "Function",
+              "inputs": {
+                "body": {
+                  "CorrelationId": "",
+                  "Properties": {
+                    "Message": "@{triggerBody()?['message']}"
+                  },
+                  "TagExpression": "@{triggerBody()?['tag']}"
+                },
+                "function": {
+                  "id": "[concat(resourceId('Microsoft.Web/sites', variables('functionAppName')), '/functions/PushNotification')]"
+                }
+              }
+            }
+          },
+          "outputs": {}
+        },
+        "parameters": {}
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]",
+        "[resourceId('Microsoft.Web/Sites/sourcecontrols', variables('functionAppName'), 'web')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Logic/workflows",
+      "name": "[variables('workflowsApprovePictureName')]",
+      "apiVersion": "2016-06-01",
+      "location": "westus",
+      "properties": {
+        "state": "Enabled",
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {},
+          "triggers": {
+            "manual": {
+              "type": "Request",
+              "kind": "Http",
+              "inputs": {
+                "schema": {
+                  "properties": {
+                    "BlobFilePath": {
+                      "type": "string"
+                    },
+                    "CorrelationId": {
+                      "type": "string"
+                    },
+                    "CustomerEmail": {
+                      "type": "string"
+                    },
+                    "ImageUrl": {
+                      "type": "string"
+                    },
+                    "Properties": {
+                      "properties": {
+                        "ClaimDateTime": {
+                          "type": "string"
+                        },
+                        "ClaimDescription": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "TagExpression": {
+                      "type": "string"
+                    },
+                    "claimDetailsPageUrl": {
+                      "type": "string"
+                    },
+                    "claimsAdjusterEmail": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "actions": {
+            "AnalysisPicture": {
+              "runAfter": {
+                "ComputerVision": [
+                  "Succeeded"
+                ]
+              },
+              "type": "Function",
+              "inputs": {
+                "body": "@body('ComputerVision')",
+                "function": {
+                  "id": "[concat(resourceId('Microsoft.Web/sites', variables('functionAppName')), '/functions/AnalysisPicture')]"
+                }
+              }
+            },
+            "ComputerVision": {
+              "runAfter": {},
+              "type": "Http",
+              "inputs": {
+                "body": {
+                  "url": "@{triggerBody()?['ImageUrl']}"
+                },
+                "headers": {
+                  "Ocp-Apim-Subscription-Key": "[parameters('visionServiceSubscriptionKey')]"
+                },
+                "method": "POST",
+                "uri": "https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Tags&language=en"
+              }
+            },
+            "Condition": {
+              "actions": {
+                "ApprovalResponse": {
+                  "runAfter": {
+                    "SendApprovalMailNotification": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "Response",
+                  "inputs": {
+                    "body": {
+                      "result": true
+                    },
+                    "headers": {
+                      "content-type": "application/json"
+                    },
+                    "statusCode": 200
+                  }
+                },
+                "SendApprovalMailNotification": {
+                  "runAfter": {},
+                  "type": "Http",
+                  "inputs": {
+                    "body": {
+                      "AttachmentFilePath": "@{triggerBody()?['BlobFilePath']}",
+                      "AttachmentName": "photo.jpg",
+                      "body": "<p>The claim picture was accepted, however the claim was not auto approved. Please review the claim and approve or reject it.</p>\n<p><a href='@{triggerBody()?['claimDetailsPageUrl']}'>@{triggerBody()?['claimDetailsPageUrl']}<a></p>",
+                      "cc": "@{triggerBody()?['CustomerEmail']}",
+                      "subject": "Claim Pending Review",
+                      "to": "@{triggerBody()?['claimsAdjusterEmail']}"
+                    },
+                    "method": "POST",
+                    "uri": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', variables('workflowsSendMailName')), '/triggers/manual'), '2016-06-01').value]"
+                  }
+                }
+              },
+              "runAfter": {
+                "AnalysisPicture": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "RejectionResponse": {
+                    "runAfter": {},
+                    "type": "Response",
+                    "inputs": {
+                      "body": {
+                        "result": false
+                      },
+                      "headers": {
+                        "content-type": "application/json"
+                      },
+                      "statusCode": 200
+                    }
+                  }
+                }
+              },
+              "expression": "@equals(outputs('AnalysisPicture')['statusCode'], 200)",
+              "type": "If"
+            }
+          },
+          "outputs": {}
+        },
+        "parameters": {}
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]",
+        "[resourceId('Microsoft.Web/Sites/sourcecontrols', variables('functionAppName'), 'web')]",
+        "[resourceId('Microsoft.Logic/workflows/', variables('workflowsSendMailName'))]"
+      ]
+    }
+  ],
+  "outputs": {}
+}

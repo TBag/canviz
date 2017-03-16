@@ -17,7 +17,7 @@ namespace CustomerApp.Droid
 
     //[Activity(Label = "CustomerApp", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     //public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
-    [Activity(Label = "CustomerApp", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "Insurance", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
     {
 
@@ -46,7 +46,7 @@ namespace CustomerApp.Droid
 
             LoadApplication(new App());
             //hockey
-            MetricsManager.Register(Application, Utils.MobileHockeyAppIdAndroid);
+            MetricsManager.Register(Application, Settings.MobileHockeyAppIdAndroid);
 
             //GCM
             // Set the current instance of MainActivity.

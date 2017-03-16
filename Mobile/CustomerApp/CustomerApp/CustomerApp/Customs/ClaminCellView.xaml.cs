@@ -15,12 +15,8 @@ namespace CustomerApp
             InitializeComponent();
             cellStackLayout.HeightRequest = Display.Convert(140);
 
-            Display.SetGridRowsStarHeight(claimCellContentGrid, new int[] { 1 });
-            Display.SetGridRowsHeight(claimCellContentGrid, new int[] { 90 });
-            Display.SetGridRowsStarHeight(claimCellContentGrid, new int[] { 1 });
-
-
-            Display.SetGridRowsHeight(claimCellFrameGrid, new int[] { 42, 48 });
+            Display.SetGridRowsHeight(claimCellContentGrid, new string[] {"1*", "90", "1*" });
+            Display.SetGridRowsHeight(claimCellFrameGrid, new string[] { "42", "48" });
 
         }
     }

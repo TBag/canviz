@@ -57,15 +57,13 @@ namespace EmployeeApp
                 listView.RowHeight = Display.Convert(96);
 
                 //android has status bar
-                Display.SetGridRowHeight(mainPageGrid, 30, 0.5);
-                int[] rowsHeight = new int[] { 126, 570, 40, 134, 40, 134, 40 };
-                Display.SetGridRowsHeight(mainPageGrid, rowsHeight);
-                Display.SetGridRowsStarHeight(mainPageGrid, new int[] { 1 });
+                Display.SetGridRowHeightByDevice(mainPageGrid, 30, 1);
+                Display.SetGridRowsHeight(mainPageGrid, new string[] { "126", "570", "40", "134", "40", "134", "40", "1*" });
+
                 claimListGrid.Padding = new Thickness(Display.Convert(52), Display.Convert(12),
                     Display.Convert(52), Display.Convert(40));
 
-                Display.SetGridRowsHeight(claimListGrid, new int[] { 100 });
-                Display.SetGridRowsStarHeight(claimListGrid, new int[] { 1 });
+                Display.SetGridRowsHeight(claimListGrid, new string[] { "100", "1*" });
             }
 
         }

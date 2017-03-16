@@ -23,7 +23,7 @@
                 
                 <Button x:Name="newCliamButton" Grid.Row="3" Grid.Column="1" Text="+  New Claim"  Style="{DynamicResource MainPageNewClaimButtonStyle}" Clicked="OnNewClaimButtonClicked"/>
 
-                <Frame Grid.Row="5" Grid.Column="1" Style="{DynamicResource MainPageTabStyle}" Padding="{DynamicResource ZeroPadding}">
+                <Frame Grid.Row="5" Grid.Column="1" Style="{DynamicResource MainPageTabStyle}" Padding="0,0">
                     <Grid x:Name="tab1" Style="{DynamicResource MainPageTabContentGridStyle}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="72*"/>
@@ -34,7 +34,7 @@
                         <ListView x:Name="listView" Grid.Row="2" Grid.Column="1"/>
                     </Grid>
                 </Frame>
-                <Frame Grid.Row="7" Grid.Column="1" Style="{DynamicResource MainPageTabStyle}" Padding="{DynamicResource ZeroPadding}">
+                <Frame Grid.Row="7" Grid.Column="1" Style="{DynamicResource MainPageTabStyle}" Padding="0,0">
                     <Grid x:Name="tab2" Style="{DynamicResource MainPageTabContentGridStyle}" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="67*"/>
@@ -43,7 +43,7 @@
                             <ColumnDefinition Width="406*"/>
                             <ColumnDefinition Width="67*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="1" Grid.Column="1" Text="  My Account" Style="{DynamicResource MainPageAccountTabTitleStyle}"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="  My Account" Style="{DynamicResource MainPageAccountTabTitleStyle}" />
                         <Button x:Name="myProfile" Grid.Row="2" Grid.Column="1" Text="Profile"  Style="{DynamicResource MainPageAccountTabButtonStyle}}" />
                         <Button x:Name="mySettings" Grid.Row="2" Grid.Column="3" Text="Settings"  Style="{DynamicResource MainPageAccountTabButtonStyle}}" />
                         <Button x:Name="myContact" Grid.Row="4" Grid.Column="1" Text="Contact"  Style="{DynamicResource MainPageAccountTabButtonStyle}}" />

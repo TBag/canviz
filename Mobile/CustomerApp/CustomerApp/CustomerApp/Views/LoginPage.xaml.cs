@@ -18,26 +18,39 @@ namespace CustomerApp
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
 
+            if(Device.OS == TargetPlatform.iOS)
+            {
+                InitGridView();
+            }
             SizeChanged += OnPageSizeChanged;
 
         }
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
-            try
-            {
-                // Look for existing user
-                var result = await App.PCApplication.AcquireTokenSilentAsync(App.Scopes);
-                await MobileServiceHelper.msInstance.InitMobileService(result);
-                await Navigation.PushAsync(new MainPage(result));
-            }
-            catch(Exception ex)
-            {
-                // Do nothing - the user isn't logged in
-                Utils.TraceException("LoginPage OnAppearing", ex);
-            }
             base.OnAppearing();
+            if (Device.OS == TargetPlatform.Android){
+                InitGridView();
+            }
 
-            InitGridView();
+            //try
+            //{
+            //    // Look for existing user
+            //    var result = await App.PCApplication.AcquireTokenSilentAsync(Settings.Scopes);
+            //    await MobileServiceHelper.msInstance.InitMobileService(result);
+            //    if (Settings.MTCWebUrl.Length > 0){
+            //        await Navigation.PushAsync(new MainPage(result));
+            //    }
+            //    else {
+            //        //await DisplayAlert("Configuration Error", "Invalid URI entered", "OK");
+            //    }
+                
+            //}
+            //catch(Exception ex)
+            //{
+            //    // Do nothing - the user isn't logged in
+            //    Utils.TraceException("LoginPage OnAppearing", ex);
+            //}
+
         }
 
         private void OnPageSizeChanged(object sender, EventArgs args)
@@ -49,29 +62,33 @@ namespace CustomerApp
         {
             if (mainPageGrid.RowDefinitions.Count == 0)
             {
-                Display.SetGridRowsStarHeight(mainPageGrid, new int[] { 22 });
-                Display.SetGridRowsHeight(mainPageGrid, new int[] { 300 });
-                Display.SetGridRowsStarHeight(mainPageGrid, new int[] { 35 });
-                Display.SetGridRowsHeight(mainPageGrid, new int[] { 90 });
-                Display.SetGridRowsStarHeight(mainPageGrid, new int[] { 43 });
+                Display.SetGridRowsHeight(mainPageGrid, new string[] { "25*", "300", "40*", "90", "40" ,"90", "35*" });
             }
 
         }
 
+        private void OnSettingsButtonClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new SettingsPage(), false);
+        }
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
+            if (!Settings.CheckAllConfigure())
+            {
+                await DisplayAlert("Configuration", "Please go to settings page and configure, then Sigin In again.", "OK");
+            }
             try
             {
                 using (var scope = new ActivityIndicatorScope(activityIndicator, activityIndicatorPanel, true))
                 {
                     var result = await App.PCApplication.AcquireTokenAsync(
-                                App.Scopes,
+                                Settings.Scopes,
                                 string.Empty,
                                 UiOptions.SelectAccount,
                                 string.Empty,
                                 null,
-                                App.Authority,
-                                App.SignUpSignInpolicy);
+                                Settings.Authority,
+                                Settings.SignUpSignInpolicy);
                     await MobileServiceHelper.msInstance.InitMobileService(result);
                     await Navigation.PushAsync(new MainPage(result));
                 }

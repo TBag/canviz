@@ -49,21 +49,11 @@ namespace CustomerApp
                 listView.RowHeight = Display.Convert(140);
 
                 //android has status bar
-                Display.SetGridRowHeight(mainPageGrid, 10, 0.5);
-                int[] rowsHeight = new int[] { 90, 234, 90, 48, 392, 30, 380, 30};
-                Display.SetGridRowsHeight(mainPageGrid, rowsHeight);
-                Display.SetGridRowsStarHeight(mainPageGrid, new int[] { 1 });
+                Display.SetGridRowHeightByDevice(mainPageGrid, 10, 1);
+                Display.SetGridRowsHeight(mainPageGrid, new string[] { "90", "234", "90", "48", "392", "30", "380", "30", "1*" });
 
-
-                Display.SetGridRowsHeight(tab1, new int[] { 40, 54});
-                Display.SetGridRowsStarHeight(tab1, new int[] { 1 });
-                Display.SetGridRowsHeight(tab1, new int[] { 16 });
-
-                Display.SetGridRowsHeight(tab2, new int[] { 20, 94 });
-                Display.SetGridRowsStarHeight(tab2, new int[] { 1 });
-                Display.SetGridRowsHeight(tab2, new int[] { 30});
-                Display.SetGridRowsStarHeight(tab2, new int[] { 1 });
-                Display.SetGridRowsHeight(tab2, new int[] { 50 });
+                Display.SetGridRowsHeight(tab1, new string[] { "40", "54", "1*", "16" });
+                Display.SetGridRowsHeight(tab2, new string[] { "20", "94", "1*", "30", "1*", "50" });
             }
 
         }
@@ -114,7 +104,7 @@ namespace CustomerApp
         }
         private async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
-            App.PCApplication.UserTokenCache.Clear(App.ClientID);
+            App.PCApplication.UserTokenCache.Clear(Settings.ClientID);
             await Navigation.PopAsync();
         }
         private async void OnNewClaimButtonClicked(object sender, EventArgs e)

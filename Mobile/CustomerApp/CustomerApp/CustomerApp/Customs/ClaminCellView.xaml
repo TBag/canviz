@@ -3,24 +3,13 @@
     <ContentView.Content>
         <StackLayout x:Name="cellStackLayout" Spacing="0">
             <Grid x:Name="claimCellContentGrid" Style="{DynamicResource ClaimCellContentGridStyle}">
-                <!--<Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="94*"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource MainPageClaminIndexLabelStyle}"  Text="{Binding Index}"/>
-                <Frame Grid.Row="1" Grid.Column="1" Style="{DynamicResource MainPageClaimFrameStyle}" BackgroundColor="{Binding Bkcolor}">
+                <Frame Grid.Row="1" Grid.Column="1" Style="{DynamicResource MainPageClaimFrameStyle}" BackgroundColor="{Binding Bkcolor}" Padding="0,0">
                     <Grid x:Name="claimCellFrameGrid" Style="{DynamicResource ClaimCellFrameGridStyle}">
-                        <!--<Grid.RowDefinitions>
-                            <RowDefinition Height="4"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="4"/>
-                        </Grid.RowDefinitions>-->
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="35*"/>
                             <ColumnDefinition Width="649*"/>

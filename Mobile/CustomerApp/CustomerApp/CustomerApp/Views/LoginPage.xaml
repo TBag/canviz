@@ -28,6 +28,14 @@
                     </Grid.ColumnDefinitions>
                     <Button x:Name="loginButton" Grid.Column="1" Text="Sign up or Sign in" Style="{DynamicResource LoginButtonStyle}" Clicked="OnLoginButtonClicked"/>
                 </Grid>
+                <Grid Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="13*"/>
+                        <ColumnDefinition Width="74*"/>
+                        <ColumnDefinition Width="13*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="settingsButton" Grid.Column="1" Text="Settings" Style="{DynamicResource LoginButtonStyle}" Clicked="OnSettingsButtonClicked"/>
+                </Grid>
             </Grid>
             <StackLayout x:Name="activityIndicatorPanel" IsVisible="False" AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All">

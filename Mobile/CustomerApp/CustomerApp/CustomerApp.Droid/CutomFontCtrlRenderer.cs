@@ -16,8 +16,9 @@ namespace CustomerApp.Droid
             base.OnElementChanged(e);
 
             if (!string.IsNullOrEmpty(e.NewElement?.FontFamily) &&(e.NewElement.FontFamily.Equals("Karla-Regular")
-                    || e.NewElement.FontFamily.Equals("Poppins-Bold")
-                    || e.NewElement.FontFamily.Equals("Poppins-Regular")))
+                || e.NewElement.FontFamily.Equals("Karla-Bold")
+                || e.NewElement.FontFamily.Equals("Poppins-Bold")
+                || e.NewElement.FontFamily.Equals("Poppins-Regular")))
             {
                 var font = Typeface.CreateFromAsset(Forms.Context.ApplicationContext.Assets, e.NewElement?.FontFamily+".ttf");
 

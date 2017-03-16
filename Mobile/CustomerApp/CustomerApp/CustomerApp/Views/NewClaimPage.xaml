@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:CustomerApp;assembly=PropertyInsurance"
-             x:Class="CustomerApp.NewClaimPage">
+             x:Class="CustomerApp.NewClaimPage"
+             Title="New Claim">
     <ScrollView>
         <AbsoluteLayout>
             <Grid  x:Name="newClaimPageGrid"  BackgroundColor="#2b3151" AbsoluteLayout.LayoutBounds="0,0,1,1" 
@@ -14,24 +15,10 @@
                     <ColumnDefinition Width="92*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
-
-                <!--<Grid.RowDefinitions>
-                    <RowDefinition Height="15"/>
-                    <RowDefinition Height="28*"/>
-                    <RowDefinition Height="60*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="7*"/>
-                    <RowDefinition Height="3*"/>
-                </Grid.RowDefinitions>-->
+                
                 <Frame Grid.Row="1" Grid.Column="1" Style="{DynamicResource NewClaimPageTab1Style}" Padding="0,0">
-                    <StackLayout Spacing="0" Margin="0,0">
-                        <Grid x:Name="cameraImageGrid" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0"  >
-                            <!--<Grid.RowDefinitions>
-                                <RowDefinition Height="28*"/>
-                                <RowDefinition Height="30*"/>
-                                <RowDefinition Height="23*"/>
-                                <RowDefinition Height="19*"/>
-                            </Grid.RowDefinitions>-->
+                    <StackLayout Spacing="0">
+                        <Grid x:Name="cameraImageGrid" RowSpacing="0" ColumnSpacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  >
                             <Image x:Name="cameraImage" Grid.Row="1" Source="Camera.png" Aspect="AspectFit"/>
                             <Label Text="Tap to add a photo" Grid.Row="2"  Style="{DynamicResource NewClaminPageHintLabelStyle}" />
                             <Grid.GestureRecognizers>
@@ -40,20 +27,9 @@
                         </Grid>
                     </StackLayout>
                 </Frame>
-                <Frame x:Name="tab2Frame" Grid.Row="2" Grid.Column="1" Style="{DynamicResource NewClaimPageTab2Style}">
-                    <StackLayout Spacing="0" Margin="0,0">
-                        <Grid x:Name="tab2ContentGrid" RowSpacing="0" ColumnSpacing="0" VerticalOptions="FillAndExpand">
-                            <!--<Grid.RowDefinitions>
-                                <RowDefinition Height="28"/>
-                                <RowDefinition Height="77"/>
-                                <RowDefinition Height="42"/>
-                                <RowDefinition Height="49"/>
-                                <RowDefinition Height="2"/>
-                                <RowDefinition Height="28"/>
-                                <RowDefinition Height="56"/>
-                                <RowDefinition Height="392"/>
-                                <RowDefinition Height="28"/>
-                            </Grid.RowDefinitions>-->
+                <Frame x:Name="tab2Frame" Grid.Row="2" Grid.Column="1" Style="{DynamicResource NewClaimPageTab2Style}" Padding="0,0">
+                    <StackLayout Spacing="0">
+                        <Grid x:Name="tab2ContentGrid" RowSpacing="0" ColumnSpacing="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="5*"/>
                                 <ColumnDefinition Width="90*"/>
@@ -67,15 +43,15 @@
                                     <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="2"/>
                                 </Grid.ColumnDefinitions>
-                                <Label x:Name="newClaimDate" Text="March 4th 2017"  Grid.Column="0" Style="{DynamicResource NewClaminPageDateEntryStyle}"/>
-                                <Image x:Name="calendarImage" Grid.Column="1" Source="Calendar.png" VerticalOptions="CenterAndExpand"/>
+                                <Label x:Name="newClaimDate" Grid.Column="0" Text="March 4th 2017" Style="{DynamicResource NewClaminPageDateEntryStyle}"/>
+                                <Image x:Name="calendarImage" Grid.Column="1" Source="Calendar.png" Aspect="AspectFit" VerticalOptions="CenterAndExpand"/>
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="CalendarBtn_Tapped" />
                                 </Grid.GestureRecognizers>
                             </Grid>
-                            <BoxView BackgroundColor="#b9dcec" Grid.Row="4" Grid.Column="1"/>
+                            <BoxView Grid.Row="4" Grid.Column="1" BackgroundColor="#b9dcec"/>
                             <Label Text="Description" Grid.Row="6" Grid.Column="1"  Style="{DynamicResource NewClaminPageTitle2LabelStyle}" />
-                            <StackLayout x:Name="claimDescriptionStackLayout" Grid.Row="7" Grid.Column="1" BackgroundColor="#b9dcec" Spacing="0" Padding="2,2">
+                            <StackLayout Grid.Row="7" Grid.Column="1" BackgroundColor="#b9dcec" Spacing="0" Padding="2,2">
                                 <Editor BackgroundColor="White" x:Name="claimDescriptionEditor" Style="{DynamicResource NewClaimDescriptionStyle}" Text="Our city was hit by an intense rainstorm on Sunday afternoon and our drainage pipe backed up.  As a result, over a foot of water flooded our home, causing extensive damage to the floors as well as some furniture."/>
                             </StackLayout>
                         </Grid>

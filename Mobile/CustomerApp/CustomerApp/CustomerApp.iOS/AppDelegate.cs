@@ -21,7 +21,7 @@ namespace CustomerApp.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
-        private string HOCKEYAPP_APPID = Utils.MobileHockeyAppIdiOS;
+        private string HOCKEYAPP_APPID = Settings.MobileHockeyAppIdiOS;
         private static NSData DeviceToken { get;  set; }
         public static bool IsAfterInitClient = false;
         //

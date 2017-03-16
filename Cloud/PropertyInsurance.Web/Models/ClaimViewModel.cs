@@ -9,6 +9,7 @@ namespace PropertyInsurance.Web.Models
     {
         public int Id { get; set;}
         public int RatePercent { get; set; }
+        public string Payout { get; set; }
         public string Status { get; set;}
         public string Date { get; set;}
         public string Description { get; set; }

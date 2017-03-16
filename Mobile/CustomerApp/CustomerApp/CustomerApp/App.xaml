@@ -4,39 +4,64 @@
              x:Class="CustomerApp.App">
     <Application.Resources>
         <ResourceDictionary>
-            <Thickness x:Key="ZeroPadding">0</Thickness>
-            <!--<Thickness x:Key="UpMargin">0, -20, 0, 0</Thickness>-->
-            <Thickness x:Key="FrameContentMargin">-20, -20</Thickness>
-            <Thickness x:Key="CameraImageContentMargin">-15, -15</Thickness>
-            <!--<Thickness x:Key="ClaimDetaiPagePadding">42, 20</Thickness>-->
-
+            
+            <!--Color-->
             <Color x:Key="Color1">#316186</Color>
             <Color x:Key="Color2">Transparent</Color>
             <Color x:Key="Color3">White</Color>
             <Color x:Key="Color4">#f4c86b</Color>
-            <Color x:Key="Color5">#65cad8</Color>
-            <Color x:Key="Color6">#989898</Color>
-            <Color x:Key="Color7">#b2b3b3</Color>
-            <Color x:Key="Color8">#e6e6e5</Color>
-            <Color x:Key="Color9">#28aae1</Color>
-            <Color x:Key="Color10">#374f73</Color>
-            <Color x:Key="Color11">#37577d</Color>
-            
+            <Color x:Key="Color5">#374f73</Color>
+            <Color x:Key="Color6">#37577d</Color>
 
-
+            <!--FontSize-->
             <OnPlatform x:TypeArguments="x:Double" Android="32" iOS="32" x:Key="Font1Size" />
             <OnPlatform x:TypeArguments="x:Double" Android="18" iOS="18" x:Key="Font2Size" />
             <OnPlatform x:TypeArguments="x:Double" Android="17" iOS="17" x:Key="Font3Size" />
             <OnPlatform x:TypeArguments="x:Double" Android="16" iOS="16" x:Key="Font4Size" />
-            <OnPlatform x:TypeArguments="x:Double" Android="15" iOS="15" x:Key="Font7Size" />
             <OnPlatform x:TypeArguments="x:Double" Android="14" iOS="14" x:Key="Font5Size" />
             <OnPlatform x:TypeArguments="x:Double" Android="13" iOS="13" x:Key="Font6Size" />
-            <OnPlatform x:TypeArguments="x:Double" Android="11" iOS="11" x:Key="Font8Size" />
+            <OnPlatform x:TypeArguments="x:Double" Android="15" iOS="15" x:Key="Font7Size" />
+            <OnPlatform x:TypeArguments="x:Double" Android="10" iOS="10" x:Key="Font8Size" />
 
-            <OnPlatform x:TypeArguments="x:String" iOS="Poppins" Android="Poppins" x:Key="PoppinsBoldFontFamily" />
+            <!--FontFamily-->
+            <OnPlatform x:TypeArguments="x:String" iOS="Poppins" Android="Poppins-Bold" x:Key="PoppinsBoldFontFamily" />
             <OnPlatform x:TypeArguments="x:String" iOS="Poppins-Regular" Android="Poppins-Regular" x:Key="PoppinsRegularFontFamily" />
-            <OnPlatform x:TypeArguments="x:String" iOS="Karla-Regular" Android="Poppins-Regular" x:Key="KarlaRegularFontFamily" />
+            <OnPlatform x:TypeArguments="x:String" iOS="Karla-Regular" Android="Karla-Regular" x:Key="KarlaRegularFontFamily" />
+            <OnPlatform x:TypeArguments="x:String" iOS="Karla-Bold" Android="Karla-Bold" x:Key="KarlaBoldFontFamily" />
 
+            <!--Button-->
+            <Style x:Key="LoginButtonStyle" TargetType="Button">
+                <Setter Property="FontFamily" Value="{DynamicResource PoppinsRegularFontFamily}" />
+                <Setter Property="FontSize" Value="{DynamicResource Font5Size}" />
+                <Setter Property="TextColor" Value="{DynamicResource Color3}"/>
+                <Setter Property="BackgroundColor" Value="#4495d1"/>
+                <Setter Property="BorderRadius" Value="22" />
+            </Style>
+            <Style x:Key="MainPageNewClaimButtonStyle" TargetType="Button">
+                <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
+                <Setter Property="FontSize" Value="{DynamicResource Font5Size}" />
+                <Setter Property="TextColor" Value="{DynamicResource Color6}"/>
+                <Setter Property="BorderRadius" Value="22" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource Color4}" />
+            </Style>
+            <Style x:Key="SubmitClaimButtonStyle" TargetType="Button">
+                <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
+                <Setter Property="FontSize" Value="{DynamicResource Font5Size}" />
+                <Setter Property="TextColor" Value="{DynamicResource Color3}"/>
+                <Setter Property="BorderRadius" Value="22" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource Color4}" />
+            </Style>
+            <Style x:Key="MainPageAccountTabButtonStyle" TargetType="Button">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
+                <Setter Property="FontSize" Value="{DynamicResource Font5Size}" />
+                <Setter Property="TextColor" Value="{DynamicResource Color6}"/>
+                <Setter Property="BorderRadius" Value="22" />
+                <Setter Property="BackgroundColor" Value="#65cad8" />
+            </Style>
+
+            <!--Label-->
             <Style x:Key="PageTitleStyle" TargetType="Label" BaseResourceKey="ListItemDetailTextStyle">
                 <Setter Property="FontFamily" Value="{DynamicResource PoppinsBoldFontFamily}" />
                 <Setter Property="FontSize" Value="{DynamicResource Font2Size}" />
@@ -51,7 +76,6 @@
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
             </Style>
-            
             <Style x:Key="MainPageAccountTabTitleStyle" TargetType="Label" BaseResourceKey="ListItemDetailTextStyle">
                 <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
                 <Setter Property="FontSize" Value="{DynamicResource Font3Size}" />
@@ -59,17 +83,16 @@
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
             </Style>
-
             <Style x:Key="MainPageClaminIndexLabelStyle" TargetType="Label">
                 <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
                 <Setter Property="FontSize" Value="{DynamicResource Font5Size}" />
-                <Setter Property="TextColor" Value="{DynamicResource Color7}"/>
+                <Setter Property="TextColor" Value="#b2b3b3"/>
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
             </Style>
             <Style x:Key="MainPageClaminTitleLabelStyle" TargetType="Label">
-                <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
+                <Setter Property="FontFamily" Value="{DynamicResource KarlaBoldFontFamily}" />
                 <Setter Property="FontSize" Value="{DynamicResource Font8Size}" />
                 <Setter Property="TextColor" Value="{DynamicResource Color1}"/>
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
@@ -77,35 +100,15 @@
             </Style>
             <Style x:Key="MainPageClaminContentLabelStyle" TargetType="Label">
                 <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
-                <Setter Property="FontSize" Value="{DynamicResource Font6Size}" />
-                <Setter Property="TextColor" Value="{DynamicResource Color11}"/>
+                <Setter Property="FontSize" Value="{DynamicResource Font5Size}" />
+                <Setter Property="TextColor" Value="{DynamicResource Color6}"/>
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <Setter Property="VerticalTextAlignment" Value="Start" />
             </Style>
-
-            <Style x:Key="MainPageTabContentGridStyle" TargetType="Grid">
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="Margin" Value="{DynamicResource FrameContentMargin}" />
-                <Setter Property="RowSpacing" Value="0"/>
-                <Setter Property="ColumnSpacing" Value="0" />
-            </Style>
-            <Style x:Key="ClaimCellFrameGridStyle" TargetType="Grid">
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="Margin" Value="{DynamicResource FrameContentMargin}" />
-                <Setter Property="RowSpacing" Value="0"/>
-                <Setter Property="ColumnSpacing" Value="0" />
-            </Style>
-            <Style x:Key="ClaimCellContentGridStyle" TargetType="Grid">
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="RowSpacing" Value="0"/>
-                <Setter Property="ColumnSpacing" Value="0" />
-                <Setter Property="VerticalOptions" Value="FillAndExpand" />
-            </Style>
-            
             <Style x:Key="NewClaminPageHintLabelStyle" TargetType="Label">
                 <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
                 <Setter Property="FontSize" Value="{DynamicResource Font4Size}" />
-                <Setter Property="TextColor" Value="{DynamicResource Color6}"/>
+                <Setter Property="TextColor" Value="#989898"/>
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
             </Style>
@@ -133,69 +136,77 @@
             <Style x:Key="ClaimPageLabelTitleStyle" TargetType="Label" BaseResourceKey="ListItemDetailTextStyle">
                 <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
                 <Setter Property="FontSize" Value="{DynamicResource Font7Size}" />
-                <Setter Property="TextColor" Value="{DynamicResource Color9}"/>
+                <Setter Property="TextColor" Value="#28aae1"/>
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
             </Style>
             <Style x:Key="ClaimPageLabelStyle" TargetType="Label" BaseResourceKey="ListItemDetailTextStyle">
                 <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
                 <Setter Property="FontSize" Value="{DynamicResource Font2Size}" />
-                <Setter Property="TextColor" Value="{DynamicResource Color10}"/>
+                <Setter Property="TextColor" Value="{DynamicResource Color5}"/>
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
             </Style>
             <Style x:Key="ClaimPageDescripStyle" TargetType="Label" BaseResourceKey="ListItemDetailTextStyle">
                 <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
                 <Setter Property="FontSize" Value="{DynamicResource Font2Size}" />
-                <Setter Property="TextColor" Value="{DynamicResource Color10}"/>
+                <Setter Property="TextColor" Value="{DynamicResource Color5}"/>
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <Setter Property="VerticalTextAlignment" Value="Start" />
             </Style>
+            <Style x:Key="SettingsPageTitleLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
+                <Setter Property="FontSize" Value="{DynamicResource Font6Size}" />
+                <Setter Property="TextColor" Value="#28aae1"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
+
+            <!--Grid-->
+            <Style x:Key="MainPageTabContentGridStyle" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="RowSpacing" Value="0"/>
+                <Setter Property="ColumnSpacing" Value="0" />
+            </Style>
+            <Style x:Key="ClaimCellFrameGridStyle" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="RowSpacing" Value="0"/>
+                <Setter Property="ColumnSpacing" Value="0" />
+            </Style>
+            <Style x:Key="ClaimCellContentGridStyle" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="RowSpacing" Value="0"/>
+                <Setter Property="ColumnSpacing" Value="0" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            </Style>
+
+            <!--Editor-->
             <Style x:Key="NewClaimDescriptionStyle" TargetType="Editor">
                 <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
                 <Setter Property="FontSize" Value="{DynamicResource Font4Size}" />
                 <Setter Property="TextColor" Value="#374f73"/>
                 <Setter Property="VerticalOptions" Value="FillAndExpand" />
             </Style>
-            <Style x:Key="LoginButtonStyle" TargetType="Button">
-                <Setter Property="FontFamily" Value="{DynamicResource PoppinsRegularFontFamily}" />
-                <Setter Property="FontSize" Value="{DynamicResource Font5Size}" />
-                <Setter Property="TextColor" Value="{DynamicResource Color3}"/>
-                <Setter Property="BackgroundColor" Value="#4495d1"/>
-                <Setter Property="BorderRadius" Value="22" />
-            </Style>
-            <Style x:Key="MainPageNewClaimButtonStyle" TargetType="Button">
+            <!--Entry-->
+            <Style x:Key="SettingEntryStyle" TargetType="Entry">
                 <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
-                <Setter Property="FontSize" Value="{DynamicResource Font5Size}" />
-                <Setter Property="TextColor" Value="{DynamicResource Color11}"/>
-                <Setter Property="BorderRadius" Value="22" />
-                <Setter Property="BackgroundColor" Value="{DynamicResource Color4}" />
-            </Style>
-            <Style x:Key="SubmitClaimButtonStyle" TargetType="Button">
-                <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
-                <Setter Property="FontSize" Value="{DynamicResource Font5Size}" />
-                <Setter Property="TextColor" Value="{DynamicResource Color3}"/>
-                <Setter Property="BorderRadius" Value="22" />
-                <Setter Property="BackgroundColor" Value="{DynamicResource Color4}" />
-            </Style>
-            <Style x:Key="MainPageAccountTabButtonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="{DynamicResource Font4Size}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource Color3}"/>
+                <Setter Property="TextColor" Value="#374f73"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
-                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-                <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
-                <Setter Property="FontSize" Value="{DynamicResource Font5Size}" />
-                <Setter Property="TextColor" Value="{DynamicResource Color11}"/>
-                <Setter Property="BorderRadius" Value="22" />
-                <Setter Property="BackgroundColor" Value="{DynamicResource Color5}" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
             </Style>
+            <!--Frame-->
             <Style x:Key="MainPageTabStyle" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="{DynamicResource Color3}" />
                 <Setter Property="HasShadow" Value="False" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource Color3}" />
                 <Setter Property="OutlineColor" Value="{DynamicResource Color2}" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                 <Setter Property="VerticalOptions" Value="FillAndExpand" />
             </Style>
             <Style x:Key="NewClaimPageTab1Style" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="{DynamicResource Color8}" />
+                <Setter Property="BackgroundColor" Value="#e6e6e5" />
                 <Setter Property="HasShadow" Value="False" />
                 <Setter Property="OutlineColor" Value="{DynamicResource Color2}" />
             </Style>
@@ -203,7 +214,6 @@
                 <Setter Property="BackgroundColor" Value="{DynamicResource Color3}" />
                 <Setter Property="HasShadow" Value="False" />
                 <Setter Property="OutlineColor" Value="{DynamicResource Color2}" />
-                <!--<Setter Property="Margin" Value="{DynamicResource UpMargin}"/>-->
             </Style>
             <Style x:Key="MainPageClaimFrameStyle" TargetType="Frame">
                 <Setter Property="BackgroundColor" Value="{DynamicResource Color3}" />

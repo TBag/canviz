@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json.Linq;
 using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 
@@ -17,32 +12,26 @@ namespace CustomerApp
 {
     public partial class NewClaimPage : ContentPage
     {
-
-        //to do
         private MediaFile _mediaFile = null;
-        private AuthenticationResult authenticationResult;
+        private AuthenticationResult _authenticationResult;
         private string _dateFormatter = "MMMM dd, yyyy";
+        private MainPage _parentPage;
 
-        private MainPage parent;
-        public NewClaimPage(AuthenticationResult result, MainPage parent)
+        public NewClaimPage(AuthenticationResult result, MainPage parentpage)
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, true);
-            this.Title = @"New Claim";
 
+            datePicker.DateSelected += DatePicker_DateSelected;
+            datePicker.MaximumDate = DateTime.Now;
+            datePicker.MinimumDate = new DateTime(2000, 1, 1);
+            datePicker.Format = _dateFormatter;
+            datePicker.IsVisible = false;
 
-            this.datePicker.DateSelected += DatePicker_DateSelected;
-            this.datePicker.MaximumDate = DateTime.Now;
-            this.datePicker.MinimumDate = new DateTime(2000, 1, 1);
-            this.datePicker.Format = _dateFormatter;
-            this.datePicker.IsVisible = false;
+            newClaimDate.Text = datePicker.Date.ToString(_dateFormatter);
 
-            this.newClaimDate.IsEnabled = false;
-            this.newClaimDate.Text = datePicker.Date.ToString(_dateFormatter);
-
-
-            this.authenticationResult = result;
-            this.parent = parent;
+            _authenticationResult = result;
+            _parentPage = parentpage;
 
             InitGridView();
         }
@@ -50,17 +39,10 @@ namespace CustomerApp
         {
             if (newClaimPageGrid.RowDefinitions.Count == 0)
             {
-                Display.SetGridRowsHeight(newClaimPageGrid, new int[] { 30, 340, 700, 20, 90, 30});
-                Display.SetGridRowsStarHeight(newClaimPageGrid, new int[] { 1 });
+                Display.SetGridRowsHeight(newClaimPageGrid, new string[] { "30", "340", "700", "20", "90", "30", "1*" });
+                Display.SetGridRowsHeight(cameraImageGrid, new string[] { "90", "90", "84", "1*" });
+                Display.SetGridRowsHeight(tab2ContentGrid, new string[] { "16", "100", "30", "60", "4", "34", "50", "350", "50", "1*" });
                 tab2Frame.Margin = new Thickness(0, Display.Convert(-40), 0, 0);
-
-                
-                Display.SetGridRowsHeight(cameraImageGrid, new int[] { 90, 90, 84 });
-                Display.SetGridRowsStarHeight(cameraImageGrid, new int[] { 1});
-
-                Display.SetGridRowsHeight(tab2ContentGrid, new int[] { 16, 100, 30, 60,  4, 34, 50, 350, 50});
-                Display.SetGridRowsStarHeight(tab2ContentGrid, new int[] { 1 });
-
                 claimDescriptionEditor.HeightRequest = Display.Convert(340);
             }
 
@@ -72,23 +54,10 @@ namespace CustomerApp
                 if (_mediaFile != null) {
                     using (var scope = new ActivityIndicatorScope(activityIndicator, activityIndicatorPanel, true))
                     {
-                        HttpClient client = new HttpClient();
-                        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://propertyinsuranceapi.azurewebsites.net/api/UploadIncidentPicture");
-
-                        request.Headers.Add("ZUMO-API-VERSION", "2.0.0");
-                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", authenticationResult.Token);
-                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                        StreamContent content = new StreamContent(_mediaFile.GetStream());
-                        content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-                        var formData = new MultipartFormDataContent();
-                        formData.Add(content, "Image", "Image.jpg");
-                        request.Content = formData;
-
-                        HttpResponseMessage response = await client.SendAsync(request);
+                        HttpResponseMessage response = await HttpUtil.PostImageAsync(_mediaFile, Settings.UploadImageUrl, _authenticationResult.Token);
                         if (response.IsSuccessStatusCode)
                         {
-                            String responseURL = await response.Content.ReadAsStringAsync();
+                            string responseURL = await response.Content.ReadAsStringAsync();
                             char[] charsToTrim = { '\"'};
                             responseURL = responseURL.Trim(charsToTrim);
 
@@ -108,7 +77,7 @@ namespace CustomerApp
                             SubmitCaseRsp ret = await CallQueue(claim);
                             if (ret!=null &&  ret.result)
                             {
-                                parent.AddNewClaim(claim);
+                                _parentPage.AddNewClaim(claim);
                                 await DisplayAlert("Success", "Claim successfully submitted.", "Ok");
                                 await Navigation.PopAsync();
                             }
@@ -132,34 +101,18 @@ namespace CustomerApp
 
                     }
                 }
-                
             }
             catch (Exception ex)
             {
-
+                Utils.TraceException("Image upload failed", ex);
                 await DisplayAlert("Image upload failed", "Image upload failed. Please try again later", "Ok");
             }
         }
 
         private async Task<SubmitCaseRsp> CallQueue(ClaimModel claim)
         {
-
-            HttpClient client = new HttpClient();
-
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://propertyinsuranceapi.azurewebsites.net/api/SubmitCaseForProcessing");
-            request.Headers.Add("ZUMO-API-VERSION", "2.0.0");
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", this.authenticationResult.Token);
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-
             string json = JsonConvert.SerializeObject(claim);
-
-            var Content = new StringContent(json);
-            Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            request.Content = Content;
-
-            HttpResponseMessage response = await client.SendAsync(request);
-
+            HttpResponseMessage response = await HttpUtil.PostJsonAsync(json, Settings.QueueUrl, _authenticationResult.Token);
             if (response.IsSuccessStatusCode)
             {
                 string responseStr = await response.Content.ReadAsStringAsync();
@@ -221,7 +174,7 @@ namespace CustomerApp
             }
             catch (Exception ex)
             {
-              
+                Utils.TraceException("CameraBtn_Tapped ", ex);
                 await DisplayAlert("Image upload failed", "Image upload failed. Please try again later", "Ok");
             }
         }

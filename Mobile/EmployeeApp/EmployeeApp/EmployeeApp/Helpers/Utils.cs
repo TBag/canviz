@@ -174,19 +174,19 @@ namespace EmployeeApp
             public List<MTC> mtcs { set; get; }
         }
 
-        private static string MtcsjsonUrl = "https://propertyinsurancestorage.blob.core.windows.net/public/mtcs.json";
-        private static string ImageContainerUrl = "http://propertyinsurancestorage.blob.core.windows.net/pictureblobcontainer/";
+        //private static string MtcsjsonUrl = "https://propertyinsurancestorage.blob.core.windows.net/public/mtcs.json";
+        //private static string ImageContainerUrl = "http://propertyinsurancestorage.blob.core.windows.net/pictureblobcontainer/";
 
         public static async Task<string> GetUserClaimURL(string email)
         {
             HttpClient client = new HttpClient();    
-            string content = await client.GetStringAsync(MtcsjsonUrl);
+            string content = await client.GetStringAsync(Settings.MtcsjsonUrl);
             content = content.Replace("\r\n", "");
             MTCS value = JsonConvert.DeserializeObject<MTCS>(content);
             var mtc = value.mtcs.Find(i => i.adjuster.email.Equals(email));
             if (mtc!= null && mtc.name.Length > 0)
             {
-                string imageUrl = ImageContainerUrl + mtc.name + "_Image.jpg";
+                string imageUrl = Settings.ImageContainerUrl + mtc.name + "_Image.jpg";
                 Utils.TraceStatus(imageUrl);
                 return imageUrl;
             }

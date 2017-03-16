@@ -14,6 +14,7 @@
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
+		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>MinimumOSVersion</key>
@@ -44,6 +45,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Fonts/Karla-Regular.ttf</string>
+    <string>Fonts/Karla-Bold.ttf</string>
 		<string>Fonts/Poppins-Bold.ttf</string>
 		<string>Fonts/Poppins-Regular.ttf</string>
 	</array>

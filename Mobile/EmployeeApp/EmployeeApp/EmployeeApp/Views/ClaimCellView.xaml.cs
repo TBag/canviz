@@ -16,12 +16,11 @@ namespace EmployeeApp
 
             cellStackLayout.HeightRequest = Display.Convert(96);
 
-            Display.SetGridRowsStarHeight(claimCellGrid, new int[] { 1 });
-            Display.SetGridRowsHeight(claimCellGrid, new int[] { 12});
+            Display.SetGridRowsHeight(claimCellGrid, new string[] {"1*", "12"});
 
             claimCellContentGrid.Padding = new Thickness(Display.Convert(24), 0);
 
-            Display.SetGridRowsStarHeight(newClaimButtonGrid, new int[] { 10, 22, 10 });
+            Display.SetGridRowsHeight(newClaimButtonGrid, new string[] { "10*", "22*", "10*" });
         }
     }
 }

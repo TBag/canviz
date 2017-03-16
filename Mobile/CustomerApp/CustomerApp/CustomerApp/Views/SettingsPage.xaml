@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CustomerApp.SettingsPage"
+             Title="Settings">
+
+    <ScrollView>
+        <AbsoluteLayout>
+            <Grid  x:Name="settingsPageGrid"  BackgroundColor="White" AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                  AbsoluteLayout.LayoutFlags="All"
+                  RowSpacing="0" ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="92*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="1" Style="{DynamicResource SettingsPageTitleLabelStyle}"  Text="MTCs Data URL"/>
+                <Entry Grid.Row="2" Grid.Column="1" x:Name="webApiURL" Style="{DynamicResource SettingEntryStyle}"/>
+
+                <Label Grid.Row="3" Grid.Column="1" Style="{DynamicResource SettingsPageTitleLabelStyle}"  Text="Tenant"/>
+                <Entry Grid.Row="5" Grid.Column="1" x:Name="tenant" Style="{DynamicResource SettingEntryStyle}"/>
+
+                <Label Grid.Row="6" Grid.Column="1" Style="{DynamicResource SettingsPageTitleLabelStyle}"  Text="Client ID"/>
+                <Entry Grid.Row="8" Grid.Column="1" x:Name="clientId" Style="{DynamicResource SettingEntryStyle}"/>
+
+                <Label Grid.Row="9" Grid.Column="1" Style="{DynamicResource SettingsPageTitleLabelStyle}"  Text="Sign-up or sign-in policy"/>
+                <Entry Grid.Row="11" Grid.Column="1" x:Name="signUpSignInpolicy" Style="{DynamicResource SettingEntryStyle}"/>
+            </Grid>
+        </AbsoluteLayout>
+    </ScrollView>
+</ContentPage>

@@ -46,7 +46,7 @@ namespace PropertyInsurance.Web.Utils
                 Id = 1201707,
                 RatePercent = 95,
                 Status = "Pending",
-                Date = "03/04/2017 2:35PM",
+                Date = DateTime.Now.ToString("MM/dd/yyyy hh:mmtt"),
                 Description = "Our city was hit by an intense rainstorm on Sunday afternoon and our drainage pipe backed up. As a result, over a foot of water flooded our home, causing extensive damage to the floors as well as some furniture.",
                 PolicyHolder = new PolicyHolder()
                 {
@@ -63,21 +63,24 @@ namespace PropertyInsurance.Web.Utils
                 new ClaimViewModel()
                 {
                     Id = 1201707,
-                    RatePercent= 80,
-                    Status = "Approved",
-                    Date = "September 28, 2015",
+                    RatePercent = 95,
+                    Payout = "6,705.82",
+                    Status = "Pending",
+                    Date = DateTime.Now.ToString("MMMM dd, yyyy")
                 },
                 new ClaimViewModel()
                 {
                     Id = 1141698,
-                    RatePercent= 80,
+                    RatePercent = 80,
+                    Payout = "11,223.70",
                     Status = "Approved",
                     Date = "April 3, 2007",
                 },
                 new ClaimViewModel()
                 {
                     Id = 1021710,
-                    RatePercent= 80,
+                    RatePercent = 80,
+                    Payout = "1,354.22",
                     Status = "Approved",
                     Date = "June 19, 2004",
                 }

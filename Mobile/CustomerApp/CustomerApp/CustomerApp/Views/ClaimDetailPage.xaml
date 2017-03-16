@@ -10,25 +10,12 @@
                   AbsoluteLayout.LayoutFlags="All"
                   RowSpacing="0" ColumnSpacing="0">
 
-                <!--<Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="10"/>
-                    <RowDefinition Height="27"/>
-                    <RowDefinition Height="88"/>
-                    <RowDefinition Height="15"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="27"/>
-                    <RowDefinition Height="18"/>
-                    <RowDefinition Height="22"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="80*"/>
                     <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Label Grid.Row="0" Grid.Column="1" Style="{DynamicResource ClaimPageLabelTitleStyle}"  Text="Status"/>
                 <Label Grid.Row="1" Grid.Column="1" Style="{DynamicResource ClaimPageLabelStyle}"  Text="{Binding Status}" />
                 <Label Grid.Row="3" Grid.Column="1" Style="{DynamicResource ClaimPageLabelTitleStyle}"  Text="Claim Photos"/>
@@ -40,23 +27,4 @@
             </Grid>
         </AbsoluteLayout>
     </ScrollView>
-    
-    <!--<StackLayout Padding="{DynamicResource ClaimDetaiPagePadding}" Spacing="0" BackgroundColor="White">
-        <Grid RowSpacing="0" ColumnSpacing="0" VerticalOptions="FillAndExpand" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="23"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="88"/>
-                <RowDefinition Height="15"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="18"/>
-                <RowDefinition Height="22"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-        </Grid>
-    </StackLayout>-->
 </ContentPage>
