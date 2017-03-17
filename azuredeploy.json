@@ -107,8 +107,6 @@
     "workflowsApprovePictureName": "[concat(parameters('siteName'), 'ApprovePicture')]",
     "workflowsSendMailName": "[concat(parameters('siteName'), 'SendEmailNotification')]",
     "workflowsPushNotificationName": "[concat(parameters('siteName'), 'SendPushNotification')]",
-    "ApprovePictureTriggerUrl": "https://ApprovePictureTriggerUrl",
-    "SendPushNotificationTriggerUrl": "https://SendPushNotificationTriggerUrl",
     "office365ConnectionName": "[concat(variables('lowerSiteName'), '-office365')]",
     "azureBlobConnectionName": "[concat(variables('lowerSiteName'), '-azureBlob')]"
   },
@@ -246,6 +244,19 @@
           }
         },
         {
+          "name": "AllowAllExternalIps",
+          "type": "firewallrules",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"
+          ],
+          "properties": {
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "255.255.255.255"
+          }
+        },
+        {
           "name": "PropertyInsurance",
           "type": "databases",
           "location": "[resourceGroup().location]",
@@ -338,7 +349,8 @@
           "dependsOn": [
             "[resourceId('Microsoft.Web/sites/', variables('apiSiteName'))]",
             "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
-            "[resourceId('Microsoft.NotificationHubs/namespaces/notificationHubs/', variables('notificationHubNamespaceName'), variables('notificationHubName'))]"
+            "[resourceId('Microsoft.NotificationHubs/namespaces/notificationHubs/', variables('notificationHubNamespaceName'), variables('notificationHubName'))]",
+            "[resourceId('Microsoft.Logic/workflows/', variables('workflowsApprovePictureName'))]"
           ],
           "properties": {
             "MS_AzureStorageAccountConnectionString": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
@@ -346,7 +358,7 @@
             "MS_NotificationHubConnectionString": "[listkeys(resourceId('Microsoft.NotificationHubs/namespaces/notificationHubs/authorizationRules', variables('notificationHubNamespaceName'), variables('notificationHubName'), 'DefaultFullSharedAccessSignature'), '2014-09-01').primaryConnectionString]",
             "mtcsjsonUrl": "[variables('mtcsJsonUrl')]",
             "claimDetailsPageUrl": "[variables('claimDetailsPageBaseUrl')]",
-            "ApprovePictureLogicApp": "[variables('ApprovePictureTriggerUrl')]",
+            "ApprovePictureLogicApp": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', variables('workflowsApprovePictureName')), '/triggers/manual'), '2016-06-01').value]",
             "ida:Tenant": "[parameters('B2CDomainname')]",
             "ida:ClientId": "[parameters('B2CApplicationId')]",
             "ida:SusiPolicyId": "[parameters('SusiPolicyId')]",

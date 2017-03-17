@@ -1,21 +1,323 @@
 {
   "mtcs": [
     {
-      "name": "DEV ENV",
+      "name": "Atlanta",
       "customer": {
-        "firstName": "Tyler",
-        "lastName": "Demo",
-        "email": "tyler.demo@outlook.com"
+        "firstName": "",
+        "lastName": "",
+        "email": "Kerryc-exp@outlook.com"
       },
       "adjuster": {
-        "firstName": "Alisa",
-        "lastName": "Lawyer",
-        "email": "alisal@cand3.onmicrosoft.com"
+        "firstName": "Lynda",
+        "lastName": "Chaney",
+        "fullName": "Lynda Chaney",
+        "email": "lyndac@onemtc.net"
       },
       "manager": {
-        "firstName": "Chris",
-        "lastName": "Gray",
-        "email": "chrisg@cand3.onmicrosoft.com"
+        "firstName": "Lina",
+        "lastName": "Horton",
+        "fullName": "Lina Horton",
+        "email": "linah@onemtc.net"
+      }
+    },
+    {
+      "name": "Boston",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "BrianG-exp@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Annelie",
+        "lastName": "Zubar",
+        "fullName": "Annelie Zubar",
+        "email": "anneliz@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Magnus",
+        "lastName": "Hedlund",
+        "fullName": "Magnus Hedlund",
+        "email": "magnush@onemtc.net"
+      }
+    },
+    {
+      "name": "Chicago",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "mtcchi@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Luca",
+        "lastName": "Dellamore",
+        "fullName": "Luca Dellamore",
+        "email": "lucad@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Jill",
+        "lastName": "Frank",
+        "fullName": "Jill Frank",
+        "email": "jillf@onemtc.net"
+      }
+    },
+    {
+      "name": "Dallas",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "ClarkMWayne@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Dan",
+        "lastName": "Bacon",
+        "fullName": "Dan Bacon",
+        "email": "danb@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Mark",
+        "lastName": "Hanson",
+        "fullName": "Mark Hanson",
+        "email": "markh@onemtc.net"
+      }
+    },
+    {
+      "name": "Detroit",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "kyler-exp@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Humberto",
+        "lastName": "Acevedo",
+        "fullName": "Humberto Acevedo",
+        "email": "humbera@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Alisa",
+        "lastName": "Strong",
+        "fullName": "Alisa Strong",
+        "email": "alisas@onemtc.net"
+      }
+    },
+    {
+      "name": "Houston",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "stacic-exp@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Sara",
+        "lastName": "Henson",
+        "fullName": "Sara Henson",
+        "email": "sarah@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Tia",
+        "lastName": "Rivera",
+        "fullName": "Tia Rivera",
+        "email": "tiar@onemtc.net"
+      }
+    },
+    {
+      "name": "Irvine",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "Lisa.Samson@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Aamil",
+        "lastName": "Shammas",
+        "fullName": "Aamil Shammas",
+        "email": "aamils@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Lene",
+        "lastName": "Aalling",
+        "fullName": "Lene Aalling",
+        "email": "lenea@onemtc.net"
+      }
+    },
+    {
+      "name": "Minneapolis",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "mspuwp-exp@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Boyd",
+        "lastName": "Rincon",
+        "fullName": "Boyd Rincon",
+        "email": "boydr@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Lisa",
+        "lastName": "Miller",
+        "fullName": "Lisa Miller",
+        "email": "lisam@onemtc.net"
+      }
+    },
+    {
+      "name": "New York",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "JohnJ-exp@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Nicole",
+        "lastName": "Abrego",
+        "fullName": "Nicole Abrego",
+        "email": "nicolea@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Alexis",
+        "lastName": "Turner",
+        "fullName": "Alexis Turner",
+        "email": "alexist@onemtc.net"
+      }
+    },
+    {
+      "name": "Philadelphia",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "ScottG-exp@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Tabitha",
+        "lastName": "Pennington",
+        "fullName": "Tabitha Pennington",
+        "email": "tabithap@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Hester",
+        "lastName": "Hyde",
+        "fullName": "Hester Hyde",
+        "email": "hesterh@onemtc.net"
+      }
+    },
+    {
+      "name": "Reston",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "Pcoleman-exp@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Sarah",
+        "lastName": "Simmons",
+        "fullName": "Sarah Simmons",
+        "email": "sarahs@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Frank",
+        "lastName": "Miller",
+        "fullName": "Frank Miller",
+        "email": "frankmi@onemtc.net"
+      }
+    },
+    {
+      "name": "Seattle",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "Phyllispecksea@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Phyllis",
+        "lastName": "Peck",
+        "fullName": "Phyllis Peck",
+        "email": "phyllisp@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Syed",
+        "lastName": "Abbas",
+        "fullName": "Syed Abbas",
+        "email": "syeda@onemtc.net"
+      }
+    },
+    {
+      "name": "Singapore",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": ""
+      },
+      "adjuster": {
+        "firstName": "Cleveland",
+        "lastName": "McFarland",
+        "fullName": "Cleveland McFarland",
+        "email": "clevelandm@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Shi",
+        "lastName": "Song",
+        "fullName": "Shi Song",
+        "email": "shis@onemtc.net"
+      }
+    },
+    {
+      "name": "Silicon Valley",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "ModernAppSV@outlook.com"
+      },
+      "adjuster": {
+        "firstName": "Lucas",
+        "lastName": "Rodriguez",
+        "fullName": "Lucas Rodriguez",
+        "email": "lucasr@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Jeri",
+        "lastName": "Ball",
+        "fullName": "Jeri Ball",
+        "email": "jerib@onemtc.net"
+      }
+    },
+    {
+      "name": "St. Louis",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "N/A"
+      },
+      "adjuster": {
+        "firstName": "Grover",
+        "lastName": "Oswalt",
+        "fullName": "Grover Oswalt",
+        "email": "grovero@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Marla",
+        "lastName": "Weiss",
+        "fullName": "Marla Weiss",
+        "email": "marlaw@onemtc.net"
+      }
+    },
+    {
+      "name": "Tornoto",
+      "customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": ""
+      },
+      "adjuster": {
+        "firstName": "Patti",
+        "lastName": "Barnes",
+        "fullName": "Patti Barnes",
+        "email": "pattib@onemtc.net"
+      },
+      "manager": {
+        "firstName": "Darlene",
+        "lastName": "Rios",
+        "fullName": "Darlene Rios",
+        "email": "darlener@onemtc.net"
       }
     }
   ]

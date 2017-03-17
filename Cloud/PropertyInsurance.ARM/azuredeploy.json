@@ -244,6 +244,19 @@
           }
         },
         {
+          "name": "AllowAllExternalIps",
+          "type": "firewallrules",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"
+          ],
+          "properties": {
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "255.255.255.255"
+          }
+        },
+        {
           "name": "PropertyInsurance",
           "type": "databases",
           "location": "[resourceGroup().location]",
@@ -336,7 +349,8 @@
           "dependsOn": [
             "[resourceId('Microsoft.Web/sites/', variables('apiSiteName'))]",
             "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
-            "[resourceId('Microsoft.NotificationHubs/namespaces/notificationHubs/', variables('notificationHubNamespaceName'), variables('notificationHubName'))]"
+            "[resourceId('Microsoft.NotificationHubs/namespaces/notificationHubs/', variables('notificationHubNamespaceName'), variables('notificationHubName'))]",
+            "[resourceId('Microsoft.Logic/workflows/', variables('workflowsApprovePictureName'))]"
           ],
           "properties": {
             "MS_AzureStorageAccountConnectionString": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
