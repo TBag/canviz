@@ -21,14 +21,10 @@ namespace PropertyInsurance.Web.Utils
 
         public static readonly string AADInstance = "https://login.microsoftonline.com/";
 
-        public static string ResourceUrl = ConfigurationManager.AppSettings["ida:GraphUrl"];
+        public static string GraphResourceUrl = ConfigurationManager.AppSettings["ida:GraphUrl"];
         public const string GraphResourceRootUrl = "https://graph.microsoft.com/";
         public const string GraphResourceAADRootUrl = "https://graph.microsoft.net/";
-        public static string ConsentRedirectUrl
-        {
-            get { return AuthenticationHelper.GetWebRootUrl().ToString(); }
-        }
-
+  
         public static readonly string BingMapKey = ConfigurationManager.AppSettings["BingMapKey"];
 
         public static readonly string SourceCodeRepositoryUrl = ConfigurationManager.AppSettings["SourceCodeRepositoryUrl"];

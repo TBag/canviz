@@ -83,7 +83,7 @@ namespace CustomerApp
                 using (var scope = new ActivityIndicatorScope(activityIndicator, activityIndicatorPanel, true))
                 {
                     var result = await App.PCApplication.AcquireTokenAsync(
-                                Settings.Scopes,
+                                new string[]{ Settings.ClientID },
                                 string.Empty,
                                 UiOptions.SelectAccount,
                                 string.Empty,

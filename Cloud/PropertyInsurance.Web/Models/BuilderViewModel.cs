@@ -14,6 +14,7 @@ namespace PropertyInsurance.Web.Models
     {
         public string Name { get; set; }
         public int TotalNoProperties { get; set;}
+        public int PercentProperties { get; set; }
         public Risk Risk { get; set; }
     }
 }

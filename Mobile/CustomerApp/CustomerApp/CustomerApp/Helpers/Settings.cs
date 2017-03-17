@@ -70,13 +70,17 @@ namespace CustomerApp
             return MTCWebUrl.Length > 0 && ClientID.Length > 0 && SignUpSignInpolicy.Length > 0 && Tenant.Length > 0;
         }
 
-
-        public static string UploadImageUrl = MTCWebUrl + "/api/UploadIncidentPicture";
-        public static string QueueUrl = MTCWebUrl + "/api/SubmitCaseForProcessing";
-        public static string HubTagUrl = MTCWebUrl+ "/api/HubTag?InstallationId=";
+        public static string UploadImageUrl {
+            get { return MTCWebUrl + "/api/UploadIncidentPicture"; }
+        }
+        public static string QueueUrl{
+            get { return MTCWebUrl + "/api/SubmitCaseForProcessing"; }
+        }
+        public static string HubTagUrl{
+            get { return MTCWebUrl + "/api/HubTag?InstallationId="; }
+        }
 
         // app coordinates
-        public static string[] Scopes = { ClientID };
         public static string Authority = $"https://login.microsoftonline.com/{Tenant}/";
 
         /*Hockey App*/

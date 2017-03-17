@@ -225,7 +225,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\AuthenticationHelper.cs" />
-    <Compile Include="Utils\AuthorizationHelper.cs" />
     <Compile Include="Utils\BlobUtil.cs" />
     <Compile Include="Utils\ClaimUtil.cs" />
     <Compile Include="Utils\Constants.cs" />
@@ -276,6 +275,7 @@
     <Content Include="fonts\Karla-Italic.ttf" />
     <Content Include="fonts\Karla-Regular.ttf" />
     <Content Include="deploy.cmd" />
+    <None Include="Properties\PublishProfiles\PropertyInsurance - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\PropertyInsurance - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\claim.js" />

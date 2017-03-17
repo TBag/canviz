@@ -26,7 +26,7 @@ namespace PropertyInsurance.Web.Utils
         /// <returns>ActiveDirectoryClient for Application.</returns>
         public static ActiveDirectoryClient GetActiveDirectoryClient()
         {
-            Uri baseServiceUri = new Uri(Constants.ResourceUrl);
+            Uri baseServiceUri = new Uri(Constants.GraphResourceUrl);
             ActiveDirectoryClient activeDirectoryClient =
                 new ActiveDirectoryClient(new Uri(baseServiceUri, Constants.AADTenantId),
                     async () => await AcquireTokenAsync());
@@ -48,11 +48,6 @@ namespace PropertyInsurance.Web.Utils
             //return back to homepage
             HttpContext httpContext = HttpContext.Current;
             httpContext.Response.Redirect("~/home/index");
-        }
-
-        public static Uri GetWebRootUrl()
-        {
-            return new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path));
-        }
+        }        
     }
 }

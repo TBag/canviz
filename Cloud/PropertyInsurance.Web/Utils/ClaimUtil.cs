@@ -93,34 +93,39 @@ namespace PropertyInsurance.Web.Utils
             {
                 new BuilderViewModel()
                 {
+                    Name="Adatum Corporation",
+                    TotalNoProperties=4,
+                    PercentProperties=5,
+                    Risk = Risk.High
+                },
+                new BuilderViewModel()
+                {
                     Name="Fabrikam Inc.",
-                    TotalNoProperties=13,
+                    TotalNoProperties=43,
+                    PercentProperties=56,
                     Risk = Risk.Low
                 },
                 new BuilderViewModel()
                 {
                     Name="Fabrikam Residences",
-                    TotalNoProperties=24,
+                    TotalNoProperties=11,
+                    PercentProperties=14,
+                    Risk = Risk.High
+                },
+                new BuilderViewModel()
+                {
+                    Name="Proseware, Inc.",
+                    TotalNoProperties=0,
+                    PercentProperties=0,
                     Risk = Risk.Low
                 },
                 new BuilderViewModel()
                 {
                     Name="VanArsdel, Ltd.",
-                    TotalNoProperties=23,
+                    TotalNoProperties=19,
+                    PercentProperties=25,
                     Risk = Risk.Low
-                },
-                new BuilderViewModel()
-                {
-                    Name="Proseware, Inc.",
-                    TotalNoProperties=40,
-                    Risk = Risk.Low
-                },
-                new BuilderViewModel()
-                {
-                    Name="Adatum Corporation",
-                    TotalNoProperties=65,
-                    Risk = Risk.Low
-                },
+                }
             };
         }
 
