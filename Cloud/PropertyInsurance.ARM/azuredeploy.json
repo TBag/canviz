@@ -14,11 +14,12 @@
       "metadata": {
         "description": "The hosting service plan name that you wish to create."
       },
-      "defaultValue": "propertyinsurance"
+      "defaultValue": "PropertyInsurance"
     },
     "sqlserverAdminLogin": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "defaultValue": "PropertyInsuranceAdmin"
     },
     "sqlserverAdminLoginPassword": {
       "type": "securestring"
@@ -90,7 +91,7 @@
   "variables": {
     "location": "[resourceGroup().location]",
     "lowerSiteName": "[toLower(parameters('siteName'))]",
-    "nameSuffix": "[substring(uniqueString(resourceGroup().id), 0, 6)]",
+    "nameSuffix": "",
     "notificationHubName": "[concat(variables('lowerSiteName'), variables('nameSuffix'))]",
     "notificationHubNamespaceName": "[concat(variables('notificationHubName'), '-ns')]",
     "storageAccountName": "[concat(variables('lowerSiteName'), variables('nameSuffix'))]",

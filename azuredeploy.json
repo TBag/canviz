@@ -14,18 +14,19 @@
       "metadata": {
         "description": "The hosting service plan name that you wish to create."
       },
-      "defaultValue": "propertyinsurance"
+      "defaultValue": "PropertyInsurance"
     },
     "sqlserverAdminLogin": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "defaultValue": "PropertyInsuranceAdmin"
     },
     "sqlserverAdminLoginPassword": {
       "type": "securestring"
     },
     "sourceCodeRepositoryURL": {
       "type": "string",
-      "defaultValue": "https://github.com/CanvizTheodoreShi/PropertyInsurance",
+      "defaultValue": "",
       "metadata": {
         "description": "Source code repository URL"
       }
@@ -46,29 +47,51 @@
     },
     "B2CDomainname": {
       "type": "string",
-      "defaultValue": "CANVIZPropInsB2C.onmicrosoft.com"
+      "defaultValue": "",
+      "metadata": {
+        "description": "The domain name of Azure Active Directory B2C that you wish to create"
+      }
     },
     "B2CApplicationId": {
       "type": "string",
-      "defaultValue": "5c548cd0-a737-4ca4-a72a-f852e538ed6b"
+      "defaultValue": "",
+      "metadata": {
+        "description": "The applicaton id that you registered under Azure Active Directory B2C domain"
+      }
     },
     "SusiPolicyId": {
       "type": "string",
-      "defaultValue": "B2C_1_PropertyInsurance"
+      "defaultValue": "",
+      "metadata": {
+        "description": "The sign-up or sign-in policy id that you configured under Azure Active Directory B2C domain"
+      }
     },
     "AADClientId": {
       "type": "string",
-      "defaultValue": "8e154d0b-978f-4bab-a30e-a73cd1da2f3a"
+      "defaultValue": "",
+      "metadata": {
+        "description": "The application clientId id that you registered under Azure Active Directory B2C domain"
+      }
     },
     "AADClientSecret": {
       "type": "string",
-      "defaultValue": "dAt0oIjajvdeMx9hatVF3eKH4zMSTUp++GhsoYHnETQ="
+      "defaultValue": "",
+      "metadata": {
+        "description": "The application client secret that you registered under Azure Active Directory B2C domain"
+      }
+    },
+    "visionServiceSubscriptionKey": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "https://www.microsoft.com/cognitive-services/en-us/computer-vision-api"
+      }
     }
   },
   "variables": {
     "location": "[resourceGroup().location]",
     "lowerSiteName": "[toLower(parameters('siteName'))]",
-    "nameSuffix": "[substring(uniqueString(resourceGroup().id), 0, 6)]",
+    "nameSuffix": "",
     "notificationHubName": "[concat(variables('lowerSiteName'), variables('nameSuffix'))]",
     "notificationHubNamespaceName": "[concat(variables('notificationHubName'), '-ns')]",
     "storageAccountName": "[concat(variables('lowerSiteName'), variables('nameSuffix'))]",
@@ -366,14 +389,15 @@
           "name": "appsettings",
           "dependsOn": [
             "[resourceId('Microsoft.Web/sites/', variables('webSiteName'))]",
-            "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
+            "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+            "[resourceId('Microsoft.Logic/workflows/', variables('workflowsPushNotificationName'))]"
           ],
           "properties": {
             "AzureStorageAccountConnectionString": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
             "ida:ClientId": "[parameters('AADClientId')]",
             "ida:ClientSecret": "[parameters('AADClientSecret')]",
             "ida:Domain": "[parameters('B2CDomainname')]",
-            "ClaimApproverUrl": "[variables('SendPushNotificationTriggerUrl')]",
+            "ClaimApproverUrl": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', variables('workflowsPushNotificationName')), '/triggers/manual'), '2016-06-01').value]",
             "command": "Cloud\\PropertyInsurance.Web\\deploy.cmd"
           }
         },
@@ -578,6 +602,163 @@
       "dependsOn": [
         "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]",
         "[resourceId('Microsoft.Web/Sites/sourcecontrols', variables('functionAppName'), 'web')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Logic/workflows",
+      "name": "[variables('workflowsApprovePictureName')]",
+      "apiVersion": "2016-06-01",
+      "location": "westus",
+      "properties": {
+        "state": "Enabled",
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {},
+          "triggers": {
+            "manual": {
+              "type": "Request",
+              "kind": "Http",
+              "inputs": {
+                "schema": {
+                  "properties": {
+                    "BlobFilePath": {
+                      "type": "string"
+                    },
+                    "CorrelationId": {
+                      "type": "string"
+                    },
+                    "CustomerEmail": {
+                      "type": "string"
+                    },
+                    "ImageUrl": {
+                      "type": "string"
+                    },
+                    "Properties": {
+                      "properties": {
+                        "ClaimDateTime": {
+                          "type": "string"
+                        },
+                        "ClaimDescription": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "TagExpression": {
+                      "type": "string"
+                    },
+                    "claimDetailsPageUrl": {
+                      "type": "string"
+                    },
+                    "claimsAdjusterEmail": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "actions": {
+            "AnalysisPicture": {
+              "runAfter": {
+                "ComputerVision": [
+                  "Succeeded"
+                ]
+              },
+              "type": "Function",
+              "inputs": {
+                "body": "@body('ComputerVision')",
+                "function": {
+                  "id": "[concat(resourceId('Microsoft.Web/sites', variables('functionAppName')), '/functions/AnalysisPicture')]"
+                }
+              }
+            },
+            "ComputerVision": {
+              "runAfter": {},
+              "type": "Http",
+              "inputs": {
+                "body": {
+                  "url": "@{triggerBody()?['ImageUrl']}"
+                },
+                "headers": {
+                  "Ocp-Apim-Subscription-Key": "[parameters('visionServiceSubscriptionKey')]"
+                },
+                "method": "POST",
+                "uri": "https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Tags&language=en"
+              }
+            },
+            "Condition": {
+              "actions": {
+                "ApprovalResponse": {
+                  "runAfter": {
+                    "SendApprovalMailNotification": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "Response",
+                  "inputs": {
+                    "body": {
+                      "result": true
+                    },
+                    "headers": {
+                      "content-type": "application/json"
+                    },
+                    "statusCode": 200
+                  }
+                },
+                "SendApprovalMailNotification": {
+                  "runAfter": {},
+                  "type": "Http",
+                  "inputs": {
+                    "body": {
+                      "AttachmentFilePath": "@{triggerBody()?['BlobFilePath']}",
+                      "AttachmentName": "photo.jpg",
+                      "body": "<p>The claim picture was accepted, however the claim was not auto approved. Please review the claim and approve or reject it.</p>\n<p><a href='@{triggerBody()?['claimDetailsPageUrl']}'>@{triggerBody()?['claimDetailsPageUrl']}<a></p>",
+                      "cc": "@{triggerBody()?['CustomerEmail']}",
+                      "subject": "Claim Pending Review",
+                      "to": "@{triggerBody()?['claimsAdjusterEmail']}"
+                    },
+                    "method": "POST",
+                    "uri": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', variables('workflowsSendMailName')), '/triggers/manual'), '2016-06-01').value]"
+                  }
+                }
+              },
+              "runAfter": {
+                "AnalysisPicture": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "RejectionResponse": {
+                    "runAfter": {},
+                    "type": "Response",
+                    "inputs": {
+                      "body": {
+                        "result": false
+                      },
+                      "headers": {
+                        "content-type": "application/json"
+                      },
+                      "statusCode": 200
+                    }
+                  }
+                }
+              },
+              "expression": "@equals(outputs('AnalysisPicture')['statusCode'], 200)",
+              "type": "If"
+            }
+          },
+          "outputs": {}
+        },
+        "parameters": {}
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]",
+        "[resourceId('Microsoft.Web/Sites/sourcecontrols', variables('functionAppName'), 'web')]",
+        "[resourceId('Microsoft.Logic/workflows/', variables('workflowsSendMailName'))]"
       ]
     }
   ],
