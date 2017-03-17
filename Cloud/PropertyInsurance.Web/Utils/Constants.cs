@@ -11,6 +11,7 @@ namespace PropertyInsurance.Web.Utils
     {
         public static readonly string AADClientId = ConfigurationManager.AppSettings["ida:ClientId"];
         public static readonly string AADClientSecret = ConfigurationManager.AppSettings["ida:ClientSecret"];
+        public static readonly string AADTenant = ConfigurationManager.AppSettings["ida:Domain"];
         public static string AADTenantId
         {
             get { return ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid").Value; }

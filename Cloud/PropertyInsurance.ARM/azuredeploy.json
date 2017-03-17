@@ -107,8 +107,6 @@
     "workflowsApprovePictureName": "[concat(parameters('siteName'), 'ApprovePicture')]",
     "workflowsSendMailName": "[concat(parameters('siteName'), 'SendEmailNotification')]",
     "workflowsPushNotificationName": "[concat(parameters('siteName'), 'SendPushNotification')]",
-    "ApprovePictureTriggerUrl": "https://ApprovePictureTriggerUrl",
-    "SendPushNotificationTriggerUrl": "https://SendPushNotificationTriggerUrl",
     "office365ConnectionName": "[concat(variables('lowerSiteName'), '-office365')]",
     "azureBlobConnectionName": "[concat(variables('lowerSiteName'), '-azureBlob')]"
   },
@@ -346,7 +344,7 @@
             "MS_NotificationHubConnectionString": "[listkeys(resourceId('Microsoft.NotificationHubs/namespaces/notificationHubs/authorizationRules', variables('notificationHubNamespaceName'), variables('notificationHubName'), 'DefaultFullSharedAccessSignature'), '2014-09-01').primaryConnectionString]",
             "mtcsjsonUrl": "[variables('mtcsJsonUrl')]",
             "claimDetailsPageUrl": "[variables('claimDetailsPageBaseUrl')]",
-            "ApprovePictureLogicApp": "[variables('ApprovePictureTriggerUrl')]",
+            "ApprovePictureLogicApp": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', variables('workflowsApprovePictureName')), '/triggers/manual'), '2016-06-01').value]",
             "ida:Tenant": "[parameters('B2CDomainname')]",
             "ida:ClientId": "[parameters('B2CApplicationId')]",
             "ida:SusiPolicyId": "[parameters('SusiPolicyId')]",

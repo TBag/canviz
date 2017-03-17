@@ -14,7 +14,7 @@
                     <ColumnDefinition Width="92*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="1" Style="{DynamicResource SettingsPageTitleLabelStyle}"  Text="MTCs Data URL"/>
+                <Label Grid.Row="0" Grid.Column="1" Style="{DynamicResource SettingsPageTitleLabelStyle}"  Text="Web API URL"/>
                 <Entry Grid.Row="2" Grid.Column="1" x:Name="webApiURL" Style="{DynamicResource SettingEntryStyle}"/>
 
                 <Label Grid.Row="3" Grid.Column="1" Style="{DynamicResource SettingsPageTitleLabelStyle}"  Text="Tenant"/>

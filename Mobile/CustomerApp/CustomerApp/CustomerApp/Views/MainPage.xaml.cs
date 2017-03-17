@@ -62,7 +62,7 @@ namespace CustomerApp
             claimListSource.Add(new ClaimModel
             {
                 Id = Guid.NewGuid().ToString(),
-                Name = "Garage Flooding",
+                Name = "Vandalism",
                 Status = "Processing",
                 ClaimDateTime = DateTime.Now,
                 ImageUrl = "demo1.png",
@@ -71,7 +71,7 @@ namespace CustomerApp
             claimListSource.Add(new ClaimModel
             {
                 Id = Guid.NewGuid().ToString(),
-                Name = "Thunderstorm",
+                Name = "Storm",
                 Status = "Approved",
                 ClaimDateTime = DateTime.Now,
                 ImageUrl = "demo2.png",

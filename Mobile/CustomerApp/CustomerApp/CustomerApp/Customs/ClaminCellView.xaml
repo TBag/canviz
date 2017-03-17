@@ -15,7 +15,7 @@
                             <ColumnDefinition Width="649*"/>
                             <ColumnDefinition Width="316*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="1" Style="{DynamicResource MainPageClaminTitleLabelStyle}"  Text="PROPERTY DAMAGE" />
+                        <Label Grid.Row="0" Grid.Column="1" Style="{DynamicResource MainPageClaminTitleLabelStyle}"  Text="Claim Type" />
                         <Label Grid.Row="0" Grid.Column="2" Style="{DynamicResource MainPageClaminTitleLabelStyle}"  Text="STATUS" />
                         <Label Grid.Row="1" Grid.Column="1" Style="{DynamicResource MainPageClaminContentLabelStyle}"  Text="{Binding Name}" />
                         <Label Grid.Row="1" Grid.Column="2" Style="{DynamicResource MainPageClaminContentLabelStyle}"  Text="{Binding Status}" />

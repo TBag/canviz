@@ -27,13 +27,6 @@ namespace PropertyInsurance.Web.Controllers
             return View();
         }
 
-        public ActionResult Consent()
-        {
-            var stateMarker = Guid.NewGuid().ToString();
-            var consentUrl = AuthorizationHelper.GetUrl(stateMarker);
-            return new RedirectResult(consentUrl);
-        }
-
         public async Task<ActionResult> Detail(string id)
         {
             ViewBag.Message = "This is Claim Detail";

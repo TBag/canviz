@@ -76,6 +76,7 @@ namespace CustomerApp
             if (!Settings.CheckAllConfigure())
             {
                 await DisplayAlert("Configuration", "Please go to settings page and configure, then Sigin In again.", "OK");
+                return;
             }
             try
             {
