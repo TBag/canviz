@@ -28,7 +28,6 @@ namespace EmployeeApp.Droid
 
             MetricsManager.Register(Application, Settings.HockeyAppIdAndroid);
             App.PlatformParameters = new PlatformParameters(Xamarin.Forms.Forms.Context as Activity);
-            App.DisplayMetricsDensity = Resources.DisplayMetrics.Density;
         }
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {

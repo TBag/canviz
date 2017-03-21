@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
-using HockeyApp;
 using System.Diagnostics;
 using System.Net.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Globalization;
-
+using Xamarin.Forms;
+using HockeyApp;
+using Newtonsoft.Json;
 
 
 namespace EmployeeApp
@@ -194,7 +190,8 @@ namespace EmployeeApp
                 {
                     return null;
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Utils.TraceException("GetUserClaimURL", ex);
                 Utils.TraceStatus("GetUserClaimURL " + Settings.MtcsjsonUrl);
@@ -214,7 +211,6 @@ namespace EmployeeApp
             Dictionary<string, string> properties = new Dictionary<string, string>()
             {
                 { "LogType", "Error Log"},
-               // { "Version", Assembly.GetCallingAssembly().Version.ToString()},
                 { "Description", logEvent + ex.Message}
             };
             /*Hockey APP*/
@@ -234,7 +230,6 @@ namespace EmployeeApp
             Dictionary<string, string> properties = new Dictionary<string, string>()
             {
                 { "LogType", "Status Log"},
-               // { "Version", Assembly.GetCallingAssembly().GetName().Version.ToString()},
                 { "Description", logEvent},
                 { "Status", "Success"}
             };

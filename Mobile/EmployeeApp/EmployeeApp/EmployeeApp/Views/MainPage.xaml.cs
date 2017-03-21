@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
@@ -29,7 +24,10 @@ namespace EmployeeApp
                     using (var scope = new ActivityIndicatorScope(activityIndicator, activityIndicatorPanel, true))
                     {
                         string imageUrl = await Helpers.GetUserClaimURL(userid);
-                        vmodel.ImageUrl = imageUrl;
+                        if (imageUrl != null)
+                        {
+                            vmodel.ImageUrl = imageUrl;
+                        }
                     }
                 }
                 await Navigation.PushAsync(new ClaimDetailPage(vmodel));
@@ -47,7 +45,6 @@ namespace EmployeeApp
                 listView.ItemTemplate = new DataTemplate(typeof(ClaimCell));
                 listView.RowHeight = Display.Convert(96);
 
-                //android has status bar
                 Display.SetGridRowHeightByDevice(mainPageGrid, 30, 1);
                 Display.SetGridRowsHeight(mainPageGrid, new string[] { "126", "570", "40", "134", "40", "134", "40", "1*" });
 

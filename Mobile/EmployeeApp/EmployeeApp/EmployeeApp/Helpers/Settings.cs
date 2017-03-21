@@ -1,7 +1,5 @@
-// Helpers/Settings.cs
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
-using Xamarin.Forms;
 
 namespace EmployeeApp
 {
@@ -91,10 +89,10 @@ namespace EmployeeApp
             return ClaimImageContainerURL.Length > 0 && ClientID.Length > 0 && ReplyURL.Length > 0 && Tenant.Length > 0;
         }
         public static string MtcsjsonUrl {
-            get { return ClaimImageContainerURL + "/public/mtcs.json"; }
+            get { return $"{ClaimImageContainerURL}/public/mtcs.json"; }
         }
         public static string ImageContainerUrl {
-            get { return ClaimImageContainerURL + "/pictureblobcontainer/"; }
+            get { return $"{ClaimImageContainerURL}/pictureblobcontainer/"; }
         }
         public static string Authority {
             get { return $"https://login.microsoftonline.com/{Tenant}/"; }

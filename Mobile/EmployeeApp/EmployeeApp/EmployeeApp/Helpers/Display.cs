@@ -1,6 +1,5 @@
 ﻿using Xamarin.Forms;
 using System;
-using System.Collections;
 
 namespace EmployeeApp
 {

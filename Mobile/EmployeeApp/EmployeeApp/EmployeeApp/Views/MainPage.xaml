@@ -17,14 +17,14 @@
                 <Label Text="Contoso Agent" Grid.Row="1" Grid.Column="1" Style="{DynamicResource PageTitleStyle}">
                 </Label>
 
-                <Frame Grid.Row="2" Grid.Column="1" Style="{DynamicResource MainPageTabStyle}">
-                    <Grid x:Name="claimListGrid" Style="{DynamicResource MainPageTab1Style}">
+                <Frame Grid.Row="2" Grid.Column="1" Style="{DynamicResource MainPageTabStyle}" Padding="0,0">
+                    <Grid x:Name="claimListGrid" Style="{DynamicResource TabStyle}" Margin="0, 0">
                         <Label Grid.Row="0" Text="Claims" Style="{DynamicResource MainPageTabTitleStyle}" />
                         <ListView x:Name="listView" Grid.Row="1"/>
                     </Grid>
                 </Frame>
                 <Frame Grid.Row="4"  Grid.Column="1" Style="{DynamicResource MainPageTabStyle}">
-                    <Grid Style="{DynamicResource MainPageTab2Style}" >
+                    <Grid Style="{DynamicResource TabStyle}" Padding ="{DynamicResource MainPageTab2ContentPadding}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="15"/>
@@ -35,7 +35,7 @@
 
                 </Frame>
                 <Frame Grid.Row="6"  Grid.Column="1" Style="{DynamicResource MainPageTabStyle}">
-                    <Grid Style="{DynamicResource MainPageTab2Style}" >
+                    <Grid Style="{DynamicResource TabStyle}" Padding ="{DynamicResource MainPageTab2ContentPadding}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="15"/>

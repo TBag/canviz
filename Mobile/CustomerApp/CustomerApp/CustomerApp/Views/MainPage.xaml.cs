@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using Xamarin.Forms;
 using Microsoft.Identity.Client;
 using System.Collections.ObjectModel;
@@ -109,6 +108,14 @@ namespace CustomerApp
         }
         private async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
+            using (var scope = new ActivityIndicatorScope(activityIndicator, activityIndicatorPanel, true))
+            {
+                HttpResponseMessage response = await HttpUtil.DeleteAsync(Settings.HubTagUrl + MobileServiceHelper.msInstance.Client.InstallationId, authenticationResult.Token);
+                if (!response.IsSuccessStatusCode)
+                {
+                    Utils.TraceStatus("InitMobileService Post Failure " + response.StatusCode);
+                }
+            }
             App.PCApplication.UserTokenCache.Clear(Settings.ClientID);
             await Navigation.PopAsync();
         }

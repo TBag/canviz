@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace EmployeeApp
 {
     public partial class App : Application
     {
-        public static float DisplayMetricsDensity = 1;
         public static IPlatformParameters PlatformParameters { get; set; }
         public static double screenWidth = 360;
 
@@ -25,11 +19,6 @@ namespace EmployeeApp
                 BarBackgroundColor = Color.FromHex("#46c3d6"),
                 BarTextColor = Color.White,
             };
-            //MainPage = new NavigationPage(new MainPage(null, null))
-            //{
-            //    BarBackgroundColor = Color.FromHex("#46c3d6"),
-            //    BarTextColor = Color.White,
-            //};
         }
         protected override void OnStart()
         {

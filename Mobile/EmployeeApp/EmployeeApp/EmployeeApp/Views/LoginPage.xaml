@@ -7,18 +7,8 @@
             <Image Aspect="AspectFill" Source="loginbackground.png" AbsoluteLayout.LayoutBounds="0,0,1,1" 
                   AbsoluteLayout.LayoutFlags="All">
             </Image>
-
             <Grid x:Name="mainPageGrid" AbsoluteLayout.LayoutBounds="0,0,1,1" 
                   AbsoluteLayout.LayoutFlags="All" RowSpacing="0" ColumnSpacing="0">
-                <!--<Grid.RowDefinitions>
-                    <RowDefinition Height="83"/>
-                    <RowDefinition Height="164"/>
-                    <RowDefinition Height="335"/>
-                    <RowDefinition Height="45"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>-->
-
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="19*"/>
@@ -43,7 +33,6 @@
                     </Grid.GestureRecognizers>
                 </Grid>
             </Grid>
-
             <StackLayout x:Name="activityIndicatorPanel" IsVisible="False" AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All">
                 <ActivityIndicator x:Name="activityIndicator"
@@ -56,7 +45,6 @@
                                    HorizontalOptions="CenterAndExpand"
                                    VerticalOptions="CenterAndExpand"/>
             </StackLayout>
-
         </AbsoluteLayout>
     </ContentPage.Content >
 </ContentPage>

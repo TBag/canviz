@@ -8,11 +8,7 @@ using HockeyApp;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Microsoft.Identity.Client;
-using Newtonsoft.Json;
-using Plugin.Media;
 using Plugin.Media.Abstractions;
-using Plugin.Settings;
 
 
 namespace CustomerApp
@@ -86,6 +82,18 @@ namespace CustomerApp
         {
             HttpClient client = new HttpClient();
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
+            request.Headers.Add("ZUMO-API-VERSION", "2.0.0");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = await client.SendAsync(request);
+            return response;
+
+        }
+        public static async Task<HttpResponseMessage> DeleteAsync(string url, string token)
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, url);
             request.Headers.Add("ZUMO-API-VERSION", "2.0.0");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

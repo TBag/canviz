@@ -3,12 +3,8 @@
   <ContentView.Content>
         <StackLayout x:Name="cellStackLayout" Spacing="0">
             <Grid x:Name="claimCellGrid" RowSpacing="0" ColumnSpacing="0" VerticalOptions="FillAndExpand" >
-                <!--<Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="6"/>
-                </Grid.RowDefinitions>-->
-                <Frame Grid.Row="0" Style="{DynamicResource MainPageClaimFrameStyle}">
-                    <Grid x:Name="claimCellContentGrid" Style="{DynamicResource MainPageTab1CellStyle}">
+                <Frame Grid.Row="0" Style="{DynamicResource MainPageClaimFrameStyle}" Padding="0,0">
+                    <Grid x:Name="claimCellContentGrid" Style="{DynamicResource TabStyle}" Margin="0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="240*"/>
                             <ColumnDefinition Width="482*"/>
@@ -16,11 +12,6 @@
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource MainPageClaminContentLabelStyle}"  Text="{Binding Name}"/>
                         <Grid x:Name="newClaimButtonGrid" Grid.Row="0" Grid.Column="1">
-                            <!--<Grid.RowDefinitions>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="19"/>
-                                <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>-->
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="60"/>
                                 <ColumnDefinition Width="*"/>
@@ -30,9 +21,7 @@
                         <Label Grid.Row="0" Grid.Column="2" Style="{DynamicResource MainPageClaminContentLabelStyle}"  Text="{Binding Status}"/>
                     </Grid>
                 </Frame>
-
             </Grid>
         </StackLayout>
-      
     </ContentView.Content>
 </ContentView>

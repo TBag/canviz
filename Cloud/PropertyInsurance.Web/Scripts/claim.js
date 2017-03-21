@@ -36,9 +36,14 @@ var claimHelper = {
         })();
         var operationStr = isApprove ? "approved" : "declined";
         var submitResultMessage = (function () {
-            var result = 'Claim ' + operationStr;
-            if(isApprove)
-                result += ' and sent to external vendor';
+            var result = '';
+            if (userHelper.isManager()) {
+                result = 'Claim ' + operationStr;
+                if (isApprove)
+                    result += ' and sent to external vendor';
+            } else {
+                result = 'Claim submitted for final approval';
+            }
             result += '<span>Undo</span>';
             return result;
         })();
@@ -50,16 +55,20 @@ var claimHelper = {
             type: "post",
             success: function (result) {
                 console.log(result);
+                var submitResult = $(".content-core .submit-result");
+                submitResult.html(submitResultMessage);
+                submitResult.removeClass('hide');
+                $('.content-core .content-claim .status').html(operationStr);
+                if (!isApprove)
+                    submitResult.addClass("decline");
                 if (userHelper.isManager()) {
-                    $(".content-claim-status .progtrckr").hide();
-                    var submitResult = $(".content-core .submit-result");
-                    submitResult.html(submitResultMessage);
-                    submitResult.removeClass('hide');
-                    $('.content-core .content-claim .status').html(operationStr);
-                    if (!isApprove)
-                        submitResult.addClass("decline");
+                    $($(".progtrckr > li")[2]).removeClass('prev');
+                    $($(".progtrckr > li")[3]).removeClass('progtrckr-doing').addClass('progtrckr-done');
+                    $($(".progtrckr > li")[4]).removeClass('done').addClass('done');
                 } else {
+                    $($(".progtrckr > li")[1]).removeClass('prev');
                     $($(".progtrckr > li")[2]).removeClass('progtrckr-doing').addClass('progtrckr-done');
+                    $($(".progtrckr > li")[3]).removeClass('todo');
                 }
             }
         });
@@ -102,7 +111,8 @@ var contextMenuHelper = {
                 currentTr.addClass("highRisk");
                 var riskTd = $(currentTr.children("td")[4]);
                 riskTd.html("High");
-                riskTd.addClass("risk-td");
+                riskTd.addClass("risk-td").addClass("selected");
+                riskTd.next().addClass("selected");
             }
             return false;
         });
@@ -131,7 +141,12 @@ var contextMenuHelper = {
         $(document).mouseup(function (e) {
             var _con = self.$contextMenu();
             if (!_con.is(e.target) && _con.has(e.target).length === 0) {
+                var lastTd = self.$contextMenu().parent().parent();
+                var riskTd = lastTd.prev();
+                lastTd.removeClass('selected');
+                riskTd.removeClass('selected');
                 self.$contextMenu().remove();
+
             }
         });
     },
@@ -161,10 +176,13 @@ var userHelper = {
     changeView: function () {
         if (userHelper.currentRole == userHelper.roles.adjuster) {            
             $(".claim-rating ul li:not(:first)").hide();
-            $($(".progtrckr > li")[2]).removeClass('progtrckr-done').addClass('progtrckr-doing');
+            $($(".progtrckr > li")[1]).removeClass('prev').addClass('prev');
+            $($(".progtrckr > li")[2]).removeClass('progtrckr-done').addClass('progtrckr-doing').addClass("next");
+            $($(".progtrckr > li")[3]).removeClass('progtrckr-done').addClass('progtrckr-doing').addClass("next").addClass("todo");
         } else if (userHelper.currentRole == userHelper.roles.manager) {
             $(".claim-rating ul li:not(:first)").show();;
-            $($(".progtrckr > li")[2]).removeClass('progtrckr-doing').addClass('progtrckr-done');
+            $($(".progtrckr > li")[2]).removeClass('progtrckr-doing').addClass('progtrckr-done').addClass('prev');
+            $($(".progtrckr > li")[3]).removeClass('next').addClass('next');
         }
     },
     init: function () {

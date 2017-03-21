@@ -14,8 +14,8 @@
                             <ColumnDefinition Width="914*"/>
                             <ColumnDefinition Width="45*"/>
                         </Grid.ColumnDefinitions>
-                        <Frame x:Name="claimHintFrame" Grid.Row="0" Grid.Column="1" Style="{DynamicResource ClaimDetailPageFrameStyle}" VerticalOptions="CenterAndExpand">
-                            <Grid x:Name="claimHintGrid" Style="{DynamicResource ClaimDetailPageFrameContentStyle}" RowSpacing="0" ColumnSpacing="0">
+                        <Frame x:Name="claimHintFrame" Grid.Row="0" Grid.Column="1" Style="{DynamicResource ClaimDetailPageFrameStyle}" Padding="0,0">
+                            <Grid x:Name="claimHintGrid" Style="{DynamicResource TabStyle}" Margin="0,0" Padding="{DynamicResource ClaimDetaiPageTabContentPadding}">
                                 <StackLayout Grid.Row="0" Orientation="Horizontal" VerticalOptions="CenterAndExpand">
                                     <Image x:Name="claimHintIcon" Source="claimhint.png" Aspect="Fill" VerticalOptions="FillAndExpand" HorizontalOptions="Start" Margin="0,0,2,0"/>
                                     <Label x:Name="claimHintTitle" Style="{DynamicResource ClaimPageHintTitleStyle}"/>

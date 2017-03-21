@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace EmployeeApp
@@ -57,7 +51,6 @@ namespace EmployeeApp
                 {
                    
                     AuthenticationContext ac = new AuthenticationContext(Settings.Authority);
-
                     AuthenticationResult ar = await ac.AcquireTokenAsync(Settings.Resource,
                                                                         Settings.ClientID,
                                                                          new Uri(Settings.ReplyURL),
@@ -71,7 +64,6 @@ namespace EmployeeApp
             {
                 await DisplayAlert("An error has occurred", "Exception message: " + ex.Message, "Dismiss");
             }
-
         }
         private void OnSettingsButtonClicked(object sender, EventArgs e)
         {
