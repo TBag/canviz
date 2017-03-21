@@ -1,6 +1,7 @@
 // Helpers/Settings.cs
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
+using Xamarin.Forms;
 
 namespace EmployeeApp
 {
@@ -32,6 +33,11 @@ namespace EmployeeApp
 
         private const string TenantKey = "Tenant_key";
         private static readonly string DefaultTenant = "CANVIZPropInsB2C.onmicrosoft.com";//string.Empty;
+
+        private const string HockeyAppIdiOSKey = "HockeyAppIdiOS_key";
+        private const string HockeyAppIdAndroidKey = "HockeyAppIdAndroid_key";
+        private static readonly string DefaultHockeyAppIdiOS = "7e2742b8436f4e2b922a860ec100c926";
+        private static readonly string DefaultHockeyAppIdAndroid = "52dc55629fc643ae8d2130411f7a386a";
 
         #endregion
 
@@ -68,15 +74,31 @@ namespace EmployeeApp
 
             set { AppSettings.AddOrUpdateValue<string>(ReplyURLKey, value); }
         }
+        public static string HockeyAppIdiOS
+        {
+            get { return AppSettings.GetValueOrDefault<string>(HockeyAppIdiOSKey, DefaultHockeyAppIdiOS); }
 
+            set { AppSettings.AddOrUpdateValue<string>(HockeyAppIdiOSKey, value); }
+        }
+        public static string HockeyAppIdAndroid
+        {
+            get { return AppSettings.GetValueOrDefault<string>(HockeyAppIdAndroidKey, DefaultHockeyAppIdAndroid); }
+
+            set { AppSettings.AddOrUpdateValue<string>(HockeyAppIdAndroidKey, value); }
+        }
         public static bool CheckAllConfigure()
         {
             return ClaimImageContainerURL.Length > 0 && ClientID.Length > 0 && ReplyURL.Length > 0 && Tenant.Length > 0;
         }
-
-        public static string MtcsjsonUrl = $"{ClaimImageContainerURL}/public/mtcs.json";
-        public static string ImageContainerUrl = $"{ClaimImageContainerURL}/pictureblobcontainer/";
-        public static string Authority = $"https://login.microsoftonline.com/{Tenant}/";
+        public static string MtcsjsonUrl {
+            get { return ClaimImageContainerURL + "/public/mtcs.json"; }
+        }
+        public static string ImageContainerUrl {
+            get { return ClaimImageContainerURL + "/pictureblobcontainer/"; }
+        }
+        public static string Authority {
+            get { return $"https://login.microsoftonline.com/{Tenant}/"; }
+        }
 
         public static string Resource = "https://graph.windows.net";
     }

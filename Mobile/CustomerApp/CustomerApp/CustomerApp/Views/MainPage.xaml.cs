@@ -30,7 +30,12 @@ namespace CustomerApp
                 }
             };
             if(result != null){
-                this.userNameLabel.Text = $"Hello {result.User.Name}";
+                string name = result.User.Name;
+                if(name.Contains(" "))
+                {
+                    name = name.Substring(0, name.IndexOf(" "));
+                }
+                this.userNameLabel.Text = $"Hello {name}";
             }
 
             InitGridView();

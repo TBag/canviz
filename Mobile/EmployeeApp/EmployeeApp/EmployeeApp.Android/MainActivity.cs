@@ -26,7 +26,7 @@ namespace EmployeeApp.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
 
-            MetricsManager.Register(Application, Utils.MobileHockeyAppIdAndroid);
+            MetricsManager.Register(Application, Settings.HockeyAppIdAndroid);
             App.PlatformParameters = new PlatformParameters(Xamarin.Forms.Forms.Context as Activity);
             App.DisplayMetricsDensity = Resources.DisplayMetrics.Density;
         }

@@ -64,7 +64,7 @@
                                 <span>Insights</span>
                             </div>
                             <ul>
-                                <li>Based on <span class="text-blue">5 previous claims</span>, payout will increase by $2,567 if delayed beyond 24 hours.<br /><br /></li>
+                                <li>Based on past claims, payout will increase by $40,000 if delayed beyond 24 Hours.<br /><br /></li>
                                 <li>This claim has a @claim.RatePercent% confidence rating.</li>                                
                             </ul>
                         </div>
@@ -85,7 +85,7 @@
                     </div>
                     <div class="claim-img">
                         @*<img src="@ViewBag.ClaimImage" />*@
-                        <img src="~/Content/images/Contoso-Insurance-Kitchen-Flooding-Image.jpg" />
+                        <img src="~/Content/images/Contoso-Insurance-Kitchen-Flooding-Image.png" />
                     </div>
                 </div>
             </div>
@@ -140,7 +140,7 @@
                     <div class="property-name text-blue">Image Inventory</div>
                     <div class="property-value">
                         @*<img src="@ViewBag.ClaimImage" />*@
-                        <img src="~/Content/images/Contoso-Insurance-Kitchen-Flooding-Image.jpg" />
+                        <img src="~/Content/images/Contoso-Insurance-Kitchen-Flooding-Image.png" />
                         <img src="~/Content/images/image-history-02.png" />
                         <img src="~/Content/images/image-history-03.png" />
                     </div>
@@ -161,7 +161,7 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" value="@ViewBag.ClaimUserRole" id="ClaimUserRole" name="ClaimUserRole" />
 @section scripts {
     @Scripts.Render("~/bundles/claim")
 }

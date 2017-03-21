@@ -28,13 +28,19 @@
                     </Grid.ColumnDefinitions>
                     <Button x:Name="loginButton" Grid.Column="1" Text="Sign up or Sign in" Style="{DynamicResource LoginButtonStyle}" Clicked="OnLoginButtonClicked"/>
                 </Grid>
-                <Grid Grid.Row="5">
+                <Grid Grid.Row="5" ColumnSpacing="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="13*"/>
-                        <ColumnDefinition Width="74*"/>
-                        <ColumnDefinition Width="13*"/>
+                        <ColumnDefinition Width="42*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="58*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="settingsButton" Grid.Column="1" Text="Settings" Style="{DynamicResource LoginButtonStyle}" Clicked="OnSettingsButtonClicked"/>
+                    <Image Source="gear.png" Grid.Column="1" Aspect="AspectFit" 
+                           VerticalOptions="FillAndExpand" HorizontalOptions="End" />
+                    <Label Text="Settings" Grid.Column="3" Style="{DynamicResource SettingsLabelStyle}"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnSettingsButtonClicked" />
+                    </Grid.GestureRecognizers>
                 </Grid>
             </Grid>
             <StackLayout x:Name="activityIndicatorPanel" IsVisible="False" AbsoluteLayout.LayoutBounds="0,0,1,1"

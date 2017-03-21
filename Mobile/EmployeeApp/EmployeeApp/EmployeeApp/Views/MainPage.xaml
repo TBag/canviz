@@ -52,7 +52,7 @@
                 AbsoluteLayout.LayoutFlags="All">
                 <ActivityIndicator x:Name="activityIndicator"
                                    IsVisible="False"
-                                   IsRunning="True" Color="White"
+                                   IsRunning="True" Color="Gray"
                                    AbsoluteLayout.LayoutBounds=".5,.5,50,50"
                                    HeightRequest="50"
                                    WidthRequest="50"

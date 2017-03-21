@@ -25,6 +25,20 @@
 
                 <Label Grid.Row="9" Grid.Column="1" Style="{DynamicResource SettingsPageTitleLabelStyle}"  Text="Sign-up or sign-in policy"/>
                 <Entry Grid.Row="11" Grid.Column="1" x:Name="signUpSignInpolicy" Style="{DynamicResource SettingEntryStyle}"/>
+
+                <Label Grid.Row="12" Grid.Column="1" Style="{DynamicResource SettingsPageTitleLabelStyle}"  Text="Hockey App Id"/>
+                <Entry Grid.Row="14" Grid.Column="1" x:Name="hockeyAppId" Style="{DynamicResource SettingEntryStyle}"/>
+
+                <Label Grid.Row="15" Grid.Column="1" Style="{DynamicResource SettingsPageTitleLabelStyle}"  Text="GCM Sender ID">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean"  Android="true" iOS="false"/>
+                    </Label.IsVisible>
+                </Label>
+                <Entry Grid.Row="17" Grid.Column="1" x:Name="gcmSenderId" Style="{DynamicResource SettingEntryStyle}">
+                    <Entry.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean"  Android="true" iOS="false"/>
+                    </Entry.IsVisible>
+                </Entry>
             </Grid>
         </AbsoluteLayout>
     </ScrollView>

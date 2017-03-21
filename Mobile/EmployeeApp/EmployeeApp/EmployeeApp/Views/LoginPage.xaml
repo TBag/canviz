@@ -28,8 +28,20 @@
                 <Image Source="loginIconTitle.png" Grid.Row="1"  Grid.Column="1" Aspect="AspectFit" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand" />
                 <Button x:Name="loginButton" Grid.Row="3" Grid.Column="1" Text="Sign in" Style="{DynamicResource LoginButtonStyle}" Clicked="loginButton_Clicked" />
 
-                <Button x:Name="settingsButton" Grid.Row="5" Grid.Column="1" Text="Settings" Style="{DynamicResource LoginButtonStyle}" Clicked="OnSettingsButtonClicked"/>
-
+                <Grid Grid.Row="5" Grid.Column="1" ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="42*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="58*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="gear.png" Grid.Column="1" Aspect="AspectFit" 
+                           VerticalOptions="FillAndExpand" HorizontalOptions="End" />
+                    <Label Text="Settings" Grid.Column="3" Style="{DynamicResource SettingsLabelStyle}"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnSettingsButtonClicked" />
+                    </Grid.GestureRecognizers>
+                </Grid>
             </Grid>
 
             <StackLayout x:Name="activityIndicatorPanel" IsVisible="False" AbsoluteLayout.LayoutBounds="0,0,1,1"

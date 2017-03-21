@@ -22,13 +22,15 @@ namespace CustomerApp
             tenant.Text = Settings.Tenant;
             clientId.Text = Settings.ClientID;
             signUpSignInpolicy.Text = Settings.SignUpSignInpolicy;
+            hockeyAppId.Text = Settings.HockeyAppId;
+            gcmSenderId.Text = Settings.MobileGcmSenderId;
         }
         private void InitGridView()
         {
             if (settingsPageGrid.RowDefinitions.Count == 0)
             {
                 settingsPageGrid.Padding = new Thickness(0, Display.Convert(40));
-                Display.SetGridRowsHeight(settingsPageGrid, new string[] { "50", "10", "70", "50", "10", "70", "50", "10", "70", "50", "10", "70", "1*" });
+                Display.SetGridRowsHeight(settingsPageGrid, new string[] { "50", "10", "70", "50", "10", "70", "50", "10", "70", "50", "10", "70", "50","10", "70", "50", "10", "70", "1*" });
             }
 
         }
@@ -73,6 +75,30 @@ namespace CustomerApp
             if (Settings.SignUpSignInpolicy != signUpSignInpolicy.Text)
             {
                 Settings.SignUpSignInpolicy = signUpSignInpolicy.Text;
+            }
+
+            if (hockeyAppId.Text.Length == 0)
+            {
+                await DisplayAlert("Configuration Error", "Invalid Hockey App Id entered", "OK");
+                return;
+            }
+            if (Settings.HockeyAppId != hockeyAppId.Text)
+            {
+                Settings.HockeyAppId = hockeyAppId.Text;
+                await DisplayAlert("Configuration Hint", "Restart the App to enable Hockey App.", "OK");
+            }
+            if(Device.OS == TargetPlatform.Android)
+            {
+                if (gcmSenderId.Text.Length == 0)
+                {
+                    await DisplayAlert("Configuration Error", "Invalid Google Cloud Messaging Id entered", "OK");
+                    return;
+                }
+                if (Settings.MobileGcmSenderId != gcmSenderId.Text)
+                {
+                    Settings.MobileGcmSenderId = gcmSenderId.Text;
+                    await DisplayAlert("Configuration Hint", "Restart the App to enable Google Cloud Messaging.", "OK");
+                }
             }
 
             await Navigation.PopAsync(false);

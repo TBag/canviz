@@ -50,13 +50,17 @@ var claimHelper = {
             type: "post",
             success: function (result) {
                 console.log(result);
-                $(".content-claim-status .progtrckr").hide();
-                var submitResult = $(".content-core .submit-result");
-                submitResult.html(submitResultMessage);
-                submitResult.removeClass('hide');
-                $('.content-core .content-claim .status').html(operationStr);
-                if(!isApprove)
-                    submitResult.addClass("decline");
+                if (userHelper.isManager()) {
+                    $(".content-claim-status .progtrckr").hide();
+                    var submitResult = $(".content-core .submit-result");
+                    submitResult.html(submitResultMessage);
+                    submitResult.removeClass('hide');
+                    $('.content-core .content-claim .status').html(operationStr);
+                    if (!isApprove)
+                        submitResult.addClass("decline");
+                } else {
+                    $($(".progtrckr > li")[2]).removeClass('progtrckr-doing').addClass('progtrckr-done');
+                }
             }
         });
     },
@@ -96,7 +100,7 @@ var contextMenuHelper = {
             } else if ($(this).hasClass("highRisk")) {
                 var currentTr = $(this).parentsUntil(".history-tr").parent();
                 currentTr.addClass("highRisk");
-                var riskTd = $(currentTr.children("td")[3]);
+                var riskTd = $(currentTr.children("td")[4]);
                 riskTd.html("High");
                 riskTd.addClass("risk-td");
             }
@@ -136,9 +140,43 @@ var contextMenuHelper = {
     }
 };
 
+var userHelper = {
+    currentRole: '',
+    roles: {
+        customer: "customer",
+        adjuster: "adjuster",
+        manager: "manager"
+    },
+    isAdjuster:function(){
+        return userHelper.currentRole == userHelper.roles.adjuster;
+    },
+    isManager: function () {
+        return userHelper.currentRole == userHelper.roles.manager;
+    },
+    initRole: function () {
+        var role = $("#ClaimUserRole").val();
+        if(role)
+            userHelper.currentRole = role.toLowerCase();
+    },
+    changeView: function () {
+        if (userHelper.currentRole == userHelper.roles.adjuster) {            
+            $(".claim-rating").hide();
+            $($(".progtrckr > li")[2]).removeClass('progtrckr-done').addClass('progtrckr-doing');
+        } else if (userHelper.currentRole == userHelper.roles.manager) {
+            $(".claim-rating").show();
+            $($(".progtrckr > li")[2]).removeClass('progtrckr-doing').addClass('progtrckr-done');
+        }
+    },
+    init: function () {
+        userHelper.initRole();
+        userHelper.changeView();
+    }
+};
+
 (function () {
     console.log('enter claim.');
     navHelper.init();
     claimHelper.init();
     contextMenuHelper.init();
+    userHelper.init();
 })();

@@ -11,14 +11,13 @@ namespace CustomerApp
     public partial class App : Application
     {
         public static PublicClientApplication PCApplication { get; set; }
+        public static IPlatformParameters PlatformParameters { get; set; }
+
         public static double screenWidth = 360;
 
         public App()
         {
             InitializeComponent();
-            PCApplication = new PublicClientApplication(Settings.Authority, Settings.ClientID);
-            MobileServiceHelper.msInstance = new MobileServiceHelper();
-
             MainPage = new NavigationPage(new LoginPage())
             {
                 BarBackgroundColor = Color.FromHex("#2b3151"),

@@ -28,7 +28,7 @@ namespace CustomerApp
             datePicker.Format = _dateFormatter;
             datePicker.IsVisible = false;
 
-            newClaimDate.Text = datePicker.Date.ToString(_dateFormatter);
+            newClaimDate.Text = HelperUtil.ConvertDateToString(datePicker.Date);
 
             _authenticationResult = result;
             _parentPage = parentpage;
@@ -78,11 +78,11 @@ namespace CustomerApp
                             if (ret!=null &&  ret.result)
                             {
                                 _parentPage.AddNewClaim(claim);
-                                await DisplayAlert("Success", "Claim successfully submitted.", "Ok");
+                                await DisplayAlert("Thank you", "Your claim is being processed.", "Ok");
                                 await Navigation.PopAsync();
                             }
                             else {
-                                await DisplayAlert("Sorry", "The picture was rejected as it doesn’t show any property image. Please submit another picture.", "Ok");
+                                await DisplayAlert("Please resubmit", "Photo doesn't appear to match the claim.", "Ok");
                             }
                         }
                         else
@@ -182,7 +182,7 @@ namespace CustomerApp
 
         private void DatePicker_DateSelected(object sender, DateChangedEventArgs e)
         {
-            this.newClaimDate.Text = datePicker.Date.ToString(_dateFormatter);
+            newClaimDate.Text = HelperUtil.ConvertDateToString(datePicker.Date);
         }
     }
 }

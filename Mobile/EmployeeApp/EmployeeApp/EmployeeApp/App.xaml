@@ -165,6 +165,13 @@
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
             </Style>
+            <Style x:Key="SettingsLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{DynamicResource KarlaRegularFontFamily}" />
+                <Setter Property="FontSize" Value="{DynamicResource Font6Size}" />
+                <Setter Property="TextColor" Value="{DynamicResource Color3}"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
 
             <!--Entry-->
             <Style x:Key="SettingEntryStyle" TargetType="Entry">

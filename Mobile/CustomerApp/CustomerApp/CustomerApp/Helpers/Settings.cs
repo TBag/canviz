@@ -1,6 +1,7 @@
 // Helpers/Settings.cs
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
+using Xamarin.Forms;
 
 namespace CustomerApp
 {
@@ -32,8 +33,14 @@ namespace CustomerApp
         private static readonly string DefaultSignUpSignInpolicy = "B2C_1_PropertyInsurance";
 
         private const string TenantKey = "Tenant_key";
-        private static readonly string DefaultTenant = "CANVIZPropInsB2C.onmicrosoft.com";//string.Empty;
+        private static readonly string DefaultTenant = "CANVIZPropInsB2C.onmicrosoft.com";
 
+        private const string HockeyAppIdKey = "HockeyAppId_key";
+        private static readonly string DefaultHockeyAppIdiOS = "f54c9fa2db1b49ceb1d2901f60e9ea3c";
+        private static readonly string DefaultHockeyAppIdAndroid = "88db49472d2a4b24bb7528db6b1a941a";
+
+        private const string MobileGcmSenderIdKey = "MobileGcmSenderId_key";
+        private static readonly string DefaultMobileGcmSenderId = "883779667815";
         #endregion
 
         public static string Tenant
@@ -64,7 +71,29 @@ namespace CustomerApp
 
             set { AppSettings.AddOrUpdateValue<string>(SignUpSignInpolicyKey, value); }
         }
+        public static string HockeyAppId
+        {
+            get {
+                string defaultAppId = string.Empty;
+                if(Device.OS == TargetPlatform.iOS){
+                    defaultAppId = DefaultHockeyAppIdiOS;
+                }
+                else
+                {
+                    defaultAppId = DefaultHockeyAppIdAndroid;
+                }
+                return AppSettings.GetValueOrDefault<string>(HockeyAppIdKey, defaultAppId);
+            }
 
+            set { AppSettings.AddOrUpdateValue<string>(HockeyAppIdKey, value); }
+        }
+
+        public static string MobileGcmSenderId
+        {
+            get { return AppSettings.GetValueOrDefault<string>(MobileGcmSenderIdKey, DefaultMobileGcmSenderId); }
+
+            set { AppSettings.AddOrUpdateValue<string>(MobileGcmSenderIdKey, value); }
+        }
         public static bool CheckAllConfigure()
         {
             return MTCWebUrl.Length > 0 && ClientID.Length > 0 && SignUpSignInpolicy.Length > 0 && Tenant.Length > 0;
@@ -84,7 +113,6 @@ namespace CustomerApp
         public static string Authority = $"https://login.microsoftonline.com/{Tenant}/";
 
         /*Hockey App*/
-        public static string MobileHockeyAppIdiOS = "f54c9fa2db1b49ceb1d2901f60e9ea3c";
-        public static string MobileHockeyAppIdAndroid = "88db49472d2a4b24bb7528db6b1a941a";
+
     }
 }

@@ -47,8 +47,9 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Total No.Properties</th>
-                                <th>% Properties</th>
+                                <th>Total Properties</th>
+                                <th>Total Claims</th>
+                                <th>% Claims</th>
                                 <th>Risk</th>
                                 <th></th>
                             </tr>
@@ -56,11 +57,12 @@
                         <tbody>
                             @foreach (var item in builderList)
                             {
-                                <tr class="history-tr">
+                                <tr class="history-tr @PropertyInsurance.Web.Utils.ClaimUtil.GetBuilderHighRiskTrCssClass(item)">
                                     <td>@item.Name</td>
                                     <td>@item.TotalNoProperties</td>
-                                    <td>@item.PercentProperties%</td>
-                                    <td>@item.Risk.ToString()</td>
+                                    <td>@item.TotalClaims</td>
+                                    <td>@item.PercentClaims%</td>
+                                    <td class="@PropertyInsurance.Web.Utils.ClaimUtil.GetBuilderHighRiskTdCssClass(item)">@item.Risk.ToString()</td>
                                     <td class="text-blue"><span class="context-menu-fire builder"><img src="~/Content/images/Contoso-Insurance-Misc-Icons-ELLIPSIS.svg" /></span></td>
                                 </tr>
                             }

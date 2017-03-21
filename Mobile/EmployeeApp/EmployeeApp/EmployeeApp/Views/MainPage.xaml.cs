@@ -36,18 +36,9 @@ namespace EmployeeApp
             };
 
             authenticationContext = ac;
-            SizeChanged += OnPageSizeChanged;
-        }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            //set grid view height
             InitGridView();
         }
-        void OnPageSizeChanged(object sender, EventArgs args)
-        {
-            App.screenWidth = Width;
-        }
+
         private void InitGridView() {
             if(mainPageGrid.RowDefinitions.Count == 0)
             {
@@ -73,7 +64,7 @@ namespace EmployeeApp
                 new ClaimViewModel
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Name = "15798",
+                    Name = "1201707",
                     Status = ClaimStatus.Pending,
                     ClaimDateTime = DateTime.Now,
                     isNew = true,
@@ -83,7 +74,7 @@ namespace EmployeeApp
             _claimListViewSource.Add(new ClaimViewModel
             {
                 Id = Guid.NewGuid().ToString(),
-                Name = "15797",
+                Name = "1141698",
                 Status = ClaimStatus.Approved,
                 ImageUrl = "demo1.png",
                 ClaimDateTime = DateTime.Now,
@@ -92,7 +83,7 @@ namespace EmployeeApp
             _claimListViewSource.Add(new ClaimViewModel
             {
                 Id = Guid.NewGuid().ToString(),
-                Name = "15796",
+                Name = "1021710",
                 Status = ClaimStatus.Approved,
                 ImageUrl = "demo2.png",
                 ClaimDateTime = DateTime.Now,
@@ -101,7 +92,7 @@ namespace EmployeeApp
             _claimListViewSource.Add(new ClaimViewModel
             {
                 Id = Guid.NewGuid().ToString(),
-                Name = "15795",
+                Name = "1011810",
                 Status = ClaimStatus.Approved,
                 ImageUrl = "demo3.png",
                 ClaimDateTime = DateTime.Now,

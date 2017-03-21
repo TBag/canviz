@@ -174,32 +174,38 @@ namespace EmployeeApp
             public List<MTC> mtcs { set; get; }
         }
 
-        //private static string MtcsjsonUrl = "https://propertyinsurancestorage.blob.core.windows.net/public/mtcs.json";
-        //private static string ImageContainerUrl = "http://propertyinsurancestorage.blob.core.windows.net/pictureblobcontainer/";
-
         public static async Task<string> GetUserClaimURL(string email)
         {
-            HttpClient client = new HttpClient();    
-            string content = await client.GetStringAsync(Settings.MtcsjsonUrl);
-            content = content.Replace("\r\n", "");
-            MTCS value = JsonConvert.DeserializeObject<MTCS>(content);
-            var mtc = value.mtcs.Find(i => i.adjuster.email.Equals(email));
-            if (mtc!= null && mtc.name.Length > 0)
+            HttpClient client = new HttpClient();
+            try
             {
-                string imageUrl = Settings.ImageContainerUrl + mtc.name + "_Image.jpg";
-                Utils.TraceStatus(imageUrl);
-                return imageUrl;
-            }
-            else
+
+                string content = await client.GetStringAsync(Settings.MtcsjsonUrl);
+                content = content.Replace("\r\n", "");
+                MTCS value = JsonConvert.DeserializeObject<MTCS>(content);
+                var mtc = value.mtcs.Find(i => i.adjuster.email.Equals(email));
+                if (mtc != null && mtc.name.Length > 0)
+                {
+                    string imageUrl = Settings.ImageContainerUrl + mtc.name + "_Image.jpg";
+                    Utils.TraceStatus(imageUrl);
+                    return imageUrl;
+                }
+                else
+                {
+                    return null;
+                }
+            }catch(Exception ex)
             {
+                Utils.TraceException("GetUserClaimURL", ex);
+                Utils.TraceStatus("GetUserClaimURL " + Settings.MtcsjsonUrl);
+
                 return null;
-            }
+            }    
+
         }
     }
     public static class Utils
     {
-        public static string MobileHockeyAppIdiOS = "7e2742b8436f4e2b922a860ec100c926";
-        public static string MobileHockeyAppIdAndroid = "52dc55629fc643ae8d2130411f7a386a";
 
         public static void TraceException(string logEvent, Exception ex)
         {

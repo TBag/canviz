@@ -42,5 +42,8 @@ namespace PropertyInsurance.Web.Utils
 
         public const string LostTokenErrorMsg = "Authorization Required.";
 
+        public const string BuilderHighRiskTrClass = "highRisk";
+        public const string BuilderHighRiskTdClass = "risk-td";
+
     }
 }

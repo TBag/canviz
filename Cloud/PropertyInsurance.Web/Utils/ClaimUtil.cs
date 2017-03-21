@@ -39,6 +39,40 @@ namespace PropertyInsurance.Web.Utils
             return await GetThumbnail(graphClient, user.UserPrincipalName);
         }
 
+        public static async Task<UserRole> GetMockUserRole()
+        {
+            var graphClient = GetGraphClient();
+            var user = await graphClient.GetCurrentUserAsync();
+            var dataJsonUrl = BlobUtil.GetBlobSasUri("public", "mtcs.json");
+            var mtcName = string.Empty;
+            var userEmail = user.Mail ?? string.Empty;
+            UserRole result = UserRole.Manager;
+            using (var httpClient = new HttpClient())
+            {
+                var jsonStr = await httpClient.GetStringAsync(dataJsonUrl);
+                var mtcJson = JsonConvert.DeserializeObject(jsonStr) as JObject;
+                foreach (var mtc in mtcJson["mtcs"])
+                {
+                    if (GetPureJsonValue("email", mtc["manager"]).ToLower() == userEmail.ToLower())
+                    {
+                        result = UserRole.Manager;
+                        break;
+                    }
+                    if (GetPureJsonValue("email", mtc["adjuster"]).ToLower() == userEmail.ToLower())
+                    {
+                        result = UserRole.Adjuster;
+                        break;
+                    }
+                    if (GetPureJsonValue("email", mtc["customer"]).ToLower() == userEmail.ToLower())
+                    {
+                        result = UserRole.Customer;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
         public static ClaimViewModel GetMockClaimViewModel()
         {
             return new ClaimViewModel()
@@ -73,7 +107,7 @@ namespace PropertyInsurance.Web.Utils
                     Id = 1141698,
                     RatePercent = 80,
                     Payout = "11,223.70",
-                    Status = "Approved",
+                    Status = "Completed",
                     Date = "April 3, 2007",
                 },
                 new ClaimViewModel()
@@ -81,7 +115,7 @@ namespace PropertyInsurance.Web.Utils
                     Id = 1021710,
                     RatePercent = 80,
                     Payout = "1,354.22",
-                    Status = "Approved",
+                    Status = "Completed",
                     Date = "June 19, 2004",
                 }
             };
@@ -89,44 +123,65 @@ namespace PropertyInsurance.Web.Utils
 
         public static List<BuilderViewModel> GetMockBuilderViewModelList()
         {
-            return new List<BuilderViewModel>()
+            var result = new List<BuilderViewModel>()
             {
                 new BuilderViewModel()
                 {
-                    Name="Adatum Corporation",
-                    TotalNoProperties=4,
-                    PercentProperties=5,
+                    Name="Fabrikam Inc.",
+                    TotalNoProperties=13,
+                    TotalClaims=45,
+                    PercentClaims=58,
                     Risk = Risk.High
                 },
                 new BuilderViewModel()
                 {
-                    Name="Fabrikam Inc.",
-                    TotalNoProperties=43,
-                    PercentProperties=56,
+                    Name="VanArsdel, Ltd.",
+                    TotalNoProperties=24,
+                    TotalClaims=9,
+                    PercentClaims=12,
                     Risk = Risk.Low
                 },
                 new BuilderViewModel()
                 {
                     Name="Fabrikam Residences",
-                    TotalNoProperties=11,
-                    PercentProperties=14,
-                    Risk = Risk.High
+                    TotalNoProperties=23,
+                    TotalClaims=19,
+                    PercentClaims=25,
+                    Risk = Risk.Medium
                 },
                 new BuilderViewModel()
                 {
                     Name="Proseware, Inc.",
-                    TotalNoProperties=0,
-                    PercentProperties=0,
+                    TotalNoProperties=40,
+                    TotalClaims=0,
+                    PercentClaims=0,
                     Risk = Risk.Low
                 },
                 new BuilderViewModel()
                 {
-                    Name="VanArsdel, Ltd.",
-                    TotalNoProperties=19,
-                    PercentProperties=25,
+                    Name="Adatum Corporation",
+                    TotalNoProperties=40,
+                    TotalClaims=4,
+                    PercentClaims=5,
                     Risk = Risk.Low
                 }
             };
+            return result.OrderBy(a => a.Name).ToList();
+        }
+
+        public static string GetBuilderHighRiskTrCssClass(BuilderViewModel model)
+        {
+            if (model.Risk == Risk.High)
+                return Constants.BuilderHighRiskTrClass;
+            else
+                return string.Empty;
+        }
+        public static string GetBuilderHighRiskTdCssClass(BuilderViewModel model)
+        {
+            if (model.Risk == Risk.High)
+                return Constants.BuilderHighRiskTdClass;
+            else
+                return string.Empty;
         }
 
         private static AADGraphClient GetGraphClient()
@@ -187,9 +242,15 @@ namespace PropertyInsurance.Web.Utils
                         result = mtc;
                         break;
                     }
+                    if (GetPureJsonValue("email", mtc["adjuster"]).ToLower() == userEmail.ToLower())
+                    {
+                        result = mtc;
+                        break;
+                    }
                 }
             }
             return result;
         }
+
     }
 }

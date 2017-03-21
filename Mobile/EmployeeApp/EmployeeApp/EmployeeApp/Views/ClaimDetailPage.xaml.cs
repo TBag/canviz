@@ -43,18 +43,8 @@ namespace EmployeeApp
             claimHintFrame.SetBinding(Frame.BackgroundColorProperty, new Binding { Source = BindingContext, Path = "Status", Converter = new ClaminDetailHintBkConvert(), Mode = BindingMode.OneWay });
             claimHintMessage.SetBinding(Label.TextColorProperty, new Binding { Source = BindingContext, Path = "Status", Converter = new ClaminDetailHintMsgColorConvert(), Mode = BindingMode.OneWay });
 
-            SizeChanged += OnPageSizeChanged;
-            this.Title = "Claim Detail Page";
-        }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            //set grid view height
             InitGridView();
-        }
-        void OnPageSizeChanged(object sender, EventArgs args)
-        {
-            App.screenWidth = Width;
+            this.Title = "#" + cl.Name;
         }
         private void InitGridView()
         {
@@ -88,13 +78,6 @@ namespace EmployeeApp
                     break;
             }
         }
-        
-
-        //async void OnActionSheetCancelDeleteClicked(object sender, EventArgs e)
-        //{
-        //    var action = await DisplayActionSheet("ActionSheet: SavePhoto?", "Cancel", "Delete", "Photo Roll", "Email");
-        //    Debug.WriteLine("Action: " + action);
-        //}
     }
 
 }

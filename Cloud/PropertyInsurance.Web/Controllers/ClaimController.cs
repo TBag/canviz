@@ -34,6 +34,7 @@ namespace PropertyInsurance.Web.Controllers
             ViewBag.Claim = ClaimUtil.GetMockClaimViewModel();
             InitMockClaimList();
             //ViewBag.ClaimImage = await ClaimUtil.GetMockImageFromBlob();
+            ViewBag.ClaimUserRole = await ClaimUtil.GetMockUserRole();
             return View();
         }
 

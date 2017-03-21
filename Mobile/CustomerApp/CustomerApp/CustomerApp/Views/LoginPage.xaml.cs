@@ -31,26 +31,6 @@ namespace CustomerApp
             if (Device.OS == TargetPlatform.Android){
                 InitGridView();
             }
-
-            //try
-            //{
-            //    // Look for existing user
-            //    var result = await App.PCApplication.AcquireTokenSilentAsync(Settings.Scopes);
-            //    await MobileServiceHelper.msInstance.InitMobileService(result);
-            //    if (Settings.MTCWebUrl.Length > 0){
-            //        await Navigation.PushAsync(new MainPage(result));
-            //    }
-            //    else {
-            //        //await DisplayAlert("Configuration Error", "Invalid URI entered", "OK");
-            //    }
-                
-            //}
-            //catch(Exception ex)
-            //{
-            //    // Do nothing - the user isn't logged in
-            //    Utils.TraceException("LoginPage OnAppearing", ex);
-            //}
-
         }
 
         private void OnPageSizeChanged(object sender, EventArgs args)
@@ -62,7 +42,7 @@ namespace CustomerApp
         {
             if (mainPageGrid.RowDefinitions.Count == 0)
             {
-                Display.SetGridRowsHeight(mainPageGrid, new string[] { "25*", "300", "40*", "90", "40" ,"90", "35*" });
+                Display.SetGridRowsHeight(mainPageGrid, new string[] { "25*", "300", "40*", "90", "64" ,"32", "35*" });
             }
 
         }
@@ -82,6 +62,11 @@ namespace CustomerApp
             {
                 using (var scope = new ActivityIndicatorScope(activityIndicator, activityIndicatorPanel, true))
                 {
+                    App.PCApplication = new PublicClientApplication(Settings.Authority, Settings.ClientID);
+                    App.PCApplication.PlatformParameters = App.PlatformParameters;
+
+                    MobileServiceHelper.msInstance = new MobileServiceHelper();
+
                     var result = await App.PCApplication.AcquireTokenAsync(
                                 new string[]{ Settings.ClientID },
                                 string.Empty,
@@ -90,6 +75,7 @@ namespace CustomerApp
                                 null,
                                 Settings.Authority,
                                 Settings.SignUpSignInpolicy);
+
                     await MobileServiceHelper.msInstance.InitMobileService(result);
                     await Navigation.PushAsync(new MainPage(result));
                 }

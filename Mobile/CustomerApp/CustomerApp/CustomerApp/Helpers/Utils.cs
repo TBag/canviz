@@ -17,6 +17,34 @@ using Plugin.Settings;
 
 namespace CustomerApp
 {
+    public class HelperUtil
+    {
+        public static string ConvertDateToString(DateTime dt)
+        {
+            string suffix = string.Empty;
+            switch (dt.Day)
+            {
+                case 1:
+                case 21:
+                case 31:
+                    suffix =  "st";
+                    break;
+                case 2:
+                case 22:
+                    suffix =  "nd";
+                    break;
+                case 3:
+                case 23:
+                    suffix = "rd";
+                    break;
+                default:
+                    suffix = "th";
+                    break;
+            }
+
+            return string.Format("{0:MMMM} {1}{2}, {0:yyyy}", dt, dt.Day, suffix);
+        }
+    }
     public class HttpUtil
     {
         public static async Task<HttpResponseMessage> PostImageAsync(MediaFile image, string url, string token)
@@ -70,7 +98,6 @@ namespace CustomerApp
 
     public static class Utils
     {
-
         public static void TraceException(string logEvent, Exception ex)
         {
             Debug.WriteLine(logEvent + ex.Message);
@@ -138,4 +165,5 @@ namespace CustomerApp
             SetIndicatorActivity(false);
         }
     }
+
 }

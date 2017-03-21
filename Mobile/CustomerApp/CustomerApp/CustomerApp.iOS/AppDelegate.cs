@@ -21,7 +21,7 @@ namespace CustomerApp.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
-        private string HOCKEYAPP_APPID = Settings.MobileHockeyAppIdiOS;
+        private string HOCKEYAPP_APPID = Settings.HockeyAppId;
         private static NSData DeviceToken { get;  set; }
         public static bool IsAfterInitClient = false;
         //
@@ -58,7 +58,7 @@ namespace CustomerApp.iOS
             UIApplication.SharedApplication.RegisterForRemoteNotifications();
 
             var result = base.FinishedLaunching(app, options);
-            App.PCApplication.PlatformParameters = new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController);
+            App.PlatformParameters = new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController);
             return result;
         }
 
@@ -94,7 +94,7 @@ namespace CustomerApp.iOS
                 {
                     System.Diagnostics.Debug.WriteLine("Exception in RegisterWithMobilePushNotifications: " + ex.Message);
 
-                    UIAlertView avAlert1 = new UIAlertView("Notification", "Exception in RegisterWithMobilePushNotifications", null, "OK", null);
+                    UIAlertView avAlert1 = new UIAlertView("Notification", "Exception in RegisterWithMobilePushNotifications" + ex.Message, null, "OK", null);
                     avAlert1.Show();
                 }
             }

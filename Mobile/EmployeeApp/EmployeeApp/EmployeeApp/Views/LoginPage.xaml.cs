@@ -17,13 +17,19 @@ namespace EmployeeApp
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+            if (Device.OS == TargetPlatform.iOS)
+            {
+                InitGridView();
+            }
             SizeChanged += OnPageSizeChanged;
         }
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            //set grid view height
-            InitGridView();
+            if (Device.OS == TargetPlatform.Android)
+            {
+                InitGridView();
+            }
         }
         private void OnPageSizeChanged(object sender, EventArgs args)
         {
@@ -33,7 +39,7 @@ namespace EmployeeApp
         {
             if (mainPageGrid.RowDefinitions.Count == 0)
             {
-                Display.SetGridRowsHeight(mainPageGrid, new string[] { "18*", "326", "72*", "90", "40", "90", "8*" });
+                Display.SetGridRowsHeight(mainPageGrid, new string[] { "18*", "326", "72*", "90", "64", "32", "8*" });
             }
 
         }

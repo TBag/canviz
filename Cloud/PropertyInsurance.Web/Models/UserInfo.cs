@@ -18,4 +18,11 @@ namespace PropertyInsurance.Web.Models
         public string UserPrincipalName { get; set; }
 
     }
+
+    public enum UserRole
+    {
+        Customer,
+        Adjuster,
+        Manager
+    }
 }

@@ -46,7 +46,7 @@ namespace CustomerApp.Droid
 
             LoadApplication(new App());
             //hockey
-            MetricsManager.Register(Application, Settings.MobileHockeyAppIdAndroid);
+            MetricsManager.Register(Application, Settings.HockeyAppId);
 
             //GCM
             // Set the current instance of MainActivity.
@@ -70,7 +70,7 @@ namespace CustomerApp.Droid
                 CreateAndShowDialog(e.Message, "Error");
             }
 
-            App.PCApplication.PlatformParameters = new PlatformParameters(Xamarin.Forms.Forms.Context as Activity);
+            App.PlatformParameters = new PlatformParameters(Xamarin.Forms.Forms.Context as Activity);
         }
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {

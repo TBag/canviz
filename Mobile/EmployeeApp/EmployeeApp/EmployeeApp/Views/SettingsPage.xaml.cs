@@ -28,6 +28,14 @@ namespace EmployeeApp
             tenant.Text = Settings.Tenant;
             clientId.Text = Settings.ClientID;
             replyURL.Text = Settings.ReplyURL;
+            if(Device.OS == TargetPlatform.iOS)
+            {
+                hockeyAppId.Text = Settings.HockeyAppIdiOS;
+            }
+            else
+            {
+                hockeyAppId.Text = Settings.HockeyAppIdAndroid;
+            }
         }
 
         private void InitGridView()
@@ -35,7 +43,7 @@ namespace EmployeeApp
             if (settingsPageGrid.RowDefinitions.Count == 0)
             {
                 settingsPageGrid.Padding = new Thickness(0, Display.Convert(40));
-                Display.SetGridRowsHeight(settingsPageGrid, new string[] { "50", "10", "70", "50", "10", "70", "50", "10", "70", "50", "10", "70", "1*" });
+                Display.SetGridRowsHeight(settingsPageGrid, new string[] { "50", "10", "70", "50", "10", "70", "50", "10", "70", "50", "10", "70", "50", "10", "70", "1*" });
             }
 
         }
@@ -83,6 +91,27 @@ namespace EmployeeApp
                 Settings.ReplyURL = replyUri;
             }
 
+            if (hockeyAppId.Text.Length == 0)
+            {
+                await DisplayAlert("Configuration Error", "Invalid Hockey App Id entered", "OK");
+                return;
+            }
+            if(Device.OS == TargetPlatform.iOS)
+            {
+                if (Settings.HockeyAppIdiOS != hockeyAppId.Text)
+                {
+                    Settings.HockeyAppIdiOS = hockeyAppId.Text;
+                    await DisplayAlert("Configuration Hint", "Restart the App to enable Hockey App.", "OK");
+                }
+            }
+            else
+            {
+                if (Settings.HockeyAppIdAndroid != hockeyAppId.Text)
+                {
+                    Settings.HockeyAppIdAndroid = hockeyAppId.Text;
+                    await DisplayAlert("Configuration Hint", "Restart the App to enable Hockey App.", "OK");
+                }
+            }
             await Navigation.PopAsync(false);
         }
 
