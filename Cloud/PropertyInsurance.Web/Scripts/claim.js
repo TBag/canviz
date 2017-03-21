@@ -160,10 +160,10 @@ var userHelper = {
     },
     changeView: function () {
         if (userHelper.currentRole == userHelper.roles.adjuster) {            
-            $(".claim-rating").hide();
+            $(".claim-rating ul li:not(:first)").hide();
             $($(".progtrckr > li")[2]).removeClass('progtrckr-done').addClass('progtrckr-doing');
         } else if (userHelper.currentRole == userHelper.roles.manager) {
-            $(".claim-rating").show();
+            $(".claim-rating ul li:not(:first)").show();;
             $($(".progtrckr > li")[2]).removeClass('progtrckr-doing').addClass('progtrckr-done');
         }
     },

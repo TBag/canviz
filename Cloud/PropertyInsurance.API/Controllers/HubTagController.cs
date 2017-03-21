@@ -31,34 +31,54 @@ namespace PropertyInsurance.API.Controllers
             // Return the installation for the specific ID.
             var installation = await hubClient.GetInstallationAsync(InstallationId);
 
+            // Define a collection of PartialUpdateOperations. Note that 
+            // only one '/tags' path is permitted in a given collection.
+            var updates = new List<PartialUpdateOperation>();
+
+            if (installation.Tags != null)
+            {
+
+                foreach (var removeTag in installation.Tags)
+                {
+                    if (removeTag == "uid:" + customerEmail) continue;
+
+                    // Add a update operation for the tag.
+                    updates.Add(new PartialUpdateOperation
+                    {
+                        Operation = UpdateOperationType.Remove,
+                        Path = "/tags/" + removeTag
+                    });
+                }
+            }
+
             if (installation.Tags == null || installation.Tags.Where(i => i == "uid:" + customerEmail).Count() == 0)
             {
                 // Verify that the tags are a valid JSON array.
-                var tags = JArray.Parse("[\"uid:" + customerEmail + "\"]");
-
-                // Define a collection of PartialUpdateOperations. Note that 
-                // only one '/tags' path is permitted in a given collection.
-                var updates = new List<PartialUpdateOperation>();
+                var addTag = JArray.Parse("[\"uid:" + customerEmail + "\"]");
 
                 // Add a update operation for the tag.
                 updates.Add(new PartialUpdateOperation
                 {
                     Operation = UpdateOperationType.Add,
                     Path = "/tags",
-                    Value = tags.ToString()
+                    Value = addTag.ToString()
                 });
 
-                try
+                if (updates.Count > 0)
                 {
-                    // Add the requested tag to the installation.
-                    await hubClient.PatchInstallationAsync(InstallationId, updates);
-                }
-                catch (MessagingException)
-                {
-                    // When an error occurs, return a failure status.
-                    return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                    try
+                    {
+                        // Add the requested tag to the installation.
+                        await hubClient.PatchInstallationAsync(InstallationId, updates);
+                    }
+                    catch (MessagingException)
+                    {
+                        // When an error occurs, return a failure status.
+                        return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                    }
                 }
             }
+                
 
             // Return success status.
             return new HttpResponseMessage(HttpStatusCode.OK);
