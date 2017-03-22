@@ -262,6 +262,7 @@
     <Content Include="Content\images\logo.svg" />
     <Content Include="Content\images\map.png" />
     <Content Include="Content\images\menu-button-of-three-lines.svg" />
+    <Content Include="Content\images\microsoft.svg" />
     <Content Include="Content\images\note-icon.svg" />
     <Content Include="Content\images\search-icon.svg" />
     <Content Include="Content\images\success-icon.svg" />
