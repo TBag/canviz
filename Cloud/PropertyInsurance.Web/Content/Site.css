@@ -99,9 +99,9 @@ a,a:hover {text-decoration:none;}
 .body-content .content-claim-status ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
 .body-content .content-claim-status ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
 .body-content .content-claim-status ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
-.body-content .content-claim-status ol.progtrckr li.progtrckr-done {color: black;border-top: 4px solid #374F73;}
+.body-content .content-claim-status ol.progtrckr li.progtrckr-done {color:#374f73;border-top: 4px solid #374F73;}
 .body-content .content-claim-status ol.progtrckr li.progtrckr-done.prev {border-top-color:#28AAE1;}
-.body-content .content-claim-status ol.progtrckr li.progtrckr-doing {color: black;border-top: 4px solid #28AAE1;}
+.body-content .content-claim-status ol.progtrckr li.progtrckr-doing {color: #374f73;border-top: 4px solid #28AAE1;}
 .body-content .content-claim-status ol.progtrckr li.progtrckr-doing.next {border-top-color:#E6E6E5;}
 .body-content .content-claim-status ol.progtrckr li.progtrckr-todo {color: silver; border-top: 4px solid white;width:10%;}
 .body-content .content-claim-status ol.progtrckr li >span:first-child {margin-left:-10px;}
@@ -111,8 +111,10 @@ a,a:hover {text-decoration:none;}
 .body-content .content-claim-status ol.progtrckr li:before {position: relative;top: -0.7em;float: left;left: 0;line-height: 1em;}
 .body-content .content-claim-status ol.progtrckr li.progtrckr-done:before{content: "";color: white;background-color: #374F73;height: 1.0em;width: 1.0em;line-height: 1.0em;border: none;border-radius: 1.0em;}
 .body-content .content-claim-status ol.progtrckr li.progtrckr-doing:before{background-color: white;content: "";color: #3DAFE2;font-size: 1.3em;bottom: -1.6em;background-image: url(/Content/images/Claim-Detail-Page-Progress-Bar_SELECTED.svg);width: 12px;height: 14px;background-repeat: no-repeat;background-position: 0 1px;}
+.body-content .content-claim-status ol.progtrckr li.progtrckr-doing.next.todo{color:silver;}
 .body-content .content-claim-status ol.progtrckr li.progtrckr-doing.next.todo:before {content: "";color: #E6E6E5;background-color: #E6E6E5;font-size: 1.0em;border: none;border-radius: 1.0em;height: 1.0em;width: 1.0em;line-height: 1.0em;background-image:none;}
 .body-content .content-claim-status ol.progtrckr li.progtrckr-todo:before {content: "";color: #E6E6E5;background-color: #E6E6E5;font-size: 1.0em;border: none;border-radius: 1.0em;height: 1.0em;width: 1.0em;line-height: 1.0em;}
+.body-content .content-claim-status ol.progtrckr li.progtrckr-todo.done{color:#374F73;}
 .body-content .content-claim-status ol.progtrckr li.progtrckr-todo.done:before{background-color: white;content: "";color: #3DAFE2;font-size: 1.3em;bottom: -1.6em;background-image: url(/Content/images/Claim-Detail-Page-Progress-Bar_SELECTED.svg);width: 12px;height: 14px;background-repeat: no-repeat;background-position: 0 1px;}
 .body-content .content-core>div{display:inline-block;vertical-align:top;}
 .body-content .content-core .submit-result{display: inline-block;background-color: #DCF2AA;background-image: url(images/success-icon.svg);background-repeat: no-repeat;background-size: 20px 20px;background-position: 18px 10px;width: 772px;height: 43px;padding-left: 50px;padding-right: 20px;padding-top: 10px;border-radius: 5px;margin-bottom: 15px;font-family: Karla-Regular;
