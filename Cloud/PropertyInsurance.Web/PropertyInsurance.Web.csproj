@@ -239,7 +239,10 @@
     <Content Include="Content\images\claim-icon.svg" />
     <Content Include="Content\images\claim-image-example.png" />
     <Content Include="Content\images\claimlist-map.png" />
+    <Content Include="Content\images\Claim_by_builder.png" />
     <Content Include="Content\images\Contoso-Insurance-Info-Icon.svg" />
+    <Content Include="Content\images\Contoso-Insurance-Insights-Section-Claim-Icon.svg" />
+    <Content Include="Content\images\Contoso-Insurance-Insights-Section-Money-Icon.svg" />
     <Content Include="Content\images\Contoso-Insurance-Kitchen-Flooding-Image.png" />
     <Content Include="Content\images\Contoso-Insurance-Map-Image_DETAIL-VIEW-2.png" />
     <Content Include="Content\images\Contoso-Insurance-Map-Image_DETAIL-VIEW.png" />
@@ -264,6 +267,8 @@
     <Content Include="Content\images\menu-button-of-three-lines.svg" />
     <Content Include="Content\images\microsoft.svg" />
     <Content Include="Content\images\note-icon.svg" />
+    <Content Include="Content\images\Payout_Increase.png" />
+    <Content Include="Content\images\Power-BI3.png" />
     <Content Include="Content\images\search-icon.svg" />
     <Content Include="Content\images\success-icon.svg" />
     <Content Include="Content\images\warning-icon.svg" />

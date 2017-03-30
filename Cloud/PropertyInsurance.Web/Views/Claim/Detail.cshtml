@@ -65,8 +65,7 @@
                             </div>
                             <ul>
                                 <li>Based on previous claims, payout will increase by $40,000 if delayed beyond 24 hours.</li>
-                                <li>Fabrikam Residences has had 14 claims reported in the past month.</li>
-                                <li>This claim has a @claim.RatePercent% confidence rating.</li>                                
+                                <li>Fabrikam Residences has had 45 claims reported in the past month.</li>
                             </ul>
                         </div>
                         <ul>
@@ -118,6 +117,20 @@
                     </table>
                 </div>
             </div>
+            <div class="power-bi-report">
+                <div class="title">
+                    <a href="https://msit.powerbi.com/groups/me/dashboards/bc757b53-7e0c-4d3b-83b6-12c935584329" target="_blank">Additional Insights</a>
+                </div>
+                <div class="graph">
+                    <span class="text-blue">Expected increase in payout</span>
+                    <img src="~/Content/images/Payout_Increase.png" />
+                </div>
+                <div class="graph">
+                    <span class="text-blue">Number of claims by Builder</span>
+                    <img src="~/Content/images/Claim_by_builder.png"/>
+                </div>
+                
+            </div>
         </div>
         <div class="content-core-right">
             <div class="other-content">
@@ -164,7 +177,7 @@
 </div>
 <input type="hidden" value="@ViewBag.ClaimUserRole" id="ClaimUserRole" name="ClaimUserRole" />
 <footer>
-    This is a sample demo application for developers built with educational purposes only.
+    Developed by Microsoft for demonstration and education purposes only.
 </footer>
 @section scripts {
     @Scripts.Render("~/bundles/claim")

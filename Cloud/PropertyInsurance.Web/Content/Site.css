@@ -65,8 +65,10 @@ a,a:hover {text-decoration:none;}
 
 /*left menu*/
 .body-content {margin-top: -19px;clear:both;}
-.body-content .leftMenu{background-color:rgb(55,79,115);display:inline-block;float:left;color:#fff;width:331px;min-height: 1290px;}
-.body-content .leftMenu.claim-list{min-height: 1290px;}
+.body-content .leftMenu{background-color:rgb(55,79,115);display:inline-block;float:left;color:#fff;width:331px;min-height: 1455px;}
+.body-content .leftMenu.manager{min-height: 1485px;}
+.body-content .leftMenu.adjuster{min-height: 1455px;}
+.body-content .leftMenu.claim-list,.body-content .leftMenu.builder-list{min-height: 1290px;}
 .body-content .leftMenu ul{list-style:none;padding-left:0;}
 .body-content .leftMenu ul:nth-child(1){margin-top: 18px;}
 .body-content .leftMenu ul:nth-child(2){margin-top:2px;}
@@ -129,12 +131,13 @@ a,a:hover {text-decoration:none;}
 .body-content .content-core-left .content-claim .bottom > div{display:inline-block;vertical-align:top;}
 .body-content .content-core-left .content-claim .bottom .claim-info{width:375px;padding-left:14px;padding-right:10px;}
 .body-content .content-core-left .content-claim .bottom .claim-info .claim-rating{width:355px;background-color:rgba(40,170,225,0.2); border-radius:4px;font-size:11px;padding-bottom:10px;}
-.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating .title{color:#FFFFFF;display: block;background-image:url("images/Contoso-Insurance-Info-Icon.svg");background-repeat: no-repeat;padding-left: 27px;
-    background-size: 12px 12px;background-position: 10px 7px;background-color:#28AAE1;text-transform:uppercase;border-top-left-radius: 4px;border-top-right-radius: 4px;}
+.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating .title{color:#FFFFFF;display: block;background-image:url("images/Contoso-Insurance-Info-Icon.svg");background-repeat: no-repeat;padding-left: 55px;
+    background-size: 12px 12px;background-position: 26px 7px;background-color:#28AAE1;text-transform:uppercase;border-top-left-radius: 4px;border-top-right-radius: 4px;}
 .body-content .content-core-left .content-claim .bottom .claim-info .claim-rating .title>span{font-size:9pt;}
-.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating ul{padding-left:12px;padding-right:15px;list-style-type: none;}
-.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating ul li{background-image:url("images/bullet.svg");color:#374f73;font-size:14px;background-repeat:no-repeat;background-size: 7px 7px;background-position: 0px 7px;padding-left: 15px;margin-bottom:5px;}
-.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating ul li:first-child{font-family:Karla-Bold;color:#cc6052;}
+.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating ul{padding-left:24px;padding-right:15px;list-style-type: none;padding-top: 12px;margin-bottom: 0;padding-bottom: 7px;}
+.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating ul li{background-image:url("images/bullet.svg");color:#374f73;font-size:14px;background-repeat:no-repeat;background-size: 7px 7px;background-position: 0px 7px;padding-left: 15px;margin-bottom:5px;padding-left:30px;}
+.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating ul li:first-child{font-family:Karla-Bold;background-image:url("images/Contoso-Insurance-Insights-Section-Money-Icon.svg");background-size: 16px 16px;}
+.body-content .content-core-left .content-claim .bottom .claim-info .claim-rating ul li:nth-child(2){background-image:url("images/Contoso-Insurance-Insights-Section-Claim-Icon.svg");background-size: 16px 16px;}
 .body-content .content-core-left .content-claim .bottom .claim-info >ul{list-style:none;padding-left:0;}
 .body-content .content-core-left .content-claim .bottom .claim-info >ul>li:first-child{margin-top:13px;margin-bottom:18px;}
 .body-content .content-core-left .content-claim .bottom .claim-info .property-value{margin-top:-2px;margin-bottom:20px;}
@@ -154,6 +157,16 @@ a,a:hover {text-decoration:none;}
 .body-content .content-core-left .content-claim-history .history-grid td:last-child {border-bottom-right-radius: 5px; border-top-right-radius: 5px; }
 .body-content .content-core-left .content-claim-history .history-grid td .context-menu-fire{position:relative;cursor:pointer;}
 .body-content .content-core-left .content-claim-history .history-grid td img{width:15px;height:15px;}
+
+/*power bi*/
+.body-content .content-core-left .power-bi-report{margin-top:35px;border: 2px solid #F0F0F0;border-radius: 10px;}
+.body-content .content-core-left .power-bi-report.manager{visibility:visible;}
+.body-content .content-core-left .power-bi-report.adjuster{visibility:hidden;}
+.body-content .content-core-left .power-bi-report .title {padding-top:10px;padding-left:11px;padding-bottom:5px;}
+.body-content .content-core-left .power-bi-report .graph{width:380px;display:inline-block;padding-left: 11px;}
+.body-content .content-core-left .power-bi-report .graph first-child{margin-right: 15px;}
+.body-content .content-core-left .power-bi-report .graph img{width:370px;height:194px;}
+
 .body-content .content-core-right{width:380px;}
 .body-content .content-core-right .other-content{background-color:#E6E6E5;border-radius:5px;margin-bottom:20px;padding-left:10px;padding-right:10px; font-family:Karla-Regular;color:rgb(55,79,115);height:619px;}
 .body-content .content-core-right .other-content .content-policy-holder{padding-top: 10px;}

@@ -131,7 +131,7 @@ namespace PropertyInsurance.Web.Utils
                     TotalNoProperties=13,
                     TotalClaims=45,
                     PercentClaims=58,
-                    Risk = Risk.High
+                    Risk = Risk.Medium
                 },
                 new BuilderViewModel()
                 {

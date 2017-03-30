@@ -179,10 +179,12 @@ var userHelper = {
             $($(".progtrckr > li")[1]).removeClass('prev').addClass('prev');
             $($(".progtrckr > li")[2]).removeClass('progtrckr-done').addClass('progtrckr-doing').addClass("next");
             $($(".progtrckr > li")[3]).removeClass('progtrckr-done').addClass('progtrckr-doing').addClass("next").addClass("todo");
+            $(".body-content .content-core-left .power-bi-report,.body-content .leftMenu").removeClass('manager').removeClass('adjuster').addClass('adjuster');
         } else if (userHelper.currentRole == userHelper.roles.manager) {
             $(".claim-rating ul li:not(:first)").show();;
             $($(".progtrckr > li")[2]).removeClass('progtrckr-doing').addClass('progtrckr-done').addClass('prev');
             $($(".progtrckr > li")[3]).removeClass('next').addClass('next');
+            $(".body-content .content-core-left .power-bi-report,.body-content .leftMenu").removeClass('adjuster').removeClass('manager').addClass('manager');
         }
     },
     init: function () {
