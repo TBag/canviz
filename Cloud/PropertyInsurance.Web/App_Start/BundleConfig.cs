@@ -28,6 +28,24 @@ namespace PropertyInsurance.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/login").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/site.css",
+                      "~/Content/login.css"));
+
+            bundles.Add(new StyleBundle("~/Content/detail").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/site.css",
+                      "~/Content/detail.css"));
+
+            bundles.Add(new StyleBundle("~/Content/builders").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/Builders.css"));
+            bundles.Add(new StyleBundle("~/Content/claims").Include(
+                "~/Content/bootstrap.css",
+                "~/Content/Builders.css",
+                "~/Content/Claims.css"));
         }
     }
 }

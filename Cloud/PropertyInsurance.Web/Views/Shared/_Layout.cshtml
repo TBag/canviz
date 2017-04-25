@@ -6,23 +6,25 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    @RenderSection("styles", required:false)
 </head>
 <body>
     <div class="navbar navbar-height clear">
         <div class="logo navbar-height">
-            <img src="~/Content/images/logo.svg" />
+            <img src="~/Content/images/navbar/Logo-contoso-blue.svg" />
+            <span>Contoso Insurance</span>
         </div>
         <div class="container">
-            <ul class="navbar-left navbar-paddingtop">
-                <li>Home</li>
-                <li>Directory</li>
-                <li>Policies</li>
+            <ul class="navbar-left navbar-paddingtop nav-bar-content">
+                @RenderSection("navbar", required: false)
             </ul>
             @Html.Partial("_LoginPartial")
             <ul class="navbar-right navbar-paddingtop">
-                <li class="searchBtn"><img src="@Url.Content("~/Content/images/Contoso-Insurance-Misc-Icons_SEARCH.png")" /></li>
-                <li class="noteBtn"><img  src="@Url.Content("~/Content/images/Contoso-Insurance-Misc-Icons-NOTIFICATION.svg")" /></li>
+                <li class="searchBtn"><img src="@Url.Content("~/Content/images/navbar/Search.svg")" /></li>
+                <li class="noteBtn"><img  src="@Url.Content("~/Content/images/navbar/Messages.svg")" /></li>
+                <li class="syncBtn">
+                    <span>&nbsp;</span>
+                </li>
             </ul>
         </div>
     </div>

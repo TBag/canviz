@@ -14,7 +14,7 @@ var navHelper = {
         });
     },
     bindClaimList: function () {
-        $(".content-claim-history tr.history-tr.claim").click(function (e) {
+        $(".common-list.claim-list .content-claim-history tr.history-tr").click(function (e) {
             navHelper.navTo("Detail");
         });
     },
@@ -45,8 +45,13 @@ var claimHelper = {
                 result = 'Claim submitted for final approval';
             }
             result += '<span>Undo</span>';
+            result += '<div class="mdl2"><span class="more"></span></div>';
             return result;
         })();
+        var updateStatusBar = function ($bar) {
+            $bar.find(".progtrckr-doing").removeClass("progtrckr-doing").addClass('progtrckr-done');
+            $bar.find(".progtrckr-todo").first().removeClass("progtrckr-todo").addClass('progtrckr-doing');
+        };
         $.ajax({
             dataType: 'json',
             url: relativeUrl,
@@ -62,14 +67,11 @@ var claimHelper = {
                 if (!isApprove)
                     submitResult.addClass("decline");
                 if (userHelper.isManager()) {
-                    $($(".progtrckr > li")[2]).removeClass('prev');
-                    $($(".progtrckr > li")[3]).removeClass('progtrckr-doing').addClass('progtrckr-done');
-                    $($(".progtrckr > li")[4]).removeClass('done').addClass('done');
+                    updateStatusBar($(".content-claim-status .progtrckr.manager"));
                 } else {
-                    $($(".progtrckr > li")[1]).removeClass('prev');
-                    $($(".progtrckr > li")[2]).removeClass('progtrckr-doing').addClass('progtrckr-done');
-                    $($(".progtrckr > li")[3]).removeClass('todo');
+                    updateStatusBar($(".content-claim-status .progtrckr.adjuster"));
                 }
+                
             }
         });
     },
@@ -80,18 +82,24 @@ var claimHelper = {
         });
     },
     initClaimDetail: function () {
-        $(".operate-button.approve").click(function () {
+        $(".operate-btn.approve").click(function () {
             console.log('approve');
             claimHelper.approveClaim(true);
         });
-        $(".operate-button.decline").click(function () {
+        $(".operate-btn.decline").click(function () {
             console.log('decline');
             claimHelper.approveClaim(false);
+        });
+    },
+    initSyncClick:function(){
+        $(".navbar .syncBtn").click(function () {
+            $(".power-bi-report").removeClass("hidden");
         });
     },
     init: function () {
         claimHelper.initClaimDetail();
         claimHelper.initSignout();
+        claimHelper.initSyncClick();
     }
 };
 
@@ -108,11 +116,14 @@ var contextMenuHelper = {
                 claimHelper.approveClaim(false);
             } else if ($(this).hasClass("highRisk")) {
                 var currentTr = $(this).parentsUntil(".history-tr").parent();
-                currentTr.addClass("highRisk");
+                //currentTr.addClass("highRisk");
                 var riskTd = $(currentTr.children("td")[4]);
-                riskTd.html("High");
+                //riskTd.html("High");
+                var span = riskTd.find("span");
+                span.text("High")
                 riskTd.addClass("risk-td").addClass("selected");
                 riskTd.next().addClass("selected");
+                self.$contextMenu().remove();
             }
             return false;
         });
@@ -175,21 +186,55 @@ var userHelper = {
     },
     changeView: function () {
         if (userHelper.currentRole == userHelper.roles.adjuster) {            
-            $(".claim-rating ul li:not(:first)").hide();
-            $($(".progtrckr > li")[1]).removeClass('prev').addClass('prev');
-            $($(".progtrckr > li")[2]).removeClass('progtrckr-done').addClass('progtrckr-doing').addClass("next");
-            $($(".progtrckr > li")[3]).removeClass('progtrckr-done').addClass('progtrckr-doing').addClass("next").addClass("todo");
-            $(".body-content .content-core-left .power-bi-report,.body-content .leftMenu").removeClass('manager').removeClass('adjuster').addClass('adjuster');
+            $(".progtrckr.adjuster").show();
+            $(".content-alert.adjuster").show();
+            $(".content-alert .content-alert-title").addClass("border-bottom");
         } else if (userHelper.currentRole == userHelper.roles.manager) {
-            $(".claim-rating ul li:not(:first)").show();;
-            $($(".progtrckr > li")[2]).removeClass('progtrckr-doing').addClass('progtrckr-done').addClass('prev');
-            $($(".progtrckr > li")[3]).removeClass('next').addClass('next');
-            $(".body-content .content-core-left .power-bi-report,.body-content .leftMenu").removeClass('adjuster').removeClass('manager').addClass('manager');
+            $(".progtrckr.manager").show();
+            $(".content-alert.manager").show();
+            $(".content-alert .content-alert-title").addClass("manager");
         }
     },
     init: function () {
         userHelper.initRole();
         userHelper.changeView();
+    }
+};
+
+var loginHelper = {
+    initSubmitClick:function(){
+        $("div.login .btns .submit").click(function () {
+            navHelper.navTo("index");
+        });
+    },
+    initCancelClick:function(){
+        $("div.login .btns .cancel").click(function () {
+            $(".username >input").val('');
+            $(".password >input").val('');
+        });
+    },
+    init: function () {
+        loginHelper.initCancelClick();
+        loginHelper.initSubmitClick();
+    }
+};
+
+var viewHelper = {
+    init: function () {
+        viewHelper.initResize();
+    },
+    initResize: function () {
+        var resizeHtml = function () {
+            var browserWidth = document.documentElement.clientWidth;
+            if (browserWidth > 1366) {
+                $(".navbar .container").css("max-width", browserWidth);
+                $(".content-main .content-operation-area").css("max-width", browserWidth);
+                $(".content-main .content-claim-status").css("max-width", browserWidth);
+            }
+            
+        };
+        window.onresize = resizeHtml;
+        resizeHtml();
     }
 };
 
@@ -199,4 +244,6 @@ var userHelper = {
     claimHelper.init();
     contextMenuHelper.init();
     userHelper.init();
+    loginHelper.init();
+    viewHelper.init();
 })();

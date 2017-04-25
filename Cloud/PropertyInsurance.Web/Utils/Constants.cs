@@ -33,7 +33,7 @@ namespace PropertyInsurance.Web.Utils
 
         public const string Base64Prefix = "data:image/jpeg;base64,";
         public const string ThumbnailExceptionCode = "Request_ResourceNotFound";
-        public const string AnonymPhotoPath = "~/Content/images/Contoso-Insurance-Misc-Icons-PROFILE.svg";
+        public const string AnonymPhotoPath = "~/Content/images/navbar/Profile.svg";
 
         public const int BlobReadExpireMinitues = 5;
         public static readonly string StorageConnectionString = ConfigurationManager.AppSettings["AzureStorageAccountConnectionString"];

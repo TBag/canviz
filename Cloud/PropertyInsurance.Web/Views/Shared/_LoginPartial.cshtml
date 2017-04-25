@@ -4,7 +4,8 @@
 @if(signedOut==null || signedOut != true)
 {
     <div class="nav-logout navbar-height">
-        <div class="sign-out">Sign out</div>
+        <div class="btn"><img class="settings" src="@Url.Content("~/Content/images/navbar/Settings.svg")" /></div>
+        <div class="btn question"><img src="@Url.Content("~/Content/images/navbar/Question.svg")" /></div>
         <div class="profile"><img src='@ViewBag.Thumbnail' /></div>
     </div>
 }

@@ -42,5 +42,10 @@ namespace PropertyInsurance.Web.Controllers
             ViewBag.SignedOut = true;
             return View();
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
     }
 }

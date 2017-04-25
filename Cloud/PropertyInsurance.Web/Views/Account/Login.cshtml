@@ -1,63 +1,94 @@
-﻿@using PropertyInsurance.Web.Models
-@model LoginViewModel
-@{
-    ViewBag.Title = "Log in";
+﻿@{
+    Layout = null;
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    @Styles.Render("~/Content/login")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="login">
+        <div class="left-bg">
+            <div class="top"><img src="~/Content/images/login/Logo White.svg"/></div>
+            <div class="bottom">
+                <ul>
+                    <li>
+                        <div class="col-1">
+                            <div class="icon"><img src="~/Content/images/login/Home.svg" /></div>
+                            <div class="title"><span>HOME</span></div>
                         </div>
+                        <div class="col-2">
+                            <div class="icon"><img src="~/Content/images/login/Auto.svg" /></div>
+                            <div class="title"><span>AUTO</span></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-1">
+                            <div class="icon"><img src="~/Content/images/login/Condo.svg" /></div>
+                            <div class="title"><span>CONDO</span></div>
+                        </div>
+                        <div class="col-2">
+                            <div class="icon"><img src="~/Content/images/login/Umbrella.svg" /></div>
+                            <div class="title"><span>UNBRELLA</span></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="right-form">
+            <div class="logo">
+                <img src="~/Content/images/login/Logo-Bright-Blue.svg" />
+            </div>
+            <div class="account-type">
+                <span>Work or school account</span>
+            </div>
+            <div class="username">
+                <input placeholder="someone@example.com "/>
+            </div>
+            <div class="password">
+                <input type="password" placeholder="Password"/>
+            </div>
+            <div class="keep-signin-checkbox">
+                <input type="checkbox" value="0" id="cred_keep_me_signed_in_checkbox">
+                <span>Keep me signed in</span>
+            </div>
+            <div class="btns">
+                <div class="submit">Sign in</div>
+                <div class="cancel">Back</div>
+            </div>
+            <div class="cannot-login">
+                <a href="#">Can’t access your account?</a>
+            </div>
+            <div id="footer_table" class="footer_block">
+                <div class="corporate_footer">
+                    <div>
+                        <span class="footer_link text-caption" id="footer_copyright_link">
+                            © 2017 Microsoft
+                        </span>
+                    </div>
+                    <div>
+                        <span class="footer_link">
+                            <a class="text-caption" id="footer_link_terms" href="https://www.microsoft.com/en-US/servicesagreement/" target="_blank">Terms of use</a>
+                        </span>
+                        <span class="footer_link">
+                            <a class="text-caption" id="footer_link_privacy" href="https://privacy.microsoft.com/en-US/privacystatement" target="_blank">Privacy &amp; Cookies</a>
+                        </span>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
+                <div class="footer_glyph">
+                    <img src="https://secure.aadcdn.microsoftonline-p.com/ests/2.1.5814.20/content/images/microsoft_logo.png" alt="Microsoft account symbol">
                 </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/claim")
+</body>
+</html>

@@ -3,94 +3,252 @@
     var claim = ViewBag.Claim;
     var claimHistoryList = ViewBag.ClaimHistoryList;
 }
+@section styles {
+    @Styles.Render("~/Content/detail")
+}
+@section navbar
+{
+    <span>Claims <label>&gt;</label> Claim #@claim.Id</span>
+}
+
 <div class="leftMenu">
     <ul>
-        <li><img class="menu-icon" src="~/Content/images/menu-button-of-three-lines.svg" /></li>
+        <li class="hamburger"><img class="menu-icon" src="~/Content/images/navbar/Hamburger.png" /></li>
     </ul>
     <ul class="menu-nav">
-        <li class="menu-title">Menu</li>
-        <li>My dashboard</li>
-        <li class="builders">Builders</li>
-        <li class="menu-selected claims">Claims<img class="claim-icon" src="~/Content/images/claim-icon.svg" /></li>
-    </ul>
-
-    <ul>
-        <li class="menu-title">Settings</li>
-        <li>My account</li>
-        <li>Apps</li>
-        <li>Help</li>
+        <li class="dashboard">Dashboard</li>
+        <li class="menu-selected claims">Claims</li>
+        <li class="builders with-img"><img src="~/Content/images/navbar/builders.png" />Builders</li>
+        <li class="help with-img"><img src="~/Content/images/navbar/help.png" />Help</li>
+        <li class="new with-img"><img src="~/Content/images/navbar/new.png" />New view</li>
     </ul>
 </div>
 <div class="content-main">
     <div class="content-breadcrumb padding-left">
-        <label>Claims \ Claim #@claim.Id</label>
+        <label>Claim #@claim.Id</label>
+    </div>
+    <div class="content-operation-area padding-left">
+        <div class="search">Search...</div>
         <div class="btns">
-            <a class="text-blue" href="#">+ Add a tile</a>
-            <a class="text-blue" href="#">Customize</a>
+            <div class="approve operate-btn">Approve</div>
+            <div class="decline operate-btn">Decline</div>
+            <div class="more operate-btn">More</div>
         </div>
     </div>
-    <div class="content-claimId padding-left">
-        <span>Claim #@claim.Id</span>
-    </div>
-    <div class="content-operation-area padding-left max-width">
-        <div class="operation-container">
-            <div class="operate-button text-blue approve">Approve</div>
-            <div class="operate-button text-blue decline">Decline</div>
-            <div class="operate-button text-blue">Contact Agent</div>
-            <div class="operate-button text-blue">More</div>
+    <div class="content-claim-status">
+        <div class="progtrckr manager" >
+            <div class="progtrckr-done"><span>Submitted</span></div><!--
+            --><div class="progtrckr-done"><span class="center">Initial Validation</span></div><!--
+            --><div class="progtrckr-done"><span class="center">Adjuster Desk</span></div><!--
+            --><div class="progtrckr-doing"><span class="center">Final Approval</span></div><!--
+            --><div class="progtrckr-todo"><span class="center">Finished</span></div>
         </div>
-    </div>
-    <div class="content-claim-status padding-left">
-        <ol class="progtrckr" data-progtrckr-steps="5">
-            <li class="progtrckr-done"><span>Submitted</span></li><!--
-            --><li class="progtrckr-done"><span class="center">Initial Validation</span></li><!--
-            --><li class="progtrckr-done"><span class="center">Adjuster Desk</span></li><!--
-            --><li class="progtrckr-doing"><span class="center">Final Approval</span></li><!--
-            --><li class="progtrckr-todo"><span>Finished</span></li>
-        </ol>
+        <div class="progtrckr adjuster" >
+            <div class="progtrckr-done"><span>Submitted</span></div>
+            <!--
+        -->
+            <div class="progtrckr-done"><span class="center">Initial Validation</span></div>
+            <!--
+        -->
+            <div class="progtrckr-doing"><span class="center">Adjuster Desk</span></div>
+            <!--
+        -->
+            <div class="progtrckr-todo"><span class="center">Final Approval</span></div>
+            <!--
+        -->
+            <div class="progtrckr-todo"><span class="center">Finished</span></div>
+        </div>
     </div>
     <div class="content-core padding-left">
+        <div class="submit-result hide"></div>
         <div class="content-core-left">
-            <div class="submit-result hide">
-            </div>
             <div class="content-claim">
                 <div class="title">
-                    Claim @claim.Id detail
+                    <div>Claim @claim.Id information</div>
+                    <div>Submitted from app</div>
                 </div>
                 <div class="bottom">
                     <div class="claim-info">
-                        <div class="claim-rating">
-                            <div class="title">
-                                <span>Insights</span>
-                            </div>
-                            <ul>
-                                <li>Based on previous claims, payout will increase by $40,000 if delayed beyond 24 hours.</li>
-                                <li>Fabrikam Residences has had 45 claims reported in the past month.</li>
-                            </ul>
-                        </div>
                         <ul>
                             <li>
-                                <div class="property-name  text-blue">Status</div>
+                                <div class="property-name text-gray">Status</div>
                                 <div class="property-value status">@claim.Status</div>
                             </li>
                             <li>
-                                <div class="property-name  text-blue">Date of claim</div>
+                                <div class="property-name  text-gray">Submitted</div>
                                 <div class="property-value">@claim.Date</div>
                             </li>
                             <li>
-                                <div class="property-name  text-blue">Description</div>
+                                <div class="property-name  text-gray">Description</div>
                                 <div class="property-value">@claim.Description</div>
+                            </li>
+                            <li>
+                                See more
                             </li>
                         </ul>
                     </div>
                     <div class="claim-img">
-                        @*<img src="@ViewBag.ClaimImage" />*@
                         <img src="~/Content/images/Contoso-Insurance-Kitchen-Flooding-Image.png" />
+                        <div class="content-images-history">
+                            <div class="property-value">
+                                <img src="~/Content/images/Contoso-Insurance-Kitchen-Flooding-Image.png" />
+                                <img src="~/Content/images/image-history-02.png" />
+                                <img src="~/Content/images/image-history-03.png" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="content-claim-history">
-                <span>Claims History</span>
+            <div class="content-contact-history">
+                <div class="contact-history-title padding-left-twenty">
+                    <span class="title">Contact history</span>
+                    <div class="mdl2">
+                        <span class="more"></span>
+                    </div>
+                </div>
+                <div class="contact-tab padding-left-twenty">
+                    <ul>
+                        <li>Posts</li>
+                        <li>Activities</li>
+                        <li>Notes</li>
+                        <li>OneNote</li>
+                        <li>Favorites</li>
+                        <li>
+                            <div class="mdl2">
+                                <span class="search"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contact-radios padding-left-twenty">
+                    <ul>
+                        <li>
+                            <div class="mdl2">
+                                <span class="both"></span>
+                            </div>
+                            <span>Both</span>
+                        </li>
+                        <li>
+                            <div class="mdl2">
+                                <span class="unchecked"></span>
+                            </div>
+                            <span>Contoso Insuranc</span>
+                        </li>
+                        <li>
+                            <div class="mdl2">
+                                <span class="unchecked"></span>
+                            </div>
+                            <span>Memember</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contact-infos  padding-left-twenty">
+                    <div class="contact-person">
+                        <div class="contact-basic-info">
+                            <span>Ken Thomas</span>
+                            <span class="text-blue">March 23 at 2:35 PM</span>
+                            <span>Contoso Insurance, Local agent</span>
+                        </div>
+                        <div class="contact-description">
+                            This claim is in process but we need to confirm additional information. Can you please verify how many stories the home?
+                        </div>
+                        <div class="contact-btns">
+                            <ul>
+                                <li>
+                                    <div class="mdl2">
+                                        <span class="comment"></span>
+                                    </div>
+                                    <span>Comment</span>
+                                </li>
+                                <li>
+                                    <div class="mdl2">
+                                        <span class="favorite"></span>
+                                    </div>
+                                    <span>Favorite</span>
+                                </li>
+                                <li>
+                                    <div class="mdl2">
+                                        <span class="share"></span>
+                                    </div>
+                                    <span>Share</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="contact-person">
+                        <div class="contact-basic-info">
+                            <span>Sandy Simmons</span>
+                            <span class="text-blue">March 24 at 9:20 AM</span>
+                            <span class="align-right">Property Owner</span>
+                        </div>
+                        <div class="contact-description">
+                            Our hourse is 1 story.
+                        </div>
+                        <div class="contact-btns">
+                            <ul>
+                                <li>
+                                    <div class="mdl2">
+                                        <span class="comment"></span>
+                                    </div>
+                                    <span>Comment</span>
+                                </li>
+                                <li>
+                                    <div class="mdl2">
+                                        <span class="favorite"></span>
+                                    </div>
+                                    <span>Favorite</span>
+                                </li>
+                                <li>
+                                    <div class="mdl2">
+                                        <span class="share"></span>
+                                    </div>
+                                    <span>Share</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="contact-person">
+                        <div class="contact-basic-info">
+                            <span>Deborah Jansen</span>
+                            <span class="text-blue">March 24 at 9:30 AM</span>
+                            <span>Contoso Insurance, Manager</span>
+                        </div>
+                        <div class="contact-description">
+                            We also need to find out whether there is a basement or not on the property. Can you confirm the answer to this?
+                        </div>
+                        <div class="contact-btns">
+                            <ul>
+                                <li>
+                                    <div class="mdl2">
+                                        <span class="comment"></span>
+                                    </div>
+                                    <span>Comment</span>
+                                </li>
+                                <li>
+                                    <div class="mdl2">
+                                        <span class="favorite"></span>
+                                    </div>
+                                    <span>Favorite</span>
+                                </li>
+                                <li>
+                                    <div class="mdl2">
+                                        <span class="share"></span>
+                                    </div>
+                                    <span>Share</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom padding-left-twenty">
+                    See more contact history
+                </div>
+            </div>
+            <div class="content-claim-history  padding-left-twenty">
+                <div class="claim-title">
+                    <span>Claims History</span>
+                    <span>3 previous claims</span>
+                </div>
                 <div class="history-grid">
                     <table cellspacing="0">
                         <thead>
@@ -110,65 +268,270 @@
                                     <td>@item.Date</td>
                                     <td>$@item.Payout</td>
                                     <td>@item.Status</td>
-                                    <td class="text-blue"><img src="~/Content/images/Contoso-Insurance-Misc-Icons-ELLIPSIS.svg" /></td>
+                                    <td>
+                                        <div class="mdl2">
+                                            <span class="more"></span>
+                                        </div>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
+                <div class="history-images">
+                    <h2>Member history image inventory</h2>
+                    <div class="image-tab">
+                        <span class="selected">1141698</span>
+                        <div class="mdl2">
+                            <span class="search"></span>
+                        </div>
+                    </div>
+                    <div class="image-list">
+                        <img src="~/Content/images/detail/Image-inventory-1@4x.png" />
+                        <img src="~/Content/images/detail/Image-inventory-2@4x.png" />
+                        <img src="~/Content/images/detail/Image-inventory-3@4x.png" />
+                        <img src="~/Content/images/detail/Image-inventory-4@4x.png" />
+                        <img src="~/Content/images/detail/Image-inventory-5@4x.png" />
+                        <img src="~/Content/images/detail/Image-inventory-6@4x.png" />
+                        <img src="~/Content/images/detail/Image-inventory-7@4x.png" />
+                        <div class="mdl2">
+                            <span class="right-arrow"></span>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        See more details on these claims
+                    </div>
+                </div>
             </div>
-            <div class="power-bi-report">
-                <div class="title">
-                    <a href="https://msit.powerbi.com/groups/me/dashboards/bc757b53-7e0c-4d3b-83b6-12c935584329" target="_blank">Additional Insights</a>
+            <div class="power-bi-report hidden">
+                <div class="graph">
+                    <div class="top">
+                        <div class="title"><span>Payout</span><span>Claims By Status</span></div>
+                        <div class="more"><img src="~/Content/images/Elipsis.png" /></div>
+                    </div>
+                    <div class="middle">
+                        <img src="~/Content/images/Payout_Increase.png" />
+                    </div>
+                    <div class="bottom">
+                        <div>
+                            <img src="~/Content/images/PayoutBlue.png" />
+                        </div>
+                        <div>
+                            <div class="description"><span>Compare this claim to see how many claims are Submitted, Completed, Pending, and Declined</span></div>
+                            <div class="link"><img src="~/Content/images/OpenPBI.png"><a href="https://msit.powerbi.com/groups/me/dashboards/bc757b53-7e0c-4d3b-83b6-12c935584329">Open in Power BI</a><hr/></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="graph">
-                    <img src="~/Content/images/Payout_Increase.png" />
-                    <span class="text-blue">Expected increase in payout</span>
+                    <div class="top">
+                        <div class="title"><span>Trend</span><span>Claims by Builder</span></div>
+                        <div class="more"><img src="~/Content/images/Elipsis.png" /></div>
+                    </div>
+                    <div class="middle">
+                        <img src="~/Content/images/Claim_by_builder.png" />
+                    </div>
+                    <div class="bottom">
+                        <div>
+                            <img src="~/Content/images/TrendBlue.png" />
+                        </div>
+                        <div>
+                            <div class="description"><span>See how the builder on this claim compares to other builders in terms of claims.</span></div>
+                            <div class="link"><img src="~/Content/images/OpenPBI.png"><a href="https://msit.powerbi.com/groups/me/dashboards/bc757b53-7e0c-4d3b-83b6-12c935584329">Open in Power BI</a><hr/></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="graph">
-                    <img src="~/Content/images/Claim_by_builder.png"/>
-                    <span class="text-blue">Number of claims by Builder</span>
-                </div>
-                
             </div>
         </div>
         <div class="content-core-right">
-            <div class="other-content">
-                <div class="content-policy-holder">
-                    <span>Policy holder</span>
-                    <div class="property-name text-blue">Policy holder ID</div>
-                    <div class="property-value">@claim.PolicyHolder.Id</div>
+            <div class="content-alert manager">
+                <div class="content-alert-title">
+                    <span>Alerts</span>
+                    <span>Two alerts detected for this claim</span>
                 </div>
-                <div class="content-map">
-                    <img src="~/Content/images/Contoso-Insurance-Map-Image_DETAIL-VIEW-2.png" />
+                <div class="content-alert-content">
+                    <div class="payout">
+                        <div class="property-name text-gray">Payout</div>
+                        <div class="property-value status">Based on previous claims, payout will increase by <span class="text-blue">$40,000</span> if delayed beyond 24 hours.</div>
+                    </div>
+                    <div class="trend">
+                        <div class="property-name text-gray">Trend</div>
+                        <div class="property-value status">Fabrikam Residences has reported <span class="text-blue">45 claims</span> in the last months.</div>
+                    </div>
+                    <div class="more">
+                        See more
+                    </div>
                 </div>
-                <div class="content-address">
-                    <div class="property-name text-blue">Address</div>
-                    <div class="property-value">@claim.PolicyHolder.Address</div>
+            </div>
+            <div class="content-alert adjuster">
+                <div class="content-alert-title">
+                    <span>Alerts</span>
+                    <span>1 alert detected for this claim</span>
                 </div>
-                <div class="content-date-from">
-                    <div class="property-name text-blue">Member since</div>
-                    <div class="property-value">@claim.PolicyHolder.RegisterDate</div>
+                <div class="content-alert-content">
+                    <div class="payout">
+                        <div class="property-name text-gray">Payout</div>
+                        <div class="property-value status">Based on previous claims, payout will increase by <span class="text-blue">$40,000</span> if delayed beyond 24 hours.</div>
+                    </div>
+                    <div class="more">
+                        See more
+                    </div>
                 </div>
-                <div class="content-images-history">
-                    <div class="property-name text-blue">Image Inventory</div>
-                    <div class="property-value">
-                        @*<img src="@ViewBag.ClaimImage" />*@
-                        <img src="~/Content/images/Contoso-Insurance-Kitchen-Flooding-Image.png" />
-                        <img src="~/Content/images/image-history-02.png" />
-                        <img src="~/Content/images/image-history-03.png" />
+            </div>
+            <div class="member-profile">
+                <div class="profile-title padding-left-twenty border-bottom">
+                    <span class="title">Member Profile</span>
+                    <div class="mdl2">
+                        <span class="more"></span>
+                    </div>
+                    <span class="sub-title text-gray">Policy #12131-1232-312</span>
+                </div>
+                <div class="profile-photo border-bottom-space">
+                   <label>Sandy Simmons</label>
+                </div>
+                <div class="profile-details">
+                   <ul>
+                       <li>
+                        <div class="property-name text-gray">Phone</div>
+                        <div class="property-value">+1-206-345-8909</div>
+                       </li>
+                       <li>
+                           <div class="property-name text-gray">E-mail</div>
+                           <div class="property-value">Ssims@contosocable.com</div>
+                       </li>
+                       <li>
+                           <div class="property-name text-gray">Loyalty</div>
+                           <div class="property-value">Platinum</div>
+                       </li>
+                       <li>
+                           <div class="property-name text-gray">Active since</div>
+                           <div class="property-value">March 31,2002</div>
+                       </li>
+                       <li>
+                           <div class="content-map">
+                               <img src="~/Content/images/Contoso-Insurance-Map-Image_DETAIL-VIEW-2.png" />
+                           </div>
+                       </li>
+                       <li>
+                           <div class="property-name text-gray">Address</div>
+                           <div class="property-value">700 120th ST, Orofino, ID83544</div>
+                       </li>
+                       <li>
+                           <div class="property-name text-gray">Home type</div>
+                           <div class="property-value">Single family, 4 beds/3 ba</div>
+                       </li>
+                       <li>
+                           <div class="property-name text-gray">Size</div>
+                           <div class="property-value">3,160 sqft</div>
+                       </li>
+                       <li>
+                           <div class="property-name text-gray">Year built</div>
+                           <div class="property-value">1980</div>
+                       </li>
+                       <li class="border-bottom">
+                           <div class="property-name text-gray">Occupants</div>
+                           <div class="property-value">2 adults, 2 children</div>
+                       </li>
+                   </ul>
+                </div>
+                <div class="policies clickable padding-left-twenty padding-right-twenty">
+                    <div class="border-bottom">
+                        <span class="propertyname  text-gray">Policies</span>
+                        <div class="mdl2">
+                            <span class="arrow-down"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="comments clickable padding-left-twenty padding-right-twenty">
+                    <div class="border-bottom">
+                        <span class="propertyname  text-gray">Comments</span>
+                        <div class="mdl2">
+                            <span class="arrow-down"></span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="content-agent">
-                <span>Local agent</span>
-                <div class="agent-info">
-                    <div class="agent-thumb">
-                        <img src="~/Content/images/agent.png" />
+                <div class="agent-title padding-left-twenty padding-right-twenty">
+                    <span class="title">Contact local agent</span>
+                    <div class="mdl2">
+                        <span class="more"></span>
                     </div>
-                    <div class="agent-detail">
-                        <span>Ken Thomas</span>
-                        <span class="text-blue">ken@contosoinsurance.com</span>
+                    <span class="sub-title text-gray">Moscow, ID</span>
+                </div>
+                <div class="agent-info">
+                    <div class="agent-thumb padding-left-twenty padding-right-twenty">
+                        <img src="~/Content/images/detail/Agent-0.png" />
+                        <img src="~/Content/images/detail/Agent-1.png" />
+                        <img src="~/Content/images/detail/Agent-2.png" />
+                        <img src="~/Content/images/detail/Agent-3.png" />
+                        <img src="~/Content/images/detail/Agent-4.png" />
+                        <div class="mdl2">
+                            <span class="right-arrow"></span>
+                        </div>
+                    </div>
+                    <div class="border-bottom split"></div>
+                    <div class="agent-detail padding-left-twenty padding-right-twenty">
+                        <div class="detail-item">Ken Thomas</div>
+                        <div class="detail-item">Claims Manager | Contoso</div>
+                        <div class="under-line">
+                            <div class="mdl2">
+                                <span class="mail"></span>
+                            </div>
+                            <span class="text-gray">Ken@ContosoInsurance.com</span>
+                        </div>
+                        <div class="under-line" >
+                            <div class="mdl2">
+                                <span class="phone"></span>
+                            </div>
+                            <span class="text-gray">1 420 888 9291</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-vendor">
+                    <div class="vendor-title padding-left-twenty padding-right-twenty">
+                        <span class="title">Regional preferred vendors</span>
+                        <span class="sub-title text-gray">Vendors are rated on multiple factors</span>
+                    </div>
+                    <div class="vendor-content  padding-left-twenty padding-right-twenty">
+                        <ul>
+                            <li class="border-bottom">
+                                <span>builder</span>
+                                <span>rating</span>
+                            </li>
+                            <li class="border-bottom">
+                                Proseware Inc.
+                                <div class="mdl2">
+                                    <span class="star-five"></span>
+                                </div>
+                            </li>
+                            <li class="border-bottom">
+                                Adatum Corp.
+                                <div class="mdl2">
+                                    <span class="star-four"></span>
+                                </div>
+                            </li>
+                            <li class="border-bottom">
+                                Relecloud
+                                <div class="mdl2">
+                                    <span class="star-four"></span>
+                                </div>
+                            </li>
+                            <li class="border-bottom">
+                                Van Arsdel Ltd
+                                <div class="mdl2">
+                                    <span class="star-three"></span>
+                                </div>
+                            </li>
+                            <li class="border-bottom">
+                                Fabrikam Residences
+                                <div class="mdl2">
+                                    <span class="star-one"></span>
+                                </div>
+                            </li>
+                            <li>
+                                See more
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

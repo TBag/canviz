@@ -99,8 +99,8 @@ namespace PropertyInsurance.Web.Utils
                     Id = 1201707,
                     RatePercent = 95,
                     Payout = "6,705.82",
-                    Status = "Pending",
-                    Date = DateTime.Now.ToString("MMMM dd, yyyy")
+                    Status = "Adjuster desk",
+                    Date = DateTime.Now.ToString("M/d/yyyy h:mm tt")
                 },
                 new ClaimViewModel()
                 {
@@ -108,7 +108,7 @@ namespace PropertyInsurance.Web.Utils
                     RatePercent = 80,
                     Payout = "11,223.70",
                     Status = "Completed",
-                    Date = "April 3, 2007",
+                    Date = "4/3/2007 6:23 PM",
                 },
                 new ClaimViewModel()
                 {
@@ -116,7 +116,7 @@ namespace PropertyInsurance.Web.Utils
                     RatePercent = 80,
                     Payout = "1,354.22",
                     Status = "Completed",
-                    Date = "June 19, 2004",
+                    Date = "6/19/2004 5:14 PM",
                 }
             };
         }
