@@ -71,7 +71,7 @@ var claimHelper = {
                 } else {
                     updateStatusBar($(".content-claim-status .progtrckr.adjuster"));
                 }
-                
+                $(".content-alert").addClass("approved");
             }
         });
     },
