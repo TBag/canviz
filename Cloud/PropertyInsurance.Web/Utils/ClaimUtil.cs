@@ -79,9 +79,9 @@ namespace PropertyInsurance.Web.Utils
             {
                 Id = 1201707,
                 RatePercent = 95,
-                Status = "Pending",
-                Date = DateTime.Now.ToString("MM/dd/yyyy hh:mmtt"),
-                Description = "Our city was hit by an intense rainstorm on Sunday afternoon and our drainage pipe backed up. As a result, over a foot of water flooded our home, causing extensive damage to the floors as well as some furniture.",
+                Status = "Adjuster desk",
+                Date = DateTime.Parse("2017/03/23 14:35").ToString("MM/dd/yyyy hh:mmtt"),
+                Description = "Flooding occurred in the claimant’s kitchen, located on the first floor of their residence.Water line detected at 7 inches above the floor with damage to 126 square feet of space.Flooring substrate appeared moderately effected.The damaged items included 24 feet of built -in cabinetry including contents, as well as four dining chairs and a dining table.",
                 PolicyHolder = new PolicyHolder()
                 {
                     Id = "134-000-1276",
@@ -117,6 +117,53 @@ namespace PropertyInsurance.Web.Utils
                     Payout = "1,354.22",
                     Status = "Completed",
                     Date = "6/19/2004 5:14 PM",
+                }
+            };
+        }
+
+        public static List<ClaimViewModel> GetMockClaimViewModelListForDetail()
+        {
+            return new List<ClaimViewModel>()
+            {
+                new ClaimViewModel()
+                {
+                    Id = 1201707,
+                    RatePercent = 95,
+                    Payout = "6,705.82",
+                    Status = "Adjuster desk",
+                    Date = DateTime.Now.ToString("M/d/yyyy h:mm tt")
+                },
+                new ClaimViewModel()
+                {
+                    Id = 1141698,
+                    RatePercent = 80,
+                    Payout = "11,223.70",
+                    Status = "Completed",
+                    Date = "4/3/2007 6:23 PM",
+                },
+                new ClaimViewModel()
+                {
+                    Id = 1021710,
+                    RatePercent = 80,
+                    Payout = "1,354.22",
+                    Status = "Completed",
+                    Date = "6/19/2004 5:14 PM",
+                },
+                new ClaimViewModel()
+                {
+                    Id = 1010790,
+                    RatePercent = 80,
+                    Payout = "944.57",
+                    Status = "Completed",
+                    Date = "2/12/2003 9:40 AM",
+                },
+                new ClaimViewModel()
+                {
+                    Id = 1006711,
+                    RatePercent = 80,
+                    Payout = "9,986.79",
+                    Status = "Completed",
+                    Date = "10/26/2000 2:24 PM",
                 }
             };
         }

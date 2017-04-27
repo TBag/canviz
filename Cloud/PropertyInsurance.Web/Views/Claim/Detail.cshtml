@@ -8,7 +8,8 @@
 }
 @section navbar
 {
-    <span>Claims <label>&gt;</label> Claim #@claim.Id</span>
+    <span>Claims <img src="~/Content/images/navbar/Breadcrumb@2x.png" />Claim</span>
+    <span>#@claim.Id</span>
 }
 
 <div class="leftMenu">
@@ -119,6 +120,7 @@
                             </div>
                         </li>
                     </ul>
+                    <hr/>
                 </div>
                 <div class="contact-radios padding-left-twenty">
                     <ul>
@@ -132,13 +134,13 @@
                             <div class="mdl2">
                                 <span class="unchecked"></span>
                             </div>
-                            <span>Contoso Insuranc</span>
+                            <span>Contoso Insurance</span>
                         </li>
                         <li>
                             <div class="mdl2">
                                 <span class="unchecked"></span>
                             </div>
-                            <span>Memember</span>
+                            <span>Member</span>
                         </li>
                     </ul>
                 </div>
@@ -146,8 +148,8 @@
                     <div class="contact-person">
                         <div class="contact-basic-info">
                             <span>Ken Thomas</span>
-                            <span class="text-blue">March 23 at 2:35 PM</span>
                             <span>Contoso Insurance, Local agent</span>
+                            <span class="text-blue">March 23 at 2:35 PM</span>
                         </div>
                         <div class="contact-description">
                             This claim is in process but we need to confirm additional information. Can you please verify how many stories the home?
@@ -178,8 +180,8 @@
                     <div class="contact-person">
                         <div class="contact-basic-info">
                             <span>Sandy Simmons</span>
+                            <span class="second">Property Owner</span>
                             <span class="text-blue">March 24 at 9:20 AM</span>
-                            <span class="align-right">Property Owner</span>
                         </div>
                         <div class="contact-description">
                             Our hourse is 1 story.
@@ -210,8 +212,8 @@
                     <div class="contact-person">
                         <div class="contact-basic-info">
                             <span>Deborah Jansen</span>
+                            <span class="third">Contoso Insurance, Manager</span>
                             <span class="text-blue">March 24 at 9:30 AM</span>
-                            <span>Contoso Insurance, Manager</span>
                         </div>
                         <div class="contact-description">
                             We also need to find out whether there is a basement or not on the property. Can you confirm the answer to this?
@@ -344,7 +346,7 @@
         </div>
         <div class="content-core-right">
             <div class="content-alert manager">
-                <div class="content-alert-title">
+                <div class="content-alert-title border-bottom">
                     <span>Alerts</span>
                     <span>Two alerts detected for this claim</span>
                 </div>
@@ -404,7 +406,7 @@
                        </li>
                        <li>
                            <div class="property-name text-gray">Active since</div>
-                           <div class="property-value">March 31,2002</div>
+                           <div class="property-value">March 31, 2002</div>
                        </li>
                        <li>
                            <div class="content-map">

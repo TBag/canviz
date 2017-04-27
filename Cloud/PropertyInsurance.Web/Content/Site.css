@@ -70,15 +70,15 @@ a,a:hover {text-decoration:none;}
 .navbar{background-color: #080A36;color:rgb(255,255,255);line-height:19.2px;font-size:16px;font-family:Karla-Regular;margin-bottom:0;min-height:0;border:0;border-radius:0;font-family:"Segoe UI","Segoe WP","Helvetica Neue",Tahoma,"Lucida Grande",Helvetica,sans-serif;}
 .navbar-paddingtop{padding-top:12px;}
 .navbar-height{height:48px;}
-.navbar .logo{display:inline-block;vertical-align: top;border-right:1px solid #4A4A4A;float:left;width:260px;}
-.navbar .logo >span{margin-left:25px;font-size:1.25em;font-family:"Segoe UI,Segoe UI Semilight";}
+.navbar .logo{display:inline-block;vertical-align: top;border-right:1px solid #4A4A4A;float:left;width: 249px;}
+.navbar .logo >span{margin-left:14px;font-size:1.25em;font-family:"Segoe UI,Segoe UI Semilight";}
 .navbar .logo>img{width:48px;height:48px;}
 .navbar .container{max-width:none;}
 .navbar .container ul{list-style:none;}
 .navbar .container ul li{display: inline;list-style-type: none;padding-left:17px;padding-right:17px;}
-.navbar .container .navbar-left{padding-left:22px;}
-.navbar .container .navbar-left span{font-size:0.88em;color:rgb(255,255,255);font-size:16px;}
-.navbar .container .navbar-left span > label{width:10px;color:#a6a6a6;}
+.navbar .container .navbar-left{padding-left:19px;}
+.navbar .container .navbar-left span{font-size:0.88em;color:rgb(255,255,255);font-size:16px;margin-right:6px;}
+.navbar .container .navbar-left span > img{width:16px;margin-left: 1px;margin-right: 8px;}
 .navbar .container .navbar-right{float:right;margin-right: 23px;}
 .navbar .container .navbar-right .noteBtn{}
 .navbar .container .navbar-right .syncBtn{width:20px;cursor:pointer;}
@@ -92,7 +92,7 @@ a,a:hover {text-decoration:none;}
 .navbar .container .nav-logout >div.btn.question {width:40px;padding-left:0;}
 .navbar .container .nav-logout >div.btn.question > img{width: 11px;}
 .navbar .container .nav-logout >div.profile{width:25%;}
-.navbar .container .nav-logout >div.profile>img{border-radius:5px;height:25px;width:25px;border-radius:25px;margin-top: 4px;
+.navbar .container .nav-logout >div.profile>img{border-radius:5px;height:30px;width:30px;border-radius:25px;margin-top: 4px;
     margin-left: 6px;}
 
 /*left menu*/
@@ -103,15 +103,16 @@ a,a:hover {text-decoration:none;}
 .body-content .leftMenu.claim-list,.body-content .leftMenu.builder-list{min-height: 1290px;}
 .body-content .leftMenu ul{list-style:none;padding-left:0;}
 .body-content .leftMenu ul:nth-child(1){margin-top: 2px;margin-bottom: 0;}
-.body-content .leftMenu ul:nth-child(2){margin-top:2px;}
+.body-content .leftMenu ul:nth-child(2){margin-top: 21px;}
 .body-content .leftMenu ul img.menu-icon{width: 24px;}
-.body-content .leftMenu ul li{padding-top:10px;padding-bottom:10px;font-family:Karla-Regular;font-size:16px;line-height:26px;padding-left:58px;cursor:pointer;}
+.body-content .leftMenu ul li{padding-top:10px;padding-bottom:10px;font-family:Karla-Regular;font-size:16px;line-height:31px;padding-left:58px;cursor:pointer;}
 .body-content .leftMenu ul li.hamburger{padding-left:20px}
 .body-content .leftMenu ul li.menu-title{color:rgb(25,38,58);font-family:Karla-Bold;text-transform:uppercase;line-height:13.2px;letter-spacing:0.05em;font-size:11px;}
 .body-content .leftMenu ul li.menu-selected{background-color:#2C3263;clear:both;}
 .body-content .leftMenu ul li img.claim-icon{width:33px;height:19px;float: right;}
 .body-content .leftMenu ul.menu-nav li.with-img{padding-left:20px;}
 .body-content .leftMenu ul.menu-nav li.with-img img{width:28px;margin-right: 10px;}
+.body-content .leftMenu ul.menu-nav li.menu-selected.with-img.builders img{width: 20px;margin-left: 3px;margin-right: 15px;}
 .body-content .leftMenu ul.menu-nav li::before{color:#fff;font-family: 'Segoe MDL2 Assets';position:absolute;left:24px;}
 .body-content .leftMenu ul.menu-nav li.dashboard::before{content: '\e80f';}
 .body-content .leftMenu ul.menu-nav li.claims::before{content: '\E133';}

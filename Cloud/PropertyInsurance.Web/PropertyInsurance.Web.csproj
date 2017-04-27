@@ -262,7 +262,7 @@
     <Content Include="Content\images\Elipsis.png" />
     <Content Include="Content\images\Filter.png" />
     <Content Include="Content\images\Grid.png" />
-    <Content Include="Content\images\High Risk Mark.png" />
+    <Content Include="Content\images\High-Risk-Mark.svg" />
     <Content Include="Content\images\List.png" />
     <Content Include="Content\images\login\Auto.svg" />
     <Content Include="Content\images\login\Condo.svg" />
@@ -297,6 +297,7 @@
     <Content Include="Content\images\image-history-01.png" />
     <Content Include="Content\images\image-history-02.png" />
     <Content Include="Content\images\image-history-03.png" />
+    <Content Include="Content\images\navbar\builders-selected.png" />
     <Content Include="Content\images\navbar\builders.png" />
     <Content Include="Content\images\navbar\Hamburger.png" />
     <Content Include="Content\images\navbar\help.png" />
@@ -308,6 +309,7 @@
     <Content Include="Content\images\navbar\Messages.svg" />
     <Content Include="Content\images\microsoft.svg" />
     <Content Include="Content\images\navbar\new.png" />
+    <Content Include="Content\images\navbar\Profile.png" />
     <Content Include="Content\images\navbar\Refresh%404x.png" />
     <Content Include="Content\images\navbar\Refresh.png" />
     <Content Include="Content\images\navbar\Refresh.svg" />

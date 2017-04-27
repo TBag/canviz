@@ -16,7 +16,7 @@
     <ul class="menu-nav">
         <li class="dashboard">Dashboard</li>
         <li class="claims">Claims</li>
-        <li class="builders with-img menu-selected"><img src="~/Content/images/navbar/builders.png" />Builders</li>
+        <li class="builders with-img menu-selected"><img src="~/Content/images/navbar/builders-selected.png" />Builders</li>
         <li class="help with-img"><img src="~/Content/images/navbar/help.png" />Help</li>
         <li class="new with-img"><img src="~/Content/images/navbar/new.png" />New view</li>
     </ul>
@@ -63,7 +63,7 @@
                                     <td>@item.TotalNoProperties</td>
                                     <td>@item.TotalClaims</td>
                                     <td>@item.PercentClaims%</td>
-                                    <td class="context-menu-fire builder @PropertyInsurance.Web.Utils.ClaimUtil.GetBuilderHighRiskTdCssClass(item)"><span>@item.Risk.ToString()</span><img src="~/Content/images/warning-icon.svg" /></td>
+                                    <td class="context-menu-fire builder @PropertyInsurance.Web.Utils.ClaimUtil.GetBuilderHighRiskTdCssClass(item)"><span>@item.Risk.ToString()</span><img src="~/Content/images/High-Risk-Mark.svg" /></td>
                                     @*<td><span class="context-menu-fire builder"><img src="~/Content/images/Contoso-Insurance-Misc-Icons-ELLIPSIS.svg" /></span></td>*@
                                 </tr>
                             }

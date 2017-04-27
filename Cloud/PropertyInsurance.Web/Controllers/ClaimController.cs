@@ -32,7 +32,7 @@ namespace PropertyInsurance.Web.Controllers
             ViewBag.Message = "This is Claim Detail";
             await InitUserProfile();
             ViewBag.Claim = ClaimUtil.GetMockClaimViewModel();
-            InitMockClaimList();
+            ViewBag.ClaimHistoryList = ClaimUtil.GetMockClaimViewModelListForDetail();
             //ViewBag.ClaimImage = await ClaimUtil.GetMockImageFromBlob();
             ViewBag.ClaimUserRole = await ClaimUtil.GetMockUserRole();
             return View();

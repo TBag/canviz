@@ -5,6 +5,9 @@
     font-size: 16px;
     background-color: #eaeaea;
 }
+.body-content {
+    padding: 0;
+}
 .body-content .leftMenu{
     width: 220px;
 }
@@ -227,22 +230,14 @@
     height: 64px;
     line-height: 64px;
     margin-left: 11px;
-    background-image: url(images/warning-icon.svg);
+    background-image: url(images/High-Risk-Mark.svg);
     background-repeat: no-repeat;
     background-position: 111px center;
     background-size: 16px 16px;
 }
 
-/*.context-menu .item{padding-bottom: 11px;padding-left: 15px;}*/
-/*.context-menu .item:hover{background-color:#EDEDED;}*/
 .context-menu .item.split-line{
     border-bottom:1px solid #EDEDED;
 }
-/*.context-menu .item.split-line:hover{background-color:#F5F5F5;}*/
-/*.claim-list.builder-list .context-menu .item:last-child{background-image: url(images/flag-icon.svg);background-repeat: no-repeat;background-size: 15px 15px;background-position: 15px 5px;padding-left: 40px;}*/
-
-
-/*.body-content .common-list.builder-list .content-claim-history tr.history-tr.highRisk{background-color:#F4F073;}
-.body-content .common-list.builder-list .content-claim-history tr.history-tr.highRisk td{border-color:#F4F073;}*/
 
 

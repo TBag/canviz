@@ -41,9 +41,11 @@ namespace PropertyInsurance.Web
 
             bundles.Add(new StyleBundle("~/Content/builders").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/site.css",
                       "~/Content/Builders.css"));
             bundles.Add(new StyleBundle("~/Content/claims").Include(
                 "~/Content/bootstrap.css",
+                "~/Content/site.css",
                 "~/Content/Builders.css",
                 "~/Content/Claims.css"));
         }
