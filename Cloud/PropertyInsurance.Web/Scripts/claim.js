@@ -193,6 +193,7 @@ var userHelper = {
             $(".progtrckr.manager").show();
             $(".content-alert.manager").show();
             $(".content-alert .content-alert-title").addClass("manager");
+            $(".power-bi-report").removeClass("hidden");
         }
     },
     init: function () {
