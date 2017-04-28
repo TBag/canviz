@@ -186,8 +186,12 @@ a,a:hover {text-decoration:none;}
 .body-content .content-core-right .content-agent .agent-detail{display:inline-block;width:55%;}
 
 /*footer*/
-footer{margin-top: 110px;background-image: url(images/microsoft.svg);background-repeat: no-repeat;
-    background-size: 151px 35px;background-position: 371px 3px;height: 60px;padding-top: 40px;padding-left:371px;color:#19263a;}
+footer{
+    margin-top: 40px;
+    height: 60px;
+    padding-left: 259px;
+    color: #19263a;
+}
 .body-content .claim-list footer{margin-top:360px;padding-left:0;background-position-x:0;}
 
 /*context menu*/

@@ -8,6 +8,9 @@
 .body-content {
     padding: 0;
 }
+.body-content .content-main{
+    min-height: unset;
+}
 .body-content .leftMenu{
     width: 220px;
 }

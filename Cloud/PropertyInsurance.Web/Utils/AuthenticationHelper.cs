@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using PropertyInsurance.Web.Models;
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -10,13 +11,29 @@ namespace PropertyInsurance.Web.Utils
 {
     public class AuthenticationHelper
     {
-        public static string token;
-        public static async Task<string> AcquireTokenAsync()
+
+        private const string tokenSessionKey = "AADToken";
+
+        private static string GetSessionTokenKey(string userId)
         {
-            if (string.IsNullOrEmpty(token))
-            {
+            return "UserToken_" + userId;
+        }
+
+        public static void SetToken(string userId,string token)
+        {
+            var tokenSessionKey = GetSessionTokenKey(userId);
+            HttpContext.Current.Session[tokenSessionKey] = token;
+        }
+
+        private static string GetToken()
+        {
+            var token = string.Empty;
+            var signedInUserID = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (string.IsNullOrEmpty(signedInUserID))
                 throw new LostAuthorizationTokenException(Constants.LostTokenErrorMsg);
-            }
+            var storedToken = HttpContext.Current.Session[GetSessionTokenKey(signedInUserID)];
+            if (storedToken != null)
+                token = storedToken.ToString();
             return token;
         }
 
@@ -26,10 +43,13 @@ namespace PropertyInsurance.Web.Utils
         /// <returns>ActiveDirectoryClient for Application.</returns>
         public static ActiveDirectoryClient GetActiveDirectoryClient()
         {
+            var token = GetToken();
+            if (string.IsNullOrEmpty(token))
+                throw new LostAuthorizationTokenException(Constants.LostTokenErrorMsg);
             Uri baseServiceUri = new Uri(Constants.GraphResourceUrl);
             ActiveDirectoryClient activeDirectoryClient =
                 new ActiveDirectoryClient(new Uri(baseServiceUri, Constants.AADTenantId),
-                    async () => await AcquireTokenAsync());
+                    async () => token);
             return activeDirectoryClient;
         }
 

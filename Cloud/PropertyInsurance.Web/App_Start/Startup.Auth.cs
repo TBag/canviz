@@ -64,7 +64,7 @@ namespace PropertyInsurance.Web
                            AuthenticationContext authContext = new AuthenticationContext(Authority, new NaiveSessionCache(signedInUserID));
                            AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
                            code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
-                           AuthenticationHelper.token = result.AccessToken;
+                           AuthenticationHelper.SetToken(signedInUserID, result.AccessToken);
                            return Task.FromResult(0);
                        },
                         AuthenticationFailed = faildMsg =>

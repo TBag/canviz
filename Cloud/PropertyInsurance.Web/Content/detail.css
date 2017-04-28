@@ -58,8 +58,8 @@ body{background-color: #EAEAEA;min-width: 1366px;}
 
 .body-content .content-claim-status div.progtrckr div.progtrckr-todo {background-color:#DCDCDC;}
 .body-content .content-claim-status div.progtrckr div.progtrckr-todo>span {color:#525252;}
-.body-content .content-claim-status div.progtrckr div.progtrckr-todo:after {border-color: transparent transparent transparent #ffffff;}
-.body-content .content-claim-status div.progtrckr div.progtrckr-todo:before {border-color: transparent transparent transparent #E9E9E9;}
+.body-content .content-claim-status div.progtrckr div.progtrckr-todo:after {border-color: transparent transparent transparent #DCDCDC;}
+.body-content .content-claim-status div.progtrckr div.progtrckr-todo:before {border-color: transparent transparent transparent #ffffff;}
 .body-content .content-claim-status div.progtrckr div.progtrckr-todo:last-child::before,.body-content .content-claim-status div.progtrckr div.progtrckr-todo:last-child::after{content:'';border:none;}
 .body-content .content-claim-status div.progtrckr div.progtrckr-todo:before {}
 .body-content .content-claim-status div.progtrckr div.progtrckr-todo.done{}
@@ -296,6 +296,6 @@ body{background-color: #EAEAEA;min-width: 1366px;}
 .body-content .content-core-right .content-vendor ul li div.mdl2>span.star-two::before{content:'\E1CF\00A0\E1CF';}
 .body-content .content-core-right .content-vendor ul li div.mdl2>span.star-one::before{content:'\E1CF';}
 
-.body-content footer{visibility:hidden;}
+.body-content footer{visibility:visible;}
 
 

@@ -93,7 +93,7 @@ var claimHelper = {
     },
     initSyncClick:function(){
         $(".navbar .syncBtn").click(function () {
-            $(".power-bi-report").removeClass("hidden");
+            $(".content-vendor").removeClass("hidden");
         });
     },
     init: function () {
