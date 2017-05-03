@@ -81,7 +81,7 @@ namespace PropertyInsurance.Web.Utils
                 Id = 1201707,
                 RatePercent = 95,
                 Status = "Adjuster desk",
-                Date = DateTime.Parse("2017/03/23 14:35").ToString("MM/dd/yyyy hh:mmtt"),
+                Date = DateTime.Parse("2017/03/23 14:35").ToString("MM/dd/yyyy hh:mm tt"),
                 Description = "Flooding occurred in the claimant’s kitchen, located on the first floor of their residence.Water line detected at 7 inches above the floor with damage to 126 square feet of space.Flooring substrate appeared moderately effected.The damaged items included 24 feet of built -in cabinetry including contents, as well as four dining chairs and a dining table.",
                 PolicyHolder = new PolicyHolder()
                 {
