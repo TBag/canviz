@@ -6,10 +6,10 @@
 
     try {
         for (var i = 0; i < len; i++) {
-            if (tags[i].name == "indoor") {
-                confidence = tags[i].confidence;
-            }
-            if (tags[i].name == "water") {
+            //if (tags[i].name == "indoor") {
+            //    confidence = tags[i].confidence;
+            //}
+            if (tags[i].name == "counter") {
                 confidence += tags[i].confidence;
             }
         }

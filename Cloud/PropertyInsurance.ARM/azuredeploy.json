@@ -80,11 +80,60 @@
         "description": "The application client secret that you registered under Azure Active Directory B2C domain"
       }
     },
-    "visionServiceSubscriptionKey": {
+    "CognitiveServices": {
+      "defaultValue": "CognitiveServices",
+      "type": "string"
+    },
+    "workflows_customer_submit_claim_name": {
+      "defaultValue": "customer-submit-claim",
+      "type": "string"
+    },
+    "dynamicscrmonline_1_Connection_Name": {
       "type": "string",
-      "defaultValue": "",
+      "defaultValue": "dynamicscrmonline"
+    },
+    "dynamicscrmonline_1_Connection_DisplayName": {
+      "type": "string",
+      "defaultValue": "Dynamice 365 Account"
+    },
+    "sapapplicationserver_1_Connection_Name": {
+      "type": "string",
+      "defaultValue": "SAP"
+    },
+    "sapapplicationserver_1_Connection_DisplayName": {
+      "type": "string",
+      "defaultValue": "SAP"
+    },
+    "enrich_sql_Connection_Name": {
+      "type": "string",
+      "defaultValue": "sql"
+    },
+    "enrich_sql_Connection_DisplayName": {
+      "type": "string",
+      "defaultValue": "On-Premises Customer SQL"
+    },
+    "enrich_sql_server": {
+      "type": "string",
       "metadata": {
-        "description": "https://www.microsoft.com/cognitive-services/en-us/computer-vision-api"
+        "description": "SQL server name"
+      }
+    },
+    "enrich_sql_database": {
+      "type": "string",
+      "metadata": {
+        "description": "SQL database name"
+      }
+    },
+    "enrich_sql_username": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Username credential"
+      }
+    },
+    "enrich_sql_password": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password credential"
       }
     }
   },
@@ -144,7 +193,7 @@
       "name": "[variables('notificationHubNamespaceName')]",
       "apiVersion": "2014-09-01",
       "location": "[resourceGroup().location]",
-      "tags": {},
+      "tags": { },
       "properties": {
         "region": "[resourceGroup().location]",
         "namespaceType": "NotificationHub"
@@ -156,7 +205,7 @@
           "apiVersion": "2014-09-01",
           "location": "[resourceGroup().location]",
           "properties": {
-            "authorizationRules": []
+            "authorizationRules": [ ]
           },
           "dependsOn": [
             "[resourceId('Microsoft.NotificationHubs/namespaces', variables('notificationHubNamespaceName'))]"
@@ -174,9 +223,9 @@
       "name": "[variables('storageAccountName')]",
       "apiVersion": "2016-01-01",
       "location": "[resourceGroup().location]",
-      "tags": {},
-      "properties": {},
-      "dependsOn": []
+      "tags": { },
+      "properties": { },
+      "dependsOn": [ ]
     },
     {
       "apiVersion": "2015-08-01",
@@ -195,7 +244,7 @@
         "name": "[parameters('hostingPlanName')]",
         "numberOfWorkers": 1
       },
-      "dependsOn": []
+      "dependsOn": [ ]
     },
     {
       "apiVersion": "2015-08-01",
@@ -214,14 +263,14 @@
         "name": "[concat(parameters('hostingPlanName'), 'functionapp')]",
         "numberOfWorkers": 1
       },
-      "dependsOn": []
+      "dependsOn": [ ]
     },
     {
       "name": "[variables('sqlserverName')]",
       "type": "Microsoft.Sql/servers",
       "location": "[resourceGroup().location]",
       "apiVersion": "2014-04-01-preview",
-      "dependsOn": [],
+      "dependsOn": [ ],
       "tags": {
         "displayName": "sqlserver"
       },
@@ -445,7 +494,7 @@
           "contentVersion": "1.0.0.0",
           "parameters": {
             "$connections": {
-              "defaultValue": {},
+              "defaultValue": { },
               "type": "Object"
             }
           },
@@ -483,7 +532,7 @@
           },
           "actions": {
             "Get_blob_content_using_path": {
-              "runAfter": {},
+              "runAfter": { },
               "type": "ApiConnection",
               "inputs": {
                 "host": {
@@ -536,7 +585,7 @@
               }
             }
           },
-          "outputs": {}
+          "outputs": { }
         },
         "parameters": {
           "$connections": {
@@ -568,7 +617,7 @@
         "definition": {
           "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
           "contentVersion": "1.0.0.0",
-          "parameters": {},
+          "parameters": { },
           "triggers": {
             "manual": {
               "type": "Request",
@@ -591,7 +640,7 @@
           },
           "actions": {
             "PushNotification": {
-              "runAfter": {},
+              "runAfter": { },
               "type": "Function",
               "inputs": {
                 "body": {
@@ -607,9 +656,9 @@
               }
             }
           },
-          "outputs": {}
+          "outputs": { }
         },
-        "parameters": {}
+        "parameters": { }
       },
       "dependsOn": [
         "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]",
@@ -620,13 +669,13 @@
       "type": "Microsoft.Logic/workflows",
       "name": "[variables('workflowsApprovePictureName')]",
       "apiVersion": "2016-06-01",
-      "location": "westus",
+      "location": "[resourceGroup().location]",
       "properties": {
         "state": "Enabled",
         "definition": {
           "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
           "contentVersion": "1.0.0.0",
-          "parameters": {},
+          "parameters": { },
           "triggers": {
             "manual": {
               "type": "Request",
@@ -688,14 +737,14 @@
               }
             },
             "ComputerVision": {
-              "runAfter": {},
+              "runAfter": { },
               "type": "Http",
               "inputs": {
                 "body": {
                   "url": "@{triggerBody()?['ImageUrl']}"
                 },
                 "headers": {
-                  "Ocp-Apim-Subscription-Key": "[parameters('visionServiceSubscriptionKey')]"
+                  "Ocp-Apim-Subscription-Key": ""
                 },
                 "method": "POST",
                 "uri": "https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Tags&language=en"
@@ -721,7 +770,7 @@
                   }
                 },
                 "SendApprovalMailNotification": {
-                  "runAfter": {},
+                  "runAfter": { },
                   "type": "Http",
                   "inputs": {
                     "body": {
@@ -745,7 +794,7 @@
               "else": {
                 "actions": {
                   "RejectionResponse": {
-                    "runAfter": {},
+                    "runAfter": { },
                     "type": "Response",
                     "inputs": {
                       "body": {
@@ -763,16 +812,335 @@
               "type": "If"
             }
           },
-          "outputs": {}
+          "outputs": { }
         },
-        "parameters": {}
+        "parameters": { }
       },
       "dependsOn": [
         "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]",
         "[resourceId('Microsoft.Web/Sites/sourcecontrols', variables('functionAppName'), 'web')]",
         "[resourceId('Microsoft.Logic/workflows/', variables('workflowsSendMailName'))]"
       ]
+    },
+    // cognitive service account
+    {
+      "comments": "CSCreateInPortal'.",
+      "type": "Microsoft.CognitiveServices/accounts",
+      "sku": {
+        "name": "F0"
+      },
+      "kind": "ComputerVision",
+      "name": "[parameters('CognitiveServices')]",
+      "apiVersion": "2016-02-01-preview",
+      "location": "[resourceGroup().location]",
+      "properties": { },
+      "dependsOn": [ ]
+    },
+    //computer vision connect
+    {
+      "type": "MICROSOFT.WEB/CONNECTIONS",
+      "apiVersion": "2016-06-01",
+      "name": "cognitiveservicescomputervision",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "api": {
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/', 'cognitiveservicescomputervision')]"
+        },
+        "displayName": "Cognitive Services Computer Vision",
+        "parameterValues": {
+          "apiKey": "[listKeys(resourceId('Microsoft.CognitiveServices/accounts', parameters('CognitiveServices')), providers('Microsoft.CognitiveServices', 'accounts').apiVersions[0]).key1]"
+        }
+      }
+    },
+    //logic app: submit claim
+    {
+      "comments": "customer-submit-claim'.",
+      "type": "Microsoft.Logic/workflows",
+      "name": "[parameters('workflows_customer_submit_claim_name')]",
+      "apiVersion": "2016-06-01",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "state": "Enabled",
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {
+            "$connections": {
+              "defaultValue": { },
+              "type": "Object"
+            }
+          },
+          "triggers": {
+            "manual": {
+              "type": "Request",
+              "kind": "Http",
+              "inputs": {
+                "schema": { }
+              }
+            }
+          },
+          "actions": {
+            "Analyze_Image": {
+              "runAfter": { },
+              "type": "ApiConnection",
+              "inputs": {
+                "body": "@triggerBody()",
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['cognitiveservicescomputervision']['connectionId']"
+                  }
+                },
+                "method": "post",
+                "path": "/vision/v1.0/tag",
+                "queries": {
+                  "format": "Image Content"
+                }
+              }
+            },
+            "If_the_claim_image_is_valid": {
+              "actions": {
+                "Notify_Customer_of_Success": {
+                  "runAfter": { },
+                  "type": "Response",
+                  "inputs": {
+                    "body": {
+                      "isValid": true
+                    },
+                    "statusCode": 200
+                  }
+                }
+              },
+              "runAfter": {
+                "Validate_Image": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "Notify_Customer_of_Error": {
+                    "runAfter": { },
+                    "type": "Response",
+                    "inputs": {
+                      "body": {
+                        "isValid": false
+                      },
+                      "statusCode": 200
+                    }
+                  }
+                }
+              },
+              "expression": "@equals(outputs('Validate_Image')['statusCode'], 200)",
+              "type": "If"
+            },
+            "Validate_Image": {
+              "runAfter": {
+                "Analyze_Image": [
+                  "Succeeded"
+                ]
+              },
+              "type": "Function",
+              "inputs": {
+                "body": "@body('Analyze_Image')",
+                "function": {
+                  "id": "[concat(resourceId('Microsoft.Web/sites',variables('functionAppName')), '/functions/AnalysisPicture')]"
+                }
+              }
+            }
+          },
+          "outputs": { }
+        },
+        "parameters": {
+          "$connections": {
+            "value": {
+              "cognitiveservicescomputervision": {
+                "connectionId": "[resourceId('Microsoft.Web/connections', 'cognitiveservicescomputervision')]",
+                "connectionName": "cognitiveservicescomputervision",
+                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/', 'cognitiveservicescomputervision')]"
+              }
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites',variables('functionAppName'))]",
+        "[resourceId('Microsoft.Web/Sites/sourcecontrols', variables('functionAppName'), 'web')]",
+        "[resourceId('Microsoft.Web/connections', 'cognitiveservicescomputervision')]"
+      ]
+    },
+    //enrich-crm-case logic app
+    {
+      "properties": {
+        "state": "Disabled",
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "actions": {
+            "Get_record_from_Dynamics_365": {
+              "runAfter": {
+                "Retrieve_details_from_SAP": [
+                  "Succeeded"
+                ]
+              },
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['dynamicscrmonline']['connectionId']"
+                  }
+                },
+                "method": "get",
+                "path": "/datasets/@{encodeURIComponent(encodeURIComponent('org3d8c2c11.crm'))}/tables/@{encodeURIComponent(encodeURIComponent('accounts'))}/items/@{encodeURIComponent(encodeURIComponent(triggerBody()?['CustomerId']))}"
+              }
+            },
+            "Retrieve_details_from_SAP": {
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "api": {
+                    "runtimeUrl": "https://logic-apis-westus.azure-apim.net/apim/sapapplicationserver"
+                  },
+                  "connection": {
+                    "name": "@parameters('$connections')['sapapplicationserver']['connectionId']"
+                  }
+                },
+                "method": "post",
+                "path": "/Send",
+                "queries": {
+                  "sapAction": "BAPI_GET_CLAIM"
+                },
+                "body": "@triggerBody()"
+              },
+              "runAfter": {
+                "Retrieve_Property_Details_from_SQL": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Retrieve_Property_Details_from_SQL": {
+              "runAfter": { },
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['sql']['connectionId']"
+                  }
+                },
+                "method": "post",
+                "path": "/datasets/default/procedures/@{encodeURIComponent(encodeURIComponent('[dbo].[RetrieveCustomerProfile]'))}",
+                "body": { }
+              }
+            }
+          },
+          "parameters": {
+            "$connections": {
+              "defaultValue": { },
+              "type": "Object"
+            }
+          },
+          "triggers": {
+            "manual": {
+              "type": "Request",
+              "kind": "Http",
+              "inputs": {
+                "schema": {
+                  "properties": {
+                    "ClaimId": {
+                      "type": "string"
+                    },
+                    "CustomerEmail": {
+                      "type": "string"
+                    },
+                    "CustomerId": {
+                      "type": "string"
+                    },
+                    "Submitted_Time": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "contentVersion": "1.0.0.0",
+          "outputs": { }
+        },
+        "parameters": {
+          "$connections": {
+            "value": {
+              "dynamicscrmonline": {
+                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/', 'dynamicscrmonline')]",
+                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('dynamicscrmonline_1_Connection_Name'))]",
+                "connectionName": "[parameters('dynamicscrmonline_1_Connection_Name')]"
+              },
+              "sapapplicationserver": {
+                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/', 'sapapplicationserver')]",
+                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('sapapplicationserver_1_Connection_Name'))]",
+                "connectionName": "[parameters('sapapplicationserver_1_Connection_Name')]"
+              },
+              "sql": {
+                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/', 'sql')]",
+                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('enrich_sql_Connection_Name'))]",
+                "connectionName": "[parameters('enrich_sql_Connection_Name')]"
+              }
+            }
+          }
+        }
+      },
+      "name": "enrich-crm-case",
+      "type": "Microsoft.Logic/workflows",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2016-06-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/connections', parameters('dynamicscrmonline_1_Connection_Name'))]",
+        "[resourceId('Microsoft.Web/connections', parameters('sapapplicationserver_1_Connection_Name'))]",
+        "[resourceId('Microsoft.Web/connections', parameters('enrich_sql_Connection_Name'))]"
+      ]
+    },
+    //dynamics crm online connection
+    {
+      "type": "MICROSOFT.WEB/CONNECTIONS",
+      "apiVersion": "2016-06-01",
+      "name": "[parameters('dynamicscrmonline_1_Connection_Name')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "api": {
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/', 'dynamicscrmonline')]"
+        },
+        "displayName": "[parameters('dynamicscrmonline_1_Connection_DisplayName')]"
+      }
+    },
+    //sap connect
+    {
+      "type": "MICROSOFT.WEB/CONNECTIONS",
+      "apiVersion": "2016-06-01",
+      "name": "[parameters('sapapplicationserver_1_Connection_Name')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "api": {
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/', 'sapapplicationserver')]"
+        },
+        "displayName": "[parameters('sapapplicationserver_1_Connection_DisplayName')]"
+      }
+    },
+    //enrich connect
+    {
+      "type": "MICROSOFT.WEB/CONNECTIONS",
+      "apiVersion": "2016-06-01",
+      "name": "[parameters('enrich_sql_Connection_Name')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "api": {
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/', 'sql')]"
+        },
+        "displayName": "[parameters('enrich_sql_Connection_DisplayName')]",
+        "parameterValues": {
+          "server": "[parameters('enrich_sql_server')]",
+          "database": "[parameters('enrich_sql_database')]",
+          "username": "[parameters('enrich_sql_username')]",
+          "password": "[parameters('enrich_sql_password')]"
+        }
+      }
     }
   ],
-  "outputs": {}
+  "outputs": { }
 }

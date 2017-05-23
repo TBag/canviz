@@ -1,0 +1,120 @@
+﻿{
+  "$connections": {
+    "value": {
+      "dynamicscrmonline": {
+        "connectionId": "/subscriptions/3b7912c3-ad06-426e-8627-41912372774b/resourceGroups/ContosoInsurance-Phase3-Update/providers/Microsoft.Web/connections/dynamicscrmonline",
+        "connectionName": "dynamicscrmonline",
+        "id": "/subscriptions/3b7912c3-ad06-426e-8627-41912372774b/providers/Microsoft.Web/locations/westus/managedApis/dynamicscrmonline"
+      },
+      "sapapplicationserver": {
+        "connectionId": "/subscriptions/3b7912c3-ad06-426e-8627-41912372774b/resourceGroups/ContosoInsurance-Phase3-Update/providers/Microsoft.Web/connections/SAP",
+        "connectionName": "SAP",
+        "id": "/subscriptions/3b7912c3-ad06-426e-8627-41912372774b/providers/Microsoft.Web/locations/westus/managedApis/sapapplicationserver"
+      },
+      "sql": {
+        "connectionId": "/subscriptions/3b7912c3-ad06-426e-8627-41912372774b/resourceGroups/ContosoInsurance-Phase3-Update/providers/Microsoft.Web/connections/sql",
+        "connectionName": "sql",
+        "id": "/subscriptions/3b7912c3-ad06-426e-8627-41912372774b/providers/Microsoft.Web/locations/westus/managedApis/sql"
+      }
+    }
+  },
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "actions": {
+      "Get_record_from_Dynamics_365": {
+        "inputs": {
+          "host": {
+            "api": {
+              "runtimeUrl": "https://logic-apis-westus.azure-apim.net/apim/dynamicscrmonline"
+            },
+            "connection": {
+              "name": "@parameters('$connections')['dynamicscrmonline']['connectionId']"
+            }
+          },
+          "method": "get",
+          "path": "/datasets/@{encodeURIComponent(encodeURIComponent('org3d8c2c11.crm'))}/tables/@{encodeURIComponent(encodeURIComponent('accounts'))}/items/@{encodeURIComponent(encodeURIComponent(triggerBody()?['CustomerId']))}"
+        },
+        "runAfter": {
+          "Retrieve_details_from_SAP": [
+            "Succeeded"
+          ]
+        },
+        "type": "ApiConnection"
+      },
+      "Retrieve_Property_Details_from_SQL": {
+        "inputs": {
+          "body": { },
+          "host": {
+            "api": {
+              "runtimeUrl": "https://logic-apis-westus.azure-apim.net/apim/sql"
+            },
+            "connection": {
+              "name": "@parameters('$connections')['sql']['connectionId']"
+            }
+          },
+          "method": "post",
+          "path": "/datasets/default/procedures/@{encodeURIComponent(encodeURIComponent('[dbo].[RetrieveCustomerProfile]'))}"
+        },
+        "runAfter": { },
+        "type": "ApiConnection"
+      },
+      "Retrieve_details_from_SAP": {
+        "inputs": {
+          "body": "@triggerBody()",
+          "host": {
+            "api": {
+              "runtimeUrl": "https://logic-apis-westus.azure-apim.net/apim/sapapplicationserver"
+            },
+            "connection": {
+              "name": "@parameters('$connections')['sapapplicationserver']['connectionId']"
+            }
+          },
+          "method": "post",
+          "path": "/Send",
+          "queries": {
+            "sapAction": "BAPI_GET_CLAIM"
+          }
+        },
+        "runAfter": {
+          "Retrieve_Property_Details_from_SQL": [
+            "Succeeded"
+          ]
+        },
+        "type": "ApiConnection"
+      }
+    },
+    "contentVersion": "1.0.0.0",
+    "outputs": { },
+    "parameters": {
+      "$connections": {
+        "defaultValue": { },
+        "type": "Object"
+      }
+    },
+    "triggers": {
+      "manual": {
+        "inputs": {
+          "schema": {
+            "properties": {
+              "ClaimId": {
+                "type": "string"
+              },
+              "CustomerEmail": {
+                "type": "string"
+              },
+              "CustomerId": {
+                "type": "string"
+              },
+              "Submitted_Time": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "kind": "Http",
+        "type": "Request"
+      }
+    }
+  }
+}

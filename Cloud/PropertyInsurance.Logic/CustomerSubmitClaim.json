@@ -1,0 +1,102 @@
+﻿{
+  "$connections": {
+    "value": {
+      "cognitiveservicescomputervision_2": {
+        "connectionId": "/subscriptions/3b7912c3-ad06-426e-8627-41912372774b/resourceGroups/ContosoInsurance-Phase3-Update/providers/Microsoft.Web/connections/cognitiveservicescomputervision-2",
+        "connectionName": "cognitiveservicescomputervision-2",
+        "id": "/subscriptions/3b7912c3-ad06-426e-8627-41912372774b/providers/Microsoft.Web/locations/westus/managedApis/cognitiveservicescomputervision"
+      }
+    }
+  },
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "actions": {
+      "Analyze_Image": {
+        "inputs": {
+          "body": "@triggerBody()",
+          "host": {
+            "api": {
+              "runtimeUrl": "https://logic-apis-westus.azure-apim.net/apim/cognitiveservicescomputervision"
+            },
+            "connection": {
+              "name": "@parameters('$connections')['cognitiveservicescomputervision_2']['connectionId']"
+            }
+          },
+          "method": "post",
+          "path": "/vision/v1.0/tag",
+          "queries": {
+            "format": "Image Content"
+          }
+        },
+        "runAfter": { },
+        "type": "ApiConnection"
+      },
+      "If_the_claim_image_is_valid": {
+        "actions": {
+          "Notify_Customer_of_Success": {
+            "inputs": {
+              "body": {
+                "isValid": true
+              },
+              "statusCode": 200
+            },
+            "runAfter": { },
+            "type": "Response"
+          }
+        },
+        "else": {
+          "actions": {
+            "Notify_Customer_of_Error": {
+              "inputs": {
+                "body": {
+                  "isValid": false
+                },
+                "statusCode": 200
+              },
+              "runAfter": { },
+              "type": "Response"
+            }
+          }
+        },
+        "expression": "@equals(outputs('Validate_Image')['statusCode'], 200)",
+        "runAfter": {
+          "Validate_Image": [
+            "Succeeded"
+          ]
+        },
+        "type": "If"
+      },
+      "Validate_Image": {
+        "inputs": {
+          "body": "@body('Analyze_Image')",
+          "function": {
+            "id": "/subscriptions/3b7912c3-ad06-426e-8627-41912372774b/resourceGroups/ContosoInsurance-Phase3-Update/providers/Microsoft.Web/sites/propertyinsurance-function/functions/AnalysisPicture"
+          }
+        },
+        "runAfter": {
+          "Analyze_Image": [
+            "Succeeded"
+          ]
+        },
+        "type": "Function"
+      }
+    },
+    "contentVersion": "1.0.0.0",
+    "outputs": { },
+    "parameters": {
+      "$connections": {
+        "defaultValue": { },
+        "type": "Object"
+      }
+    },
+    "triggers": {
+      "manual": {
+        "inputs": {
+          "schema": { }
+        },
+        "kind": "Http",
+        "type": "Request"
+      }
+    }
+  }
+}
